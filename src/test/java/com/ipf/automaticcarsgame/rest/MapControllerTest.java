@@ -24,10 +24,9 @@ public class MapControllerTest {
     public void shouldRemoveMap() {
         final int notUsedMapId = 1;
 
-        final ResponseEntity<String> response = this.restTemplate.exchange(String.format("/api/map/%s", notUsedMapId), HttpMethod.DELETE, createEmptyBody(), String.class);
+        final ResponseEntity<String> response = this.restTemplate.exchange(String.format("/api/maps/%s", notUsedMapId), HttpMethod.DELETE, createEmptyBody(), String.class);
 
         assertThat(JsonPath.<Boolean>read(response.getBody(), "$.success")).isTrue();
-
     }
 
     private HttpEntity createEmptyBody() {
