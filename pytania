@@ -14,3 +14,11 @@ Webserwisy będą komunikować się po RESTcie. Czy można używać method http 
 
 Pytanie 4.
 Co się dzieje z samochodem jeśli będzie CRASHED? Zostaje usunięty z gry?
+
+Pytanie 5.
+Czy nazwa samochodu powinna być unikalna?
+
+
+!!@@#############@@!!
+Czy kontrolery nie powinny zwracać np. HttpEntity ze stusem?
+!!@@#############@@!!
