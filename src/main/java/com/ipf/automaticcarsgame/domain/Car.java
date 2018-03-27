@@ -17,7 +17,6 @@ public class Car {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean crashed;
 
-    /** TODO add dictionary table*/
     @Enumerated(EnumType.STRING)
     private CarType type;
 

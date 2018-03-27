@@ -6,6 +6,7 @@ import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.service.CarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,21 +25,21 @@ public class CarController {
     }
 
     @PostMapping
-    public Response<Void> createCar(@RequestBody CarRequest carRequest){
+    public Response<CarRequest> createCar(@RequestBody CarRequest carRequest) {
         LOG.info("create car, request: {}", carRequest);
-        carService.createCar(carRequest);
-        return new Response<>();
+        return carService.createCar(carRequest);
     }
 
+
     @GetMapping
-    public Response<List<Car>> findAll(){
+    public Response<List<Car>> findAll() {
         LOG.info("find all cars");
         List<Car> cars = carService.findAll();
         return new Response<>(cars);
     }
 
     @DeleteMapping
-    public Response<Void> removeCar(@RequestBody CarRequest carRequest){
+    public Response<Void> removeCar(@RequestBody CarRequest carRequest) {
         LOG.info("remove car, request: {}", carRequest);
         return new Response<>();
     }

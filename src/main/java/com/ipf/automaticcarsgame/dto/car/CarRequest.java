@@ -2,7 +2,7 @@ package com.ipf.automaticcarsgame.dto.car;
 
 public class CarRequest {
     private String name;
-    private CarType type;
+    private String type;
 
     public String getName() {
         return name;
@@ -12,11 +12,11 @@ public class CarRequest {
         this.name = name;
     }
 
-    public CarType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(CarType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
