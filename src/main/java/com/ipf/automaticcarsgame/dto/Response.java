@@ -5,6 +5,10 @@ public class Response<T> {
     private ResponseError error;
     private T data;
 
+    public Response() {
+        this.success = true;
+    }
+
     public Response(T data) {
         this.success = true;
         this.data = data;
