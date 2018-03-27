@@ -1,0 +1,16 @@
+Mapa
+- dodawanie
+	- POST(name, CSV)
+	- walidacja:
+	1. unikalnoœæ nazwy mapy wg aktywnych map
+	2. walidacja CSV, mapa musi byæ kwadratowa, tylko 0 i 1
+
+- usuwanie
+	- DELETE(name)
+
+Kiedy mo¿na usun¹æ mapê:
+1. Jeœli nigdy nie zosta³a u¿yta, dotychczas - kolumna LAST_USED is null
+2. Jeœli zosta³a u¿yta, to dodaæ flagê, ¿e usuniêta.
+
+
+Starting game
