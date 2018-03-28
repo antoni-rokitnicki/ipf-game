@@ -3,7 +3,7 @@ package com.ipf.automaticcarsgame.rest;
 import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.dto.Response;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
-import com.ipf.automaticcarsgame.service.CarService;
+import com.ipf.automaticcarsgame.service.car.CarService;
 import com.ipf.automaticcarsgame.validator.ValidationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

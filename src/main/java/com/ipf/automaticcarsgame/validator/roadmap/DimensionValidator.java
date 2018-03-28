@@ -1,8 +1,7 @@
-package com.ipf.automaticcarsgame.map.validator;
+package com.ipf.automaticcarsgame.validator.roadmap;
 
-import com.ipf.automaticcarsgame.map.GameMap;
+import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
 import com.ipf.automaticcarsgame.validator.ValidationResult;
-import com.ipf.automaticcarsgame.validator.Validator;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +9,10 @@ import java.util.Arrays;
 
 @Component
 @Order(1)
-public class DimensionValidator implements IGameMapValidator {
-    private static final String MAP_INCORRECT_DIMENSION = "MAP_INCORRECT_DIMENSION";
+public class DimensionValidator implements RoadmapValidator {
+    private static final String INCORRECT_DIMENSION = "INCORRECT_DIMENSION";
 
-    public ValidationResult validate(GameMap gameMap) {
+    public ValidationResult validate(CreateRoadmapRequest gameMap) {
         if (gameMap == null || gameMap.getFields() == null || gameMap.getFields().length == 0) {
             return createError();
         }
@@ -27,7 +26,7 @@ public class DimensionValidator implements IGameMapValidator {
     private ValidationResult createError() {
         final ValidationResult validation = new ValidationResult();
         final ValidationResult.Error error = new ValidationResult.Error();
-        error.setCode(MAP_INCORRECT_DIMENSION);
+        error.setCode(INCORRECT_DIMENSION);
         error.setMessage("Map must be square");
         validation.addError(error);
         return validation;

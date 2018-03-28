@@ -14,7 +14,7 @@ public class Position extends AudityEntity{
 
     @ManyToOne
     @JoinColumn(name = "map_id", insertable = false, updatable = false)
-    private Map map;
+    private Roadmap map;
 
     @Column(name = "ROW_IDX")
     private Integer rowIdx;
@@ -40,11 +40,11 @@ public class Position extends AudityEntity{
         this.mapId = mapId;
     }
 
-    public Map getMap() {
+    public Roadmap getMap() {
         return map;
     }
 
-    public void setMap(Map map) {
+    public void setMap(Roadmap map) {
         this.map = map;
     }
 

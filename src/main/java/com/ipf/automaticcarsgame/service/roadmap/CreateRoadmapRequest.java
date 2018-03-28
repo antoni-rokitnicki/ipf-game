@@ -1,6 +1,6 @@
-package com.ipf.automaticcarsgame.map;
+package com.ipf.automaticcarsgame.service.roadmap;
 
-public class GameMap {
+public class CreateRoadmapRequest {
     private String name;
     private int[][] fields;
     private String status;

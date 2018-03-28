@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "MAP")
-public class Map extends AudityEntity{
+public class Roadmap extends AudityEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,9 +43,9 @@ public class Map extends AudityEntity{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Map)) return false;
+        if (!(o instanceof Roadmap)) return false;
 
-        Map map = (Map) o;
+        Roadmap map = (Roadmap) o;
 
         return name != null ? name.equals(map.name) : map.name == null;
     }

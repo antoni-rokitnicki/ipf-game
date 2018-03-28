@@ -1,4 +1,4 @@
-package com.ipf.automaticcarsgame.service;
+package com.ipf.automaticcarsgame.service.car;
 
 import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;

@@ -12,8 +12,8 @@ import java.util.Arrays;
 
 @RestController
 @RequestMapping(value = "/api/maps", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-class MapController {
-    private static final Logger LOG = LoggerFactory.getLogger(MapController.class);
+class RoadmapController {
+    private static final Logger LOG = LoggerFactory.getLogger(RoadmapController.class);
 
     @DeleteMapping(value = "/{id}")
     Response<Void> deleteMap(@PathVariable("id") int id) {
@@ -29,7 +29,6 @@ class MapController {
     }
 
     private void mapToGameMap(CreateMapRequest createMapRequest) {
-        createMapRequest.getName();
         Arrays.stream(createMapRequest.getMap())
                 .map(row -> row.trim())
                 .map(row -> Arrays.stream(row.split(",")).map(Integer::valueOf).toArray()).toArray();
