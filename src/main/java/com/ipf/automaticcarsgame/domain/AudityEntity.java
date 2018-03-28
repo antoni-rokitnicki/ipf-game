@@ -2,6 +2,8 @@ package com.ipf.automaticcarsgame.domain;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.util.Date;
 
 @MappedSuperclass
@@ -16,16 +18,18 @@ public class AudityEntity {
         return insertDate;
     }
 
-    public void setInsertDate(Date insertDate) {
-        this.insertDate = insertDate;
-    }
-
     public Date getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    @PreUpdate
+    private void preUpdate() {
+        this.updateDate = new Date();
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.insertDate = new Date();
     }
 
     @Override
