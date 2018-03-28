@@ -1,4 +1,4 @@
-package com.ipf.automaticcarsgame.map.validator;
+package com.ipf.automaticcarsgame.validator;
 
 public class ValidationResult {
     private boolean valid;

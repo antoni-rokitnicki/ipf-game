@@ -1,6 +1,7 @@
 package com.ipf.automaticcarsgame.map.validator;
 
 import com.ipf.automaticcarsgame.map.GameMap;
+import com.ipf.automaticcarsgame.validator.ValidationResult;
 import com.ipf.automaticcarsgame.validator.Validator;
 import org.junit.Test;
 
