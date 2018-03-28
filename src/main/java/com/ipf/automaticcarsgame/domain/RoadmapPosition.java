@@ -7,6 +7,14 @@ import javax.persistence.Embedded;
 @Embeddable
 public class RoadmapPosition {
 
+    public RoadmapPosition() {
+    }
+
+    public RoadmapPosition(Position position, Byte value) {
+        this.position = position;
+        this.value = value;
+    }
+
     @Embedded
     private Position position;
 

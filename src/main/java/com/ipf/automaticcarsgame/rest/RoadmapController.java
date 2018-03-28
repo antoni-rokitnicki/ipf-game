@@ -1,25 +1,29 @@
 package com.ipf.automaticcarsgame.rest;
 
 
-import com.ipf.automaticcarsgame.dto.CreateMapRequest;
+import com.ipf.automaticcarsgame.csvparser.CsvParser;
 import com.ipf.automaticcarsgame.dto.Response;
 import com.ipf.automaticcarsgame.dto.ResponseErrorBuilder;
+import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
 import com.ipf.automaticcarsgame.service.roadmap.RoadmapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
+import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/api/maps", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 class RoadmapController {
     private static final Logger LOG = LoggerFactory.getLogger(RoadmapController.class);
     private final RoadmapService roadmapService;
+    private final CsvParser csvParser;
 
-    RoadmapController(RoadmapService roadmapService) {
+    RoadmapController(RoadmapService roadmapService, CsvParser csvParser) {
         this.roadmapService = roadmapService;
+        this.csvParser = csvParser;
     }
 
     @DeleteMapping(value = "/{name}")
@@ -30,24 +34,26 @@ class RoadmapController {
         return createResponse(deleted);
     }
 
-    @PostMapping
-    Response<Void> createRoadmap(@RequestBody CreateMapRequest createMapRequest) {
-        LOG.info("createMap, request: {}", createMapRequest);
-        mapToGameMap(createMapRequest);
+
+    @PostMapping(value = "/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    Response<Void> createRoadmap(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) throws IOException {
+        LOG.info("createRoadmap, name: {}, fileName: {}", name, file.getOriginalFilename());
+        final CreateRoadmapRequest createMapRequest = mapToCreateRoadmapRequest(name, file);
+        this.roadmapService.createRoadmap(createMapRequest);
         return new Response<>();
     }
 
-    private void mapToGameMap(CreateMapRequest createMapRequest) {
-        Arrays.stream(createMapRequest.getMap())
-                .map(row -> row.trim())
-                .map(row -> Arrays.stream(row.split(",")).map(Integer::valueOf).toArray()).toArray();
-
-
+    CreateRoadmapRequest mapToCreateRoadmapRequest(@RequestParam("name") String mapName, MultipartFile file) throws IOException {
+        final int[][] positions = csvParser.pareseCsv(file.getInputStream());
+        final CreateRoadmapRequest createMapRequest = new CreateRoadmapRequest();
+        createMapRequest.setName(mapName);
+        createMapRequest.setFields(positions);
+        return createMapRequest;
     }
 
     private Response<Void> createResponse(boolean deleted) {
         if (!deleted) {
-            return new Response<>(ResponseErrorBuilder.responseError().withCode(400).addMessage("Roadmap does not exist").build());
+            return new Response<>(ResponseErrorBuilder.builder().withCode(400).addMessage("Roadmap does not exist").build());
         }
         return new Response<>();
     }

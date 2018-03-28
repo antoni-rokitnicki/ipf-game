@@ -2,9 +2,18 @@ package com.ipf.automaticcarsgame.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+
 // todo czy jest dobra nazwa?
 @Embeddable
 public class Position {
+
+    public Position() {
+    }
+
+    public Position(Integer row, Integer col) {
+        this.row = row;
+        this.col = col;
+    }
 
     @Column(name = "ROW")
     private Integer row;
