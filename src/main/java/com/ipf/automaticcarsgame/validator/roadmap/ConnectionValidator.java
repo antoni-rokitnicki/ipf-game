@@ -11,11 +11,11 @@ public class ConnectionValidator implements RoadmapValidator {
 
     private static final String MAP_NO_CONNECTION = "MAP_NO_CONNECTION";
 
-    // todo jak bedzie czas
     public ValidationResult validate(CreateRoadmapRequest gameMap) {
         if (gameMap == null || gameMap.getFields() == null || gameMap.getFields().length == 0) {
             return createError();
         }
+
         return createSuccessValidation();
     }
 

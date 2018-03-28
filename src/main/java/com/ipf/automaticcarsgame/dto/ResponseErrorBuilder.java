@@ -11,7 +11,7 @@ public final class ResponseErrorBuilder {
     private ResponseErrorBuilder() {
     }
 
-    public static ResponseErrorBuilder responseError() {
+    public static ResponseErrorBuilder builder() {
         return new ResponseErrorBuilder();
     }
 

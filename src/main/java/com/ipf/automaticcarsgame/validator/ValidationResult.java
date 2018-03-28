@@ -68,4 +68,25 @@ public class ValidationResult {
     }
 
 
+    public static final class ValidationResultBuilder {
+        private List<Error> errors = new ArrayList<>();
+
+        private ValidationResultBuilder() {
+        }
+
+        public static ValidationResultBuilder builder() {
+            return new ValidationResultBuilder();
+        }
+
+        public ValidationResultBuilder addError(Error error) {
+            this.errors.add(error);
+            return this;
+        }
+
+        public ValidationResult build() {
+            ValidationResult validationResult = new ValidationResult();
+            validationResult.setErrors(errors);
+            return validationResult;
+        }
+    }
 }
