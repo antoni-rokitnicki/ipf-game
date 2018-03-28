@@ -27,9 +27,9 @@ public class GameCar extends AudityEntity {
     @Column(name = "POSITION_ID")
     private Integer positionId;
 
-    @ManyToOne
-    @JoinColumn(name = "POSITION_ID", insertable = false, updatable = false)
-    private Position position;
+    //@ManyToOne
+    //@JoinColumn(name = "POSITION_ID", insertable = false, updatable = false)
+   // private Position position;
 
     public Integer getId() {
         return id;
@@ -79,13 +79,13 @@ public class GameCar extends AudityEntity {
         this.positionId = positionId;
     }
 
-    public Position getPosition() {
-        return position;
-    }
+    //public Position getPosition() {
+    //    return position;
+   // }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
+    //public void setPosition(Position position) {
+    //    this.position = position;
+    //}
 
     @Override
     public boolean equals(Object o) {
@@ -111,7 +111,7 @@ public class GameCar extends AudityEntity {
                 ", carId=" + carId +
                 ", car=" + car +
                 ", positionId=" + positionId +
-                ", position=" + position +
+               // ", position=" + position +
                 "} " + super.toString();
     }
 }

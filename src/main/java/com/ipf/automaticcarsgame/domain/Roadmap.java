@@ -3,10 +3,11 @@ package com.ipf.automaticcarsgame.domain;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "MAP")
-public class Roadmap extends AudityEntity{
+@Table(name = "ROADMAP")
+public class Roadmap extends AudityEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +16,11 @@ public class Roadmap extends AudityEntity{
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean deleted;
+
+    // todo powinnabyc //private Map<Position, RoadmapPosition> positions;
+    @ElementCollection
+    @CollectionTable(name = "ROADMAP_POSITION", joinColumns = @JoinColumn(name = "MAP_ID"))
+    private List<RoadmapPosition> positions;
 
     public Integer getId() {
         return id;
@@ -38,6 +44,14 @@ public class Roadmap extends AudityEntity{
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public List<RoadmapPosition> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(List<RoadmapPosition> positions) {
+        this.positions = positions;
     }
 
     @Override

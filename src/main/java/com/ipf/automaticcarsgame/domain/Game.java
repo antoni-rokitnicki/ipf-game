@@ -16,7 +16,7 @@ public class Game extends AudityEntity{
 
     @ManyToOne
     @JoinColumn(name = "map_id", insertable = false, updatable = false)
-    private Roadmap map;
+    private Roadmap roadmap;
 
     @Column(name = "FINISH_DATE")
     private Date finishDate;
@@ -37,12 +37,12 @@ public class Game extends AudityEntity{
         this.mapId = mapId;
     }
 
-    public Roadmap getMap() {
-        return map;
+    public Roadmap getRoadmap() {
+        return roadmap;
     }
 
-    public void setMap(Roadmap map) {
-        this.map = map;
+    public void setRoadmap(Roadmap roadmap) {
+        this.roadmap = roadmap;
     }
 
     public Date getFinishDate() {
@@ -73,7 +73,7 @@ public class Game extends AudityEntity{
         return "Game{" +
                 "id=" + id +
                 ", mapId=" + mapId +
-                ", map=" + map +
+                ", roadmap=" + roadmap +
                 ", finishDate=" + finishDate +
                 "} " + super.toString();
     }

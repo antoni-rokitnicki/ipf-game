@@ -1,101 +1,48 @@
 package com.ipf.automaticcarsgame.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+// todo czy jest dobra nazwa?
+@Embeddable
+public class Position {
 
-@Entity
-@Table(name = "POSITION")
-public class Position extends AudityEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "ROW")
+    private Integer row;
 
-    @Column(name = "MAP_ID")
-    private Integer mapId;
+    @Column(name = "COL")
+    private Integer col;
 
-    @ManyToOne
-    @JoinColumn(name = "map_id", insertable = false, updatable = false)
-    private Roadmap map;
-
-    @Column(name = "ROW_IDX")
-    private Integer rowIdx;
-
-    @Column(name = "COL_IDX")
-    private Integer colIdx;
-
-    private Integer value;
-
-    public Integer getId() {
-        return id;
+    public Integer getRow() {
+        return row;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRow(Integer row) {
+        this.row = row;
     }
 
-    public Integer getMapId() {
-        return mapId;
+    public Integer getCol() {
+        return col;
     }
 
-    public void setMapId(Integer mapId) {
-        this.mapId = mapId;
-    }
-
-    public Roadmap getMap() {
-        return map;
-    }
-
-    public void setMap(Roadmap map) {
-        this.map = map;
-    }
-
-    public Integer getRowIdx() {
-        return rowIdx;
-    }
-
-    public void setRowIdx(Integer rowIdx) {
-        this.rowIdx = rowIdx;
-    }
-
-    public Integer getColIdx() {
-        return colIdx;
-    }
-
-    public void setColIdx(Integer colIdx) {
-        this.colIdx = colIdx;
-    }
-
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
+    public void setCol(Integer col) {
+        this.col = col;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Position)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Position position = (Position) o;
 
-        return id != null ? id.equals(position.id) : position.id == null;
+        if (row != null ? !row.equals(position.row) : position.row != null) return false;
+        return col != null ? col.equals(position.col) : position.col == null;
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return "Position{" +
-                "id=" + id +
-                ", mapId=" + mapId +
-                ", map=" + map +
-                ", rowIdx=" + rowIdx +
-                ", colIdx=" + colIdx +
-                ", value=" + value +
-                "} " + super.toString();
+        int result = row != null ? row.hashCode() : 0;
+        result = 31 * result + (col != null ? col.hashCode() : 0);
+        return result;
     }
 }
