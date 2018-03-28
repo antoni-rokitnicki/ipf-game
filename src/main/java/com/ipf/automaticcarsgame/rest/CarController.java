@@ -21,38 +21,52 @@ public class CarController {
 
     private final CarService carService;
 
-    public CarController(CarService carService) {
+    CarController(CarService carService) {
         this.carService = carService;
     }
 
+
+    /**
+     * Poprawić obiekty zwracane
+     *
+     * */
+
     @PostMapping
-    public ResponseEntity<ValidationResult> createCar(@RequestBody CarRequest carRequest) {
+    ResponseEntity<ValidationResult> createCar(@RequestBody CarRequest carRequest) {
         LOG.info("create car, request: {}", carRequest);
 
         ResponseEntity<ValidationResult> responseEntity;
 
         ValidationResult validationResult = carService.createCar(carRequest);
+        responseEntity = getValidationResultResponseEntity(validationResult);
+
+        return responseEntity;
+    }
+
+    @GetMapping
+    Response<List<Car>> findAll() {
+        LOG.info("find all cars");
+        List<Car> cars = carService.findAll();
+
+        return new Response<>(cars);
+    }
+
+    @DeleteMapping
+    ResponseEntity<ValidationResult> removeCar(@RequestBody CarRequest carRequest) {
+        LOG.info("remove car, request: {}", carRequest);
+
+        ValidationResult validationResult = carService.removeCar(carRequest);
+
+        return getValidationResultResponseEntity(validationResult);
+    }
+
+    private ResponseEntity<ValidationResult> getValidationResultResponseEntity(ValidationResult validationResult) {
+        ResponseEntity<ValidationResult> responseEntity;
         if (validationResult.isValid()) {
             responseEntity = ResponseEntity.ok(validationResult);
         } else {
             responseEntity = ResponseEntity.badRequest().body(validationResult);
         }
-
         return responseEntity;
     }
-
-
-    @GetMapping
-    public Response<List<Car>> findAll() {
-        LOG.info("find all cars");
-        List<Car> cars = carService.findAll();
-        return new Response<>(cars);
-    }
-
-    @DeleteMapping
-    public Response<Void> removeCar(@RequestBody CarRequest carRequest) {
-        LOG.info("remove car, request: {}", carRequest);
-        return new Response<>();
-    }
-
 }

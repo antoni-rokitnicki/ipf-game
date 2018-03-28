@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 @Component
-public class CreateCarRequestValidator implements CarValidator {
+public class CarRequestValidator implements CarValidator {
 
     @Override
     public ValidationResult validate(CarRequest carRequest) {
         ValidationResult validationResult = new ValidationResult();
 
         if (StringUtils.isEmpty(carRequest.getName())) {
-            validationResult.addError(new Error("Car's name cannot be null"));
+            validationResult.addError(new Error("Car's name cannot be null or empty"));
         }
 
         if (!StringUtils.isEmpty(carRequest.getType())) {
