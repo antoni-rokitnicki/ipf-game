@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(2)
-public class ContentValidator implements Validator {
+public class ContentValidator implements IGameMapValidator {
 
     private static final String MAP_INVALID_CONTENT = "MAP_INVALID_CONTENT";
 
@@ -27,18 +27,10 @@ public class ContentValidator implements Validator {
 
     private ValidationResult createError() {
         final ValidationResult validation = new ValidationResult();
-        validation.setValid(false);
         final ValidationResult.Error error = new ValidationResult.Error();
         error.setCode(MAP_INVALID_CONTENT);
         error.setMessage("Invalid content. Supported only 0 or 1");
-        validation.setError(error);
+        validation.addError(error);
         return validation;
     }
-
-    private ValidationResult createSuccessValidation() {
-        final ValidationResult validation = new ValidationResult();
-        validation.setValid(true);
-        return validation;
-    }
-
 }

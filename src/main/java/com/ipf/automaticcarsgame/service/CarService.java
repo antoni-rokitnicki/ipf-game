@@ -5,7 +5,8 @@ import com.ipf.automaticcarsgame.dto.Response;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.mapper.CarMapper;
 import com.ipf.automaticcarsgame.repository.CarRepository;
-import com.ipf.automaticcarsgame.validator.CreateCarRequestValidator;
+import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.car.CreateCarRequestValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,15 +27,15 @@ public class CarService {
     }
 
     @Transactional
-    public Response<CarRequest> createCar(CarRequest carRequest) {
-        Response<CarRequest> result = createCarRequestValidator.validate(carRequest);
+    public ValidationResult createCar(CarRequest carRequest) {
+        ValidationResult validationResult = createCarRequestValidator.validate(carRequest);
 
-        if(result.isSuccess()){
+        if(validationResult.isValid()){
             Car car = carMapper.map(carRequest);
             carRepository.save(car);
         }
 
-        return result;
+        return validationResult;
     }
 
     public List<Car> findAll() {

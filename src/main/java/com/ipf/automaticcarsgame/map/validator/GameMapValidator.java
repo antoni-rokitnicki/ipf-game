@@ -21,11 +21,8 @@ class GameMapValidator {
     }
 
     public ValidationResult validation(GameMap gameMap) {
-        final Optional<ValidationResult> first = this.validators.stream().map(validator -> validator.validate(gameMap)).filter(result -> result.isValid() == false).findFirst();
-        if (first.isPresent()) {
-            return first.get();
-        }
-        return new ValidationResult(true);
+        final Optional<ValidationResult> first = this.validators.stream().map(validator -> validator.validate(gameMap)).filter(result -> !result.isValid()).findFirst();
+        return first.orElseGet(ValidationResult::new);
     }
 
 }

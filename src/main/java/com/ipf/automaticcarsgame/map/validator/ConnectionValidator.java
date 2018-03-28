@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(3)
-public class ConnectionValidator implements Validator {
+public class ConnectionValidator implements IGameMapValidator {
 
     private static final String MAP_NO_CONNECTION = "MAP_NO_CONNECTION";
 
@@ -22,18 +22,10 @@ public class ConnectionValidator implements Validator {
 
     private ValidationResult createError() {
         final ValidationResult validation = new ValidationResult();
-        validation.setValid(false);
         final ValidationResult.Error error = new ValidationResult.Error();
         error.setCode(MAP_NO_CONNECTION);
         error.setMessage("No connection between fields");
-        validation.setError(error);
+        validation.addError(error);
         return validation;
     }
-
-    private ValidationResult createSuccessValidation() {
-        final ValidationResult validation = new ValidationResult();
-        validation.setValid(true);
-        return validation;
-    }
-
 }

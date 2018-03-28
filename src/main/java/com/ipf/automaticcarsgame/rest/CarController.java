@@ -4,10 +4,9 @@ import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.dto.Response;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.service.CarService;
+import com.ipf.automaticcarsgame.validator.ValidationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +26,19 @@ public class CarController {
     }
 
     @PostMapping
-    public Response<CarRequest> createCar(@RequestBody CarRequest carRequest) {
+    public ResponseEntity<ValidationResult> createCar(@RequestBody CarRequest carRequest) {
         LOG.info("create car, request: {}", carRequest);
-        return carService.createCar(carRequest);
+
+        ResponseEntity<ValidationResult> responseEntity;
+
+        ValidationResult validationResult = carService.createCar(carRequest);
+        if (validationResult.isValid()) {
+            responseEntity = ResponseEntity.ok(validationResult);
+        } else {
+            responseEntity = ResponseEntity.badRequest().body(validationResult);
+        }
+
+        return responseEntity;
     }
 
 

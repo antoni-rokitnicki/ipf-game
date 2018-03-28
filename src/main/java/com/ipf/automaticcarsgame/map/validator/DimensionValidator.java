@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 @Component
 @Order(1)
-public class DimensionValidator implements Validator {
+public class DimensionValidator implements IGameMapValidator {
     private static final String MAP_INCORRECT_DIMENSION = "MAP_INCORRECT_DIMENSION";
 
     public ValidationResult validate(GameMap gameMap) {
@@ -26,17 +26,10 @@ public class DimensionValidator implements Validator {
 
     private ValidationResult createError() {
         final ValidationResult validation = new ValidationResult();
-        validation.setValid(false);
         final ValidationResult.Error error = new ValidationResult.Error();
         error.setCode(MAP_INCORRECT_DIMENSION);
         error.setMessage("Map must be square");
-        validation.setError(error);
-        return validation;
-    }
-
-    private ValidationResult createSuccessValidation() {
-        final ValidationResult validation = new ValidationResult();
-        validation.setValid(true);
+        validation.addError(error);
         return validation;
     }
 

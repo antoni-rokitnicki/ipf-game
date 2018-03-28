@@ -1,43 +1,46 @@
 package com.ipf.automaticcarsgame.validator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ValidationResult {
-    private boolean valid;
-    private Error error;
+    private List<Error> errors = new ArrayList<>();
 
     public ValidationResult() {
     }
 
-    public ValidationResult(boolean valid) {
-        this.valid = valid;
-    }
-
     public boolean isValid() {
-        return valid;
+        return errors.isEmpty();
     }
 
-    public void setValid(boolean valid) {
-        this.valid = valid;
+    public List<Error> getErrors() {
+        return errors;
     }
 
-    public Error getError() {
-        return error;
+    public void setErrors(List<Error> errors) {
+        this.errors = errors;
     }
 
-    public void setError(Error error) {
-        this.error = error;
-    }
-
-    @Override
-    public String toString() {
-        return "Validation{" +
-                "valid=" + valid +
-                ", error=" + error +
-                '}';
+    public ValidationResult addError(Error error){
+        this.errors.add(error);
+        return this;
     }
 
     public static class Error {
         private String code;
         private String message;
+
+        public Error() {
+        }
+
+        public Error(String message) {
+            this.message = message;
+        }
+
+        public Error(String code, String message) {
+            this.code = code;
+            this.message = message;
+        }
 
         public String getCode() {
             return code;
