@@ -4,6 +4,14 @@ public class CarRequest {
     private String name;
     private String type;
 
+    public CarRequest() {
+    }
+
+    public CarRequest(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }
