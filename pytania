@@ -22,3 +22,5 @@ Czy nazwa samochodu powinna być unikalna?
 !!@@#############@@!!
 Czy kontrolery nie powinny zwracać np. HttpEntity ze stusem?
 !!@@#############@@!!
+
+1. Nie ma indeksów bazo danowych.

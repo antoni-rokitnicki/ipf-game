@@ -1,13 +1,12 @@
 package com.ipf.automaticcarsgame.domain;
 
-import com.ipf.automaticcarsgame.dto.car.CarType;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CAR")
-public class Car extends AudityEntity{
+@Table(name = "MAP")
+public class Map extends AudityEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +14,7 @@ public class Car extends AudityEntity{
     private String name;
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private boolean crashed;
-
-    @Enumerated(EnumType.STRING)
-    private CarType type;
+    private boolean deleted;
 
     public Integer getId() {
         return id;
@@ -36,22 +32,22 @@ public class Car extends AudityEntity{
         this.name = name;
     }
 
-    public CarType getType() {
-        return type;
+    public boolean isDeleted() {
+        return deleted;
     }
 
-    public void setType(CarType type) {
-        this.type = type;
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Map)) return false;
 
-        Car car = (Car) o;
+        Map map = (Map) o;
 
-        return name != null ? name.equals(car.name) : car.name == null;
+        return name != null ? name.equals(map.name) : map.name == null;
     }
 
     @Override
@@ -61,11 +57,10 @@ public class Car extends AudityEntity{
 
     @Override
     public String toString() {
-        return "Car{" +
+        return "Map{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", crashed=" + crashed +
-                ", type=" + type +
+                ", deleted=" + deleted +
                 "} " + super.toString();
     }
 }
