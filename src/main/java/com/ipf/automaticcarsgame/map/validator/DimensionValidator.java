@@ -1,9 +1,14 @@
 package com.ipf.automaticcarsgame.map.validator;
 
 import com.ipf.automaticcarsgame.map.GameMap;
+import com.ipf.automaticcarsgame.validator.Validator;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+@Component
+@Order(1)
 public class DimensionValidator implements Validator {
     private static final String MAP_INCORRECT_DIMENSION = "MAP_INCORRECT_DIMENSION";
 

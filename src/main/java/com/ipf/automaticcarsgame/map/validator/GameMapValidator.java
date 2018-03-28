@@ -2,15 +2,21 @@ package com.ipf.automaticcarsgame.map.validator;
 
 
 import com.ipf.automaticcarsgame.map.GameMap;
+import com.ipf.automaticcarsgame.validator.Validator;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
+@Component
 class GameMapValidator {
-    private final Set<Validator> validators;
+    private final List<Validator> validators;
 
-    GameMapValidator(Set validators) {
+    GameMapValidator(List<Validator> validators) {
         this.validators = validators;
+        for (Validator validator : this.validators) {
+            System.out.println(validator);
+        }
     }
 
     public ValidationResult validation(GameMap gameMap) {

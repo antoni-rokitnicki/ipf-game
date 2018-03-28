@@ -1,9 +1,12 @@
 package com.ipf.automaticcarsgame.map.validator;
 
 import com.ipf.automaticcarsgame.map.GameMap;
+import com.ipf.automaticcarsgame.validator.Validator;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
+@Component
+@Order(2)
 public class ContentValidator implements Validator {
 
     private static final String MAP_INVALID_CONTENT = "MAP_INVALID_CONTENT";
@@ -13,10 +16,11 @@ public class ContentValidator implements Validator {
             return createError();
         }
 
-        final boolean incorrectDigits = Arrays.stream(gameMap.getFields()).filter(row -> row.length != 0 && row.length == 1).findAny().isPresent();
-        if (incorrectDigits) {
+        //Arrays.stream(gameMap.getFields()).flatMap(row-> );
+
+        /*if (incorrectDigits) {
             return createError();
-        }
+        }*/
         return createSuccessValidation();
     }
 

@@ -1,7 +1,12 @@
 package com.ipf.automaticcarsgame.map.validator;
 
 import com.ipf.automaticcarsgame.map.GameMap;
+import com.ipf.automaticcarsgame.validator.Validator;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
+@Component
+@Order(3)
 public class ConnectionValidator implements Validator {
 
     private static final String MAP_NO_CONNECTION = "MAP_NO_CONNECTION";

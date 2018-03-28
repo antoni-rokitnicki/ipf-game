@@ -1,8 +1,8 @@
 package com.ipf.automaticcarsgame.validator;
 
-import com.ipf.automaticcarsgame.dto.Response;
+import com.ipf.automaticcarsgame.map.GameMap;
+import com.ipf.automaticcarsgame.map.validator.ValidationResult;
 
-public interface Validator<T> {
-
-    Response<T> validate(T t);
+public interface Validator {
+    ValidationResult validate(GameMap gameMap);
 }
