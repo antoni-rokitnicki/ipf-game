@@ -14,12 +14,12 @@ import java.util.List;
 public class CsvParser {
 
     public int[][] pareseCsv(InputStream inputStream) throws IOException {
-        final CSVParser parse = CSVFormat.DEFAULT.parse(new InputStreamReader(inputStream));
-        final List<CSVRecord> records = parse.getRecords();
+        final CSVParser csvParser = CSVFormat.DEFAULT.parse(new InputStreamReader(inputStream));
+        final List<CSVRecord> records = csvParser.getRecords();
         return records.stream().map(row -> {
             final int[] convertedRow = new int[row.size()];
             for (int i = 0; i < row.size(); i++) {
-                convertedRow[i] = Short.parseShort(row.get(i));
+                convertedRow[i] = Integer.parseInt(row.get(i));
             }
             return convertedRow;
         }).toArray(int[][]::new);
