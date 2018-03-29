@@ -1,6 +1,6 @@
 package com.ipf.automaticcarsgame.validator.roadmap;
 
-import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
+import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.validator.Validator;
 import org.junit.Test;
@@ -14,7 +14,7 @@ public class DimensionValidatorTest {
     @Test
     public void shouldReturnSuccess() {
         // given
-        final CreateRoadmapRequest correctRoadmap = createCorrectRoadmap();
+        final RoadmapRequest correctRoadmap = createCorrectRoadmap();
 
         // when
         final Result validate = validator.validate(correctRoadmap);
@@ -27,7 +27,7 @@ public class DimensionValidatorTest {
     @Test
     public void shouldReturnIncorrectDimensionError() {
         // given
-        final CreateRoadmapRequest incorrectRoadmap = createIncorrectRoadmap();
+        final RoadmapRequest incorrectRoadmap = createIncorrectRoadmap();
 
         // when
         final Result validate = validator.validate(incorrectRoadmap);
@@ -40,7 +40,7 @@ public class DimensionValidatorTest {
     @Test
     public void shouldReturnIncorrectDimensionErrorWhenEmpty() {
         // given
-        final CreateRoadmapRequest emptyRoadmap = createEmptyRoadmap();
+        final RoadmapRequest emptyRoadmap = createEmptyRoadmap();
 
         // when
         final Result validate = validator.validate(emptyRoadmap);
@@ -50,8 +50,8 @@ public class DimensionValidatorTest {
         assertThat(validate.getErrors().get(0).getCode()).isEqualTo("INCORRECT_DIMENSION");
     }
 
-    private CreateRoadmapRequest createIncorrectRoadmap() {
-        final CreateRoadmapRequest incorrectRoadmap = new CreateRoadmapRequest();
+    private RoadmapRequest createIncorrectRoadmap() {
+        final RoadmapRequest incorrectRoadmap = new RoadmapRequest();
         incorrectRoadmap.setFields(new int[][]{
                 {0, 1},
                 {0,}
@@ -59,15 +59,15 @@ public class DimensionValidatorTest {
         return incorrectRoadmap;
     }
 
-    private CreateRoadmapRequest createEmptyRoadmap() {
-        final CreateRoadmapRequest incorrectRoadmap = new CreateRoadmapRequest();
+    private RoadmapRequest createEmptyRoadmap() {
+        final RoadmapRequest incorrectRoadmap = new RoadmapRequest();
         incorrectRoadmap.setFields(new int[][]{});
         return incorrectRoadmap;
     }
 
 
-    private CreateRoadmapRequest createCorrectRoadmap() {
-        final CreateRoadmapRequest correctRoadmap = new CreateRoadmapRequest();
+    private RoadmapRequest createCorrectRoadmap() {
+        final RoadmapRequest correctRoadmap = new RoadmapRequest();
         correctRoadmap.setFields(new int[][]{
                 {0, 1},
                 {0, 0}

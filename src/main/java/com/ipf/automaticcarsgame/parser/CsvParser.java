@@ -1,4 +1,4 @@
-package com.ipf.automaticcarsgame.csvparser;
+package com.ipf.automaticcarsgame.parser;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class CsvParser {
 
-    public int[][] pareseCsv(InputStream inputStream) throws IOException {
+    public int[][] parse(InputStream inputStream) throws IOException {
         final CSVParser csvParser = CSVFormat.DEFAULT.withTrim().parse(new InputStreamReader(inputStream));
         final List<CSVRecord> records = csvParser.getRecords();
         return records.stream().map(row -> {

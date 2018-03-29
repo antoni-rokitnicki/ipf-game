@@ -1,7 +1,7 @@
 package com.ipf.automaticcarsgame.validator.roadmap;
 
 
-import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
+import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import com.ipf.automaticcarsgame.dto.Result;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class RoadmapValidatorProcessor {
         this.validators = validators;
     }
 
-    public Result validate(CreateRoadmapRequest gameMap) {
+    public Result validate(RoadmapRequest gameMap) {
         return this.validators.stream()
                 .map(validator -> validator.validate(gameMap))
                 .filter(result -> !result.isValid())

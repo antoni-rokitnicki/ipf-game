@@ -2,7 +2,7 @@ package com.ipf.automaticcarsgame.validator.roadmap;
 
 import com.ipf.automaticcarsgame.domain.Roadmap;
 import com.ipf.automaticcarsgame.repository.RoadmapRepository;
-import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
+import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import com.ipf.automaticcarsgame.dto.Result;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ public class RoadmapAlreadyExistsValidator implements RoadmapValidator {
     }
 
     @Override
-    public Result validate(CreateRoadmapRequest createRoadmapRequest) {
+    public Result validate(RoadmapRequest createRoadmapRequest) {
         final Optional<Roadmap> roadmapOptional = roadmapRepository.findByNameIgnoreCaseAndDeleted(createRoadmapRequest.getName(), false);
         if (roadmapOptional.isPresent()) {
             return Result.ResultBuilder.builder()

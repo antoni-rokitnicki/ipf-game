@@ -4,32 +4,32 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 @MappedSuperclass
 public class AudityEntity {
     @Column(name = "INSERT_DATE")
-    private Date insertDate;
+    private ZonedDateTime insertDate;
 
     @Column(name = "UPDATE_DATE")
-    private Date updateDate;
+    private ZonedDateTime updateDate;
 
-    public Date getInsertDate() {
+    public ZonedDateTime getInsertDate() {
         return insertDate;
     }
 
-    public Date getUpdateDate() {
+    public ZonedDateTime getUpdateDate() {
         return updateDate;
     }
 
     @PreUpdate
     private void preUpdate() {
-        this.updateDate = new Date();
+        this.updateDate = ZonedDateTime.now();
     }
 
     @PrePersist
     private void prePersist() {
-        this.insertDate = new Date();
+        this.insertDate = ZonedDateTime.now();
     }
 
     @Override

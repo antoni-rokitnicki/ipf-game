@@ -1,8 +1,8 @@
-package com.ipf.automaticcarsgame.service.roadmap;
+package com.ipf.automaticcarsgame.dto.roadmap;
 
 import java.util.Arrays;
 
-public class CreateRoadmapRequest {
+public class RoadmapRequest {
     private String name;
     private int[][] fields;
 

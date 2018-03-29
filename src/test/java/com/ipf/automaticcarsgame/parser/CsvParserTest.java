@@ -1,4 +1,4 @@
-package com.ipf.automaticcarsgame.csvparser;
+package com.ipf.automaticcarsgame.parser;
 
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class CsvParserTest {
         final InputStream inputStream = ClassLoader.getSystemResource(CORRECT_CSV).openStream();
 
         // when
-        final int[][] result = csvParser.pareseCsv(inputStream);
+        final int[][] result = csvParser.parse(inputStream);
 
         // then
         assertThat(result).contains(new int[][]{
@@ -35,7 +35,7 @@ public class CsvParserTest {
         final InputStream inputStream = ClassLoader.getSystemResource(INCORRECT_CSV).openStream();
 
         // when
-        final int[][] result = csvParser.pareseCsv(inputStream);
+        final int[][] result = csvParser.parse(inputStream);
 
         // then
         // throw exception

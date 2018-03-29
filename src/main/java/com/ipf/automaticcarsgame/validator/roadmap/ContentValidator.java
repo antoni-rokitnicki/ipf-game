@@ -1,6 +1,6 @@
 package com.ipf.automaticcarsgame.validator.roadmap;
 
-import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
+import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import com.ipf.automaticcarsgame.dto.Result;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public class ContentValidator implements RoadmapValidator {
 
     private static final String INVALID_CONTENT = "INVALID_CONTENT";
 
-    public Result validate(CreateRoadmapRequest gameMap) {
+    public Result validate(RoadmapRequest gameMap) {
         if (gameMap == null || gameMap.getFields() == null || gameMap.getFields().length == 0) {
             return createError();
         }

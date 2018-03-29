@@ -1,6 +1,6 @@
 package com.ipf.automaticcarsgame.validator.roadmap;
 
-import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
+import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import com.ipf.automaticcarsgame.dto.Result;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class RoadmapValidatorProcessorTest {
         when(roadmapValidator.validate(any())).thenReturn(createCorrectResult());
 
         // when
-        final Result result = roadmapValidatorProcessor.validate(new CreateRoadmapRequest());
+        final Result result = roadmapValidatorProcessor.validate(new RoadmapRequest());
 
         // then
         assertThat(result.isValid()).isTrue();
@@ -43,7 +43,7 @@ public class RoadmapValidatorProcessorTest {
         when(roadmapValidator.validate(any())).thenReturn(createIncorrectResult());
 
         // when
-        final Result result = roadmapValidatorProcessor.validate(new CreateRoadmapRequest());
+        final Result result = roadmapValidatorProcessor.validate(new RoadmapRequest());
 
         // then
         assertThat(result.isValid()).isFalse();

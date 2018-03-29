@@ -3,7 +3,7 @@ package com.ipf.automaticcarsgame.mapper;
 import com.ipf.automaticcarsgame.domain.Position;
 import com.ipf.automaticcarsgame.domain.Roadmap;
 import com.ipf.automaticcarsgame.domain.RoadmapPosition;
-import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
+import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,7 +16,7 @@ public class RoadmapMapperTest {
     @Test
     public void shouldMapToRoadmap() {
         // given
-        final CreateRoadmapRequest createRoadmapRequest = new CreateRoadmapRequest();
+        final RoadmapRequest createRoadmapRequest = new RoadmapRequest();
         createRoadmapRequest.setName(MAP_NAME);
         createRoadmapRequest.setFields(new int[][]{
                 {1},

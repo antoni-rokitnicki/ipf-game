@@ -1,6 +1,7 @@
 package com.ipf.automaticcarsgame.rest;
 
 import com.jayway.jsonpath.JsonPath;
+import net.minidev.json.JSONArray;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class RoadmapControllerTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(JsonPath.<Boolean>read(response.getBody(), "$.success")).isFalse();
+        assertThat(JsonPath.<String>read(response.getBody(), "$.errors[0].code")).isEqualTo("DOES_NOT_EXIST");
     }
 
     @Test
@@ -78,6 +80,19 @@ public class RoadmapControllerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(JsonPath.<Boolean>read(response.getBody(), "$.success")).isFalse();
         assertThat(JsonPath.<String>read(response.getBody(), "$.errors[0].code")).isEqualTo("ALREADY_EXISTS");
+    }
+
+    @Test
+    public void shouldReturnListOfRoadMaps() {
+        // given
+
+        // when
+        final ResponseEntity<String> response = this.restTemplate.exchange("/api/maps", HttpMethod.GET, createEmptyBody(), String.class);
+
+        // then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(JsonPath.<Boolean>read(response.getBody(), "$.success")).isTrue();
+        assertThat(JsonPath.<JSONArray>read(response.getBody(), "$.data").size()).isGreaterThan(0);
     }
 
     private HttpEntity<MultiValueMap<String, Object>> createRoadMapRequestEntity(String mapName, String fileName) throws IOException, URISyntaxException {
