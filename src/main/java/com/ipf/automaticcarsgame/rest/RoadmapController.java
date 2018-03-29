@@ -9,11 +9,14 @@ import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
 import com.ipf.automaticcarsgame.service.roadmap.RoadmapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @RestController
 @RequestMapping(value = "/api/maps", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,8 +38,7 @@ class RoadmapController {
         return createResponse(deleted);
     }
 
-
-    @PostMapping(value = "/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     Response<Void> createRoadmap(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) throws IOException {
         LOG.info("createRoadmap, name: {}, fileName: {}", name, file.getOriginalFilename());
         final CreateRoadmapRequest createMapRequest = mapToCreateRoadmapRequest(name, file);
@@ -44,7 +46,7 @@ class RoadmapController {
         return new Response<>();
     }
 
-    CreateRoadmapRequest mapToCreateRoadmapRequest(@RequestParam("name") String mapName, MultipartFile file) throws IOException {
+    private CreateRoadmapRequest mapToCreateRoadmapRequest(@RequestParam("name") String mapName, MultipartFile file) throws IOException {
         final int[][] positions = csvParser.pareseCsv(file.getInputStream());
         final CreateRoadmapRequest createMapRequest = new CreateRoadmapRequest();
         createMapRequest.setName(mapName);
@@ -68,6 +70,18 @@ class RoadmapController {
 
     private void logInit(@PathVariable("name") String name) {
         LOG.debug("deleteRoadmap init, name: {}", name);
+    }
+
+    @ExceptionHandler({NumberFormatException.class})
+    public ResponseEntity<Response<Void>> handleCsvException(NumberFormatException ex) {
+        LOG.warn("Invalid csv format", ex);
+        return ResponseEntity.badRequest().body(new Response<>(Arrays.asList(ResponseErrorBuilder.builder().withCode("INVALID_FORMAT").withMessage("Invalid format").build())));
+    }
+
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<Response<Void>> handleException(Exception ex) {
+        LOG.error("Internal Server Error", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<>(Arrays.asList(ResponseErrorBuilder.builder().withCode("INTERNAL_SERVER_ERROR").withMessage("Internal server error").build())));
     }
 
 }
