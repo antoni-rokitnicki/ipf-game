@@ -3,7 +3,7 @@ package com.ipf.automaticcarsgame.validator.game;
 import com.ipf.automaticcarsgame.domain.Game;
 import com.ipf.automaticcarsgame.dto.game.GameRequest;
 import com.ipf.automaticcarsgame.repository.GameRepository;
-import com.ipf.automaticcarsgame.validator.Result;
+import com.ipf.automaticcarsgame.dto.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 

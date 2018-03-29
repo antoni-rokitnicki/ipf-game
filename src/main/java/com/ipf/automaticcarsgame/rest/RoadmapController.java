@@ -7,7 +7,7 @@ import com.ipf.automaticcarsgame.dto.ResponseError;
 import com.ipf.automaticcarsgame.dto.ResponseErrorBuilder;
 import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
 import com.ipf.automaticcarsgame.service.roadmap.RoadmapService;
-import com.ipf.automaticcarsgame.validator.Result;
+import com.ipf.automaticcarsgame.dto.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

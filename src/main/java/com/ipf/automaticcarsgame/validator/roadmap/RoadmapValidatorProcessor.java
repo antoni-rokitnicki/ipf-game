@@ -2,7 +2,7 @@ package com.ipf.automaticcarsgame.validator.roadmap;
 
 
 import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
-import com.ipf.automaticcarsgame.validator.Result;
+import com.ipf.automaticcarsgame.dto.Result;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

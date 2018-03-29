@@ -2,8 +2,8 @@ package com.ipf.automaticcarsgame.validator.car;
 
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.dto.car.CarType;
-import com.ipf.automaticcarsgame.validator.Result;
-import com.ipf.automaticcarsgame.validator.Result.Error;
+import com.ipf.automaticcarsgame.dto.Result;
+import com.ipf.automaticcarsgame.dto.Result.Error;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 

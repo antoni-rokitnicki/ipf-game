@@ -4,7 +4,7 @@ import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.mapper.ResponseMapper;
 import com.ipf.automaticcarsgame.service.car.CarService;
-import com.ipf.automaticcarsgame.validator.Result;
+import com.ipf.automaticcarsgame.dto.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;

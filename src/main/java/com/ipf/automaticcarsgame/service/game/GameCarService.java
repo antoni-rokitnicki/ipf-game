@@ -2,7 +2,7 @@ package com.ipf.automaticcarsgame.service.game;
 
 import com.ipf.automaticcarsgame.dto.game.GameCarRequest;
 import com.ipf.automaticcarsgame.repository.GameCarRepository;
-import com.ipf.automaticcarsgame.validator.Result;
+import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.validator.game.car.PutCarInGameValidator;
 import org.springframework.stereotype.Service;
 

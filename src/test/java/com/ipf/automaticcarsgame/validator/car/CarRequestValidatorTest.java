@@ -3,7 +3,7 @@ package com.ipf.automaticcarsgame.validator.car;
 
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.dto.car.CarType;
-import com.ipf.automaticcarsgame.validator.Result;
+import com.ipf.automaticcarsgame.dto.Result;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package com.ipf.automaticcarsgame.mapper;
 import com.ipf.automaticcarsgame.dto.Response;
 import com.ipf.automaticcarsgame.dto.ResponseError;
 import com.ipf.automaticcarsgame.dto.ResponseErrorBuilder;
-import com.ipf.automaticcarsgame.validator.Result;
+import com.ipf.automaticcarsgame.dto.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

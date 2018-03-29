@@ -4,7 +4,7 @@ import com.ipf.automaticcarsgame.domain.Game;
 import com.ipf.automaticcarsgame.dto.game.GameRequest;
 import com.ipf.automaticcarsgame.mapper.GameMapper;
 import com.ipf.automaticcarsgame.repository.GameRepository;
-import com.ipf.automaticcarsgame.validator.Result;
+import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.validator.game.GameAlreadyExistValidator;
 import com.ipf.automaticcarsgame.validator.game.GameRequestValidator;
 import org.springframework.stereotype.Service;

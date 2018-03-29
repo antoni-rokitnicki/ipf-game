@@ -4,7 +4,7 @@ import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.mapper.CarMapper;
 import com.ipf.automaticcarsgame.repository.CarRepository;
-import com.ipf.automaticcarsgame.validator.Result;
+import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.validator.car.CarAlreadyExistsValidator;
 import com.ipf.automaticcarsgame.validator.car.CarRequestValidator;
 import org.springframework.stereotype.Service;

@@ -6,7 +6,7 @@ import com.ipf.automaticcarsgame.domain.Roadmap;
 import com.ipf.automaticcarsgame.mapper.RoadmapMapper;
 import com.ipf.automaticcarsgame.repository.GameRepository;
 import com.ipf.automaticcarsgame.repository.RoadmapRepository;
-import com.ipf.automaticcarsgame.validator.Result;
+import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.validator.roadmap.RoadmapValidatorProcessor;
 import org.springframework.stereotype.Service;
 
