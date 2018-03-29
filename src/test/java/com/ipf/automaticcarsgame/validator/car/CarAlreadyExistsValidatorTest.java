@@ -4,10 +4,9 @@ import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.dto.car.CarType;
 import com.ipf.automaticcarsgame.repository.CarRepository;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.util.Optional;
 
@@ -41,10 +40,10 @@ public class CarAlreadyExistsValidatorTest {
         CarRequest toyota = new CarRequest(NAME_EXISTED, CarType.RACER.name());
 
         // when
-        ValidationResult validationResult = carAlreadyExistsValidator.validate(toyota);
+        Result result = carAlreadyExistsValidator.validate(toyota);
 
         // then
-        assertThat(validationResult.isValid()).isFalse();
+        assertThat(result.isValid()).isFalse();
     }
 
     @Test
@@ -53,9 +52,9 @@ public class CarAlreadyExistsValidatorTest {
         CarRequest opel = new CarRequest(NAME_NOT_EXISTED, CarType.RACER.name());
 
         // when
-        ValidationResult validationResult = carAlreadyExistsValidator.validate(opel);
+        Result result = carAlreadyExistsValidator.validate(opel);
 
         // then
-        assertThat(validationResult.isValid()).isTrue();
+        assertThat(result.isValid()).isTrue();
     }
 }

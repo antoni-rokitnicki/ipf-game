@@ -1,9 +1,9 @@
 package com.ipf.automaticcarsgame.validator;
 
 public interface Validator<T> {
-    ValidationResult validate(T obj);
+    Result validate(T obj);
 
-    default ValidationResult createSuccessValidation() {
-        return new ValidationResult();
+    default Result createSuccessValidation() {
+        return new Result();
     }
 }

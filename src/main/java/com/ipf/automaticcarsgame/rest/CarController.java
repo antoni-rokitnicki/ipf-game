@@ -1,14 +1,12 @@
 package com.ipf.automaticcarsgame.rest;
 
 import com.ipf.automaticcarsgame.domain.Car;
-import com.ipf.automaticcarsgame.dto.Response;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.mapper.ResponseMapper;
 import com.ipf.automaticcarsgame.service.car.CarService;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +29,8 @@ public class CarController {
     ResponseEntity<Object> createCar(@RequestBody CarRequest carRequest) {
         LOG.info("create car, request: {}", carRequest);
 
-        ValidationResult validationResult = carService.createCar(carRequest);
-        return ResponseMapper.map(validationResult);
+        Result result = carService.createCar(carRequest);
+        return ResponseMapper.map(result);
     }
 
     @GetMapping
@@ -47,8 +45,8 @@ public class CarController {
     ResponseEntity<Object> removeCar(@RequestBody CarRequest carRequest) {
         LOG.info("remove car, request: {}", carRequest);
 
-        ValidationResult validationResult = carService.removeCar(carRequest);
+        Result result = carService.removeCar(carRequest);
 
-        return ResponseMapper.map(validationResult);
+        return ResponseMapper.map(result);
     }
 }

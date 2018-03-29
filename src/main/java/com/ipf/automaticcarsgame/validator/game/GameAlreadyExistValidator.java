@@ -3,7 +3,7 @@ package com.ipf.automaticcarsgame.validator.game;
 import com.ipf.automaticcarsgame.domain.Game;
 import com.ipf.automaticcarsgame.dto.game.GameRequest;
 import com.ipf.automaticcarsgame.repository.GameRepository;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -19,19 +19,19 @@ public class GameAlreadyExistValidator implements GameValidator{
     }
 
     @Override
-    public ValidationResult validate(GameRequest gameRequest) {
-        ValidationResult validationResult = new ValidationResult();
+    public Result validate(GameRequest gameRequest) {
+        Result result = new Result();
 
         if(!StringUtils.isEmpty(gameRequest.getRoadMapName())){
             Optional<Game> gameOpt = this.gameRepository.findActiveGameByRoadMapName(gameRequest.getRoadMapName());
 
             if (gameOpt.isPresent()) {
-                ValidationResult.Error gameAlreadyExist = new ValidationResult.Error("GAME_ALREADY_EXIST", "Game on map: " + gameRequest.getRoadMapName() + " exists");
-                validationResult.addError(gameAlreadyExist);
+                Result.Error gameAlreadyExist = new Result.Error("GAME_ALREADY_EXIST", "Game on map: " + gameRequest.getRoadMapName() + " exists");
+                result.addError(gameAlreadyExist);
             }
         }
 
-        return validationResult;
+        return result;
 
     }
 }

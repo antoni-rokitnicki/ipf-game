@@ -7,9 +7,9 @@ import com.ipf.automaticcarsgame.dto.game.GameCarRequest;
 import com.ipf.automaticcarsgame.repository.CarRepository;
 import com.ipf.automaticcarsgame.repository.GameCarRepository;
 import com.ipf.automaticcarsgame.repository.RoadmapRepository;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 
-import static com.ipf.automaticcarsgame.validator.ValidationResult.Error;
+import static com.ipf.automaticcarsgame.validator.Result.Error;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -30,8 +30,8 @@ public class PutCarInGameValidator implements GameCarValidator {
     }
 
     @Override
-    public ValidationResult validate(GameCarRequest gameCarRequest) {
-        ValidationResult result = new ValidationResult();
+    public Result validate(GameCarRequest gameCarRequest) {
+        Result result = new Result();
 
         validateCar(gameCarRequest, result);
         validateMap(gameCarRequest, result);
@@ -49,7 +49,7 @@ public class PutCarInGameValidator implements GameCarValidator {
         return null;
     }
 
-    private void validateMap(GameCarRequest gameCarRequest, ValidationResult result) {
+    private void validateMap(GameCarRequest gameCarRequest, Result result) {
         if (StringUtils.isEmpty(gameCarRequest.getRoadmap())) {
             result.addError(new Error("MAP_EMPTY", "RoadMap name cannot be null"));
         } else {
@@ -60,7 +60,7 @@ public class PutCarInGameValidator implements GameCarValidator {
         }
     }
 
-    private void validateCar(GameCarRequest gameCarRequest, ValidationResult result) {
+    private void validateCar(GameCarRequest gameCarRequest, Result result) {
         if (StringUtils.isEmpty(gameCarRequest.getCar())) {
             result.addError(new Error("CAR_EMPTY", "Car's name cannot be null or empty"));
         } else {

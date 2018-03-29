@@ -2,8 +2,8 @@ package com.ipf.automaticcarsgame.validator.car;
 
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.dto.car.CarType;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
-import com.ipf.automaticcarsgame.validator.ValidationResult.Error;
+import com.ipf.automaticcarsgame.validator.Result;
+import com.ipf.automaticcarsgame.validator.Result.Error;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -11,24 +11,24 @@ import org.springframework.util.StringUtils;
 public class CarRequestValidator implements CarValidator {
 
     @Override
-    public ValidationResult validate(CarRequest carRequest) {
-        ValidationResult validationResult = new ValidationResult();
+    public Result validate(CarRequest carRequest) {
+        Result result = new Result();
 
         if (StringUtils.isEmpty(carRequest.getName())) {
-            validationResult.addError(new Error("Car's name cannot be null or empty"));
+            result.addError(new Error("Car's name cannot be null or empty"));
         }
 
         if (StringUtils.isEmpty(carRequest.getType())) {
-            validationResult.addError(new Error("CarType cannot be empty"));
+            result.addError(new Error("CarType cannot be empty"));
         }else{
             try {
                 CarType.valueOf(carRequest.getType());
             } catch (IllegalArgumentException e) {
-                validationResult.addError(new Error("CarType \' " + carRequest.getType() + "\' is not correct"));
+                result.addError(new Error("CarType \' " + carRequest.getType() + "\' is not correct"));
             }
         }
 
 
-        return validationResult;
+        return result;
     }
 }

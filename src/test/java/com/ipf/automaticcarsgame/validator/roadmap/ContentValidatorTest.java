@@ -1,7 +1,7 @@
 package com.ipf.automaticcarsgame.validator.roadmap;
 
 import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 import com.ipf.automaticcarsgame.validator.Validator;
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ public class ContentValidatorTest {
         final CreateRoadmapRequest gameMap = new CreateRoadmapRequest();
         gameMap.setFields(new int[][]{{0,1}, {0,1}});
 
-        final ValidationResult validate = validator.validate(gameMap);
+        final Result validate = validator.validate(gameMap);
 
         assertThat(validate.isValid()).isTrue();
     }
@@ -27,7 +27,7 @@ public class ContentValidatorTest {
         final CreateRoadmapRequest gameMap = new CreateRoadmapRequest();
         gameMap.setFields(new int[][]{{0,3}, {0,1}});
 
-        final ValidationResult validate = validator.validate(gameMap);
+        final Result validate = validator.validate(gameMap);
 
         assertThat(validate.isValid()).isFalse();
     }

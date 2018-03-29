@@ -4,7 +4,7 @@ import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.mapper.CarMapper;
 import com.ipf.automaticcarsgame.repository.CarRepository;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 import com.ipf.automaticcarsgame.validator.car.CarAlreadyExistsValidator;
 import com.ipf.automaticcarsgame.validator.car.CarRequestValidator;
 import org.springframework.stereotype.Service;
@@ -33,15 +33,15 @@ public class CarService {
     }
 
     @Transactional
-    public ValidationResult createCar(CarRequest carRequest) {
-        ValidationResult validationResult = validateCar(carRequest);
+    public Result createCar(CarRequest carRequest) {
+        Result result = validateCar(carRequest);
 
-        if (validationResult.isValid()) {
+        if (result.isValid()) {
             Car car = carMapper.map(carRequest);
             carRepository.save(car);
         }
 
-        return validationResult;
+        return result;
     }
 
     @Transactional
@@ -50,27 +50,27 @@ public class CarService {
     }
 
     @Transactional
-    public ValidationResult removeCar(CarRequest carRequest) {
+    public Result removeCar(CarRequest carRequest) {
 
         // TODO car deleted
 
-        ValidationResult validationResult = carRequestValidator.validate(carRequest);
+        Result result = carRequestValidator.validate(carRequest);
 
-        if (validationResult.isValid()) {
+        if (result.isValid()) {
             Optional<Car> carOpt = carRepository.findByName(carRequest.getName());
             carOpt.ifPresent(carRepository::delete);
         }
 
-        return validationResult;
+        return result;
     }
 
-    private ValidationResult validateCar(CarRequest carRequest) {
-        ValidationResult validationResult = carRequestValidator.validate(carRequest);
+    private Result validateCar(CarRequest carRequest) {
+        Result result = carRequestValidator.validate(carRequest);
 
-        if (validationResult.isValid()) {
-            validationResult = carAlreadyExistsValidator.validate(carRequest);
+        if (result.isValid()) {
+            result = carAlreadyExistsValidator.validate(carRequest);
         }
 
-        return validationResult;
+        return result;
     }
 }

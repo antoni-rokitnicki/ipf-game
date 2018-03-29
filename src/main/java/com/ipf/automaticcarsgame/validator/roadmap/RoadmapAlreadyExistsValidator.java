@@ -3,7 +3,7 @@ package com.ipf.automaticcarsgame.validator.roadmap;
 import com.ipf.automaticcarsgame.domain.Roadmap;
 import com.ipf.automaticcarsgame.repository.RoadmapRepository;
 import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -20,14 +20,14 @@ public class RoadmapAlreadyExistsValidator implements RoadmapValidator {
     }
 
     @Override
-    public ValidationResult validate(CreateRoadmapRequest createRoadmapRequest) {
+    public Result validate(CreateRoadmapRequest createRoadmapRequest) {
         final Optional<Roadmap> roadmapOptional = roadmapRepository.findByNameIgnoreCaseAndDeleted(createRoadmapRequest.getName(), false);
         if (roadmapOptional.isPresent()) {
-            return ValidationResult.ValidationResultBuilder.builder()
-                    .addError(new ValidationResult.Error(ALREADY_EXISTS, "Roadmap " + createRoadmapRequest.getName() + " already exists"))
+            return Result.ResultBuilder.builder()
+                    .addError(new Result.Error(ALREADY_EXISTS, "Roadmap " + createRoadmapRequest.getName() + " already exists"))
                     .build();
         } else {
-            return ValidationResult.ValidationResultBuilder.builder().build();
+            return Result.ResultBuilder.builder().build();
         }
     }
 

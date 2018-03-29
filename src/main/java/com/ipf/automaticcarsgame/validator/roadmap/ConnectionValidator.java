@@ -1,7 +1,7 @@
 package com.ipf.automaticcarsgame.validator.roadmap;
 
 import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ public class ConnectionValidator implements RoadmapValidator {
 
     private static final String MAP_NO_CONNECTION = "MAP_NO_CONNECTION";
 
-    public ValidationResult validate(CreateRoadmapRequest gameMap) {
+    public Result validate(CreateRoadmapRequest gameMap) {
         if (gameMap == null || gameMap.getFields() == null || gameMap.getFields().length == 0) {
             return createError();
         }
@@ -19,9 +19,9 @@ public class ConnectionValidator implements RoadmapValidator {
         return createSuccessValidation();
     }
 
-    private ValidationResult createError() {
-        final ValidationResult validation = new ValidationResult();
-        final ValidationResult.Error error = new ValidationResult.Error();
+    private Result createError() {
+        final Result validation = new Result();
+        final Result.Error error = new Result.Error();
         error.setCode(MAP_NO_CONNECTION);
         error.setMessage("No connection between fields");
         validation.addError(error);

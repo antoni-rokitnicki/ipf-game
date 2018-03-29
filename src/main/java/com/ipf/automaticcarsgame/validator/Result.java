@@ -3,10 +3,10 @@ package com.ipf.automaticcarsgame.validator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationResult {
+public class Result {
     private List<Error> errors = new ArrayList<>();
 
-    public ValidationResult() {
+    public Result() {
     }
 
     public boolean isValid() {
@@ -21,7 +21,7 @@ public class ValidationResult {
         this.errors = errors;
     }
 
-    public ValidationResult addError(Error error) {
+    public Result addError(Error error) {
         this.errors.add(error);
         return this;
     }
@@ -68,30 +68,30 @@ public class ValidationResult {
     }
 
 
-    public static final class ValidationResultBuilder {
+    public static final class ResultBuilder {
         private List<Error> errors = new ArrayList<>();
 
-        private ValidationResultBuilder() {
+        private ResultBuilder() {
         }
 
-        public static ValidationResultBuilder builder() {
-            return new ValidationResultBuilder();
+        public static ResultBuilder builder() {
+            return new ResultBuilder();
         }
 
-        public ValidationResultBuilder addError(Error error) {
+        public ResultBuilder addError(Error error) {
             this.errors.add(error);
             return this;
         }
 
-        public ValidationResultBuilder addErrors(List<Error> errors) {
+        public ResultBuilder addErrors(List<Error> errors) {
             this.errors.addAll(errors);
             return this;
         }
 
-        public ValidationResult build() {
-            ValidationResult validationResult = new ValidationResult();
-            validationResult.setErrors(errors);
-            return validationResult;
+        public Result build() {
+            Result result = new Result();
+            result.setErrors(errors);
+            return result;
         }
     }
 

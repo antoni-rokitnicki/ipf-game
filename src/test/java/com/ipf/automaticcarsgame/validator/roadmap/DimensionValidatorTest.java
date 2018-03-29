@@ -1,7 +1,7 @@
 package com.ipf.automaticcarsgame.validator.roadmap;
 
 import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 import com.ipf.automaticcarsgame.validator.Validator;
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ public class DimensionValidatorTest {
         final CreateRoadmapRequest correctRoadmap = createCorrectRoadmap();
 
         // when
-        final ValidationResult validate = validator.validate(correctRoadmap);
+        final Result validate = validator.validate(correctRoadmap);
 
         // then
         assertThat(validate.isValid()).isTrue();
@@ -30,7 +30,7 @@ public class DimensionValidatorTest {
         final CreateRoadmapRequest incorrectRoadmap = createIncorrectRoadmap();
 
         // when
-        final ValidationResult validate = validator.validate(incorrectRoadmap);
+        final Result validate = validator.validate(incorrectRoadmap);
 
         // then
         assertThat(validate.isValid()).isFalse();
@@ -43,7 +43,7 @@ public class DimensionValidatorTest {
         final CreateRoadmapRequest emptyRoadmap = createEmptyRoadmap();
 
         // when
-        final ValidationResult validate = validator.validate(emptyRoadmap);
+        final Result validate = validator.validate(emptyRoadmap);
 
         // then
         assertThat(validate.isValid()).isFalse();

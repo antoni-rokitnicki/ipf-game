@@ -5,7 +5,7 @@ import com.ipf.automaticcarsgame.dto.game.GameRequest;
 import com.ipf.automaticcarsgame.mapper.ResponseMapper;
 import com.ipf.automaticcarsgame.service.game.GameCarService;
 import com.ipf.automaticcarsgame.service.game.GameService;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -33,15 +33,15 @@ public class GameController {
     ResponseEntity<Object> createGame(@RequestBody GameRequest gameRequest) {
         LOG.info("create game, request: {}", gameRequest);
 
-        ValidationResult validationResult = gameService.createGame(gameRequest);
-        return ResponseMapper.map(validationResult);
+        Result result = gameService.createGame(gameRequest);
+        return ResponseMapper.map(result);
     }
 
     @PostMapping("/cars")
     ResponseEntity<Object> addCarToGame(@RequestBody GameCarRequest gameCarRequest) {
         LOG.info("add car to game, request: {}", gameCarRequest);
 
-        ValidationResult validationResult = gameCarService.addCarToGame(gameCarRequest);
-        return ResponseMapper.map(validationResult);
+        Result result = gameCarService.addCarToGame(gameCarRequest);
+        return ResponseMapper.map(result);
     }
 }

@@ -7,7 +7,7 @@ import com.ipf.automaticcarsgame.dto.ResponseError;
 import com.ipf.automaticcarsgame.dto.ResponseErrorBuilder;
 import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
 import com.ipf.automaticcarsgame.service.roadmap.RoadmapService;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -36,17 +36,17 @@ class RoadmapController {
     @DeleteMapping(value = "/{name}")
     ResponseEntity<Response<Void>> deleteRoadmap(@PathVariable("name") String name) {
         logInit(name);
-        final ValidationResult validationResult = roadmapService.deleteRoadmap(name);
-        logResult(name, validationResult);
-        return mapToResponse(validationResult);
+        final Result result = roadmapService.deleteRoadmap(name);
+        logResult(name, result);
+        return mapToResponse(result);
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<Response<Void>> createRoadmap(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) throws IOException {
         logInit(name, file);
         final CreateRoadmapRequest createMapRequest = mapToCreateRoadmapRequest(name, file);
-        final ValidationResult validationResult = this.roadmapService.createRoadmap(createMapRequest);
-        return mapToResponse(validationResult);
+        final Result result = this.roadmapService.createRoadmap(createMapRequest);
+        return mapToResponse(result);
     }
 
     private void logInit(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
@@ -61,17 +61,17 @@ class RoadmapController {
         return createMapRequest;
     }
 
-    private ResponseEntity<Response<Void>> mapToResponse(ValidationResult validationResult) {
-        if (!validationResult.isValid()) {
+    private ResponseEntity<Response<Void>> mapToResponse(Result result) {
+        if (!result.isValid()) {
             Response<Void> response = new Response<>();
-            final List<ResponseError> responseErrors = validationResult.getErrors().stream().map(error -> ResponseErrorBuilder.builder().withCode(error.getCode()).withMessage(error.getMessage()).build()).collect(Collectors.toList());
+            final List<ResponseError> responseErrors = result.getErrors().stream().map(error -> ResponseErrorBuilder.builder().withCode(error.getCode()).withMessage(error.getMessage()).build()).collect(Collectors.toList());
             response.setErrors(responseErrors);
             return ResponseEntity.badRequest().body(response);
         }
         return ResponseEntity.ok().body(new Response<Void>());
     }
 
-    private <T> ResponseEntity<Response<T>> mapToResponse(ValidationResult validationResult, T result) {
+    private <T> ResponseEntity<Response<T>> mapToResponse(Result validationResult, T result) {
         if (!validationResult.isValid()) {
             final Response<T> response = new Response<>();
             final List<ResponseError> responseErrors = validationResult.getErrors().stream().map(error -> ResponseErrorBuilder.builder().withCode(error.getCode()).withMessage(error.getMessage()).build()).collect(Collectors.toList());
@@ -81,8 +81,8 @@ class RoadmapController {
         return ResponseEntity.ok().body(new Response<>(result));
     }
 
-    private void logResult(@PathVariable("name") String name, ValidationResult validationResult) {
-        LOG.info("deleteRoadmap, name: {}, result: {}", name, validationResult.isValid());
+    private void logResult(@PathVariable("name") String name, Result result) {
+        LOG.info("deleteRoadmap, name: {}, result: {}", name, result.isValid());
     }
 
     private void logInit(@PathVariable("name") String name) {

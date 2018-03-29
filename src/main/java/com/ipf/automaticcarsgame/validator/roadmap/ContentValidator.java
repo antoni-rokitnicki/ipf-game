@@ -1,7 +1,7 @@
 package com.ipf.automaticcarsgame.validator.roadmap;
 
 import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
-import com.ipf.automaticcarsgame.validator.ValidationResult;
+import com.ipf.automaticcarsgame.validator.Result;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class ContentValidator implements RoadmapValidator {
 
     private static final String INVALID_CONTENT = "INVALID_CONTENT";
 
-    public ValidationResult validate(CreateRoadmapRequest gameMap) {
+    public Result validate(CreateRoadmapRequest gameMap) {
         if (gameMap == null || gameMap.getFields() == null || gameMap.getFields().length == 0) {
             return createError();
         }
@@ -32,9 +32,9 @@ public class ContentValidator implements RoadmapValidator {
         return digit -> digit != 0 && digit != 1;
     }
 
-    private ValidationResult createError() {
-        final ValidationResult validation = new ValidationResult();
-        final ValidationResult.Error error = new ValidationResult.Error();
+    private Result createError() {
+        final Result validation = new Result();
+        final Result.Error error = new Result.Error();
         error.setCode(INVALID_CONTENT);
         error.setMessage("Invalid content. Supported only 0 or 1");
         validation.addError(error);
