@@ -17,7 +17,6 @@ public class Roadmap extends AudityEntity {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean deleted;
 
-    // todo powinnabyc //private Map<Position, RoadmapPosition> positions;
     @ElementCollection
     @CollectionTable(name = "ROADMAP_POSITION", joinColumns = @JoinColumn(name = "MAP_ID"))
     private List<RoadmapPosition> positions;

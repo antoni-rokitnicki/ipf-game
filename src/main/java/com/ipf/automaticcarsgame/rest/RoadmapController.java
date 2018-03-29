@@ -7,6 +7,7 @@ import com.ipf.automaticcarsgame.dto.ResponseError;
 import com.ipf.automaticcarsgame.dto.ResponseErrorBuilder;
 import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
 import com.ipf.automaticcarsgame.service.roadmap.RoadmapService;
+import com.ipf.automaticcarsgame.validator.ValidationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/maps", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -31,19 +34,23 @@ class RoadmapController {
     }
 
     @DeleteMapping(value = "/{name}")
-    Response<Void> deleteRoadmap(@PathVariable("name") String name) {
+    ResponseEntity<Response<Void>> deleteRoadmap(@PathVariable("name") String name) {
         logInit(name);
-        final boolean deleted = roadmapService.deleteRoadmap(name);
-        logResult(name, deleted);
-        return createResponse(deleted);
+        final ValidationResult validationResult = roadmapService.deleteRoadmap(name);
+        logResult(name, validationResult);
+        return mapToResponse(validationResult);
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    Response<Void> createRoadmap(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) throws IOException {
-        LOG.info("createRoadmap, name: {}, fileName: {}", name, file.getOriginalFilename());
+    ResponseEntity<Response<Void>> createRoadmap(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) throws IOException {
+        logInit(name, file);
         final CreateRoadmapRequest createMapRequest = mapToCreateRoadmapRequest(name, file);
-        this.roadmapService.createRoadmap(createMapRequest);
-        return new Response<>();
+        final ValidationResult validationResult = this.roadmapService.createRoadmap(createMapRequest);
+        return mapToResponse(validationResult);
+    }
+
+    private void logInit(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+        LOG.info("createRoadmap, name: {}, fileName: {}", name, file.getOriginalFilename());
     }
 
     private CreateRoadmapRequest mapToCreateRoadmapRequest(@RequestParam("name") String mapName, MultipartFile file) throws IOException {
@@ -54,18 +61,28 @@ class RoadmapController {
         return createMapRequest;
     }
 
-    private Response<Void> createResponse(boolean deleted) {
-        if (!deleted) {
+    private ResponseEntity<Response<Void>> mapToResponse(ValidationResult validationResult) {
+        if (!validationResult.isValid()) {
             Response<Void> response = new Response<>();
-            ResponseError responseError = ResponseErrorBuilder.builder().withCode("ROADMAP_NOT_EXIST").withMessage("Roadmap does not exist").build();
-            response.addError(responseError);
-            return response;
+            final List<ResponseError> responseErrors = validationResult.getErrors().stream().map(error -> ResponseErrorBuilder.builder().withCode(error.getCode()).withMessage(error.getMessage()).build()).collect(Collectors.toList());
+            response.setErrors(responseErrors);
+            return ResponseEntity.badRequest().body(response);
         }
-        return new Response<>();
+        return ResponseEntity.ok().body(new Response<Void>());
     }
 
-    private void logResult(@PathVariable("name") String name, boolean deleted) {
-        LOG.info("deleteRoadmap, name: {}, result: {}", name, deleted);
+    private <T> ResponseEntity<Response<T>> mapToResponse(ValidationResult validationResult, T result) {
+        if (!validationResult.isValid()) {
+            final Response<T> response = new Response<>();
+            final List<ResponseError> responseErrors = validationResult.getErrors().stream().map(error -> ResponseErrorBuilder.builder().withCode(error.getCode()).withMessage(error.getMessage()).build()).collect(Collectors.toList());
+            response.setErrors(responseErrors);
+            return ResponseEntity.badRequest().body(response);
+        }
+        return ResponseEntity.ok().body(new Response<>(result));
+    }
+
+    private void logResult(@PathVariable("name") String name, ValidationResult validationResult) {
+        LOG.info("deleteRoadmap, name: {}, result: {}", name, validationResult.isValid());
     }
 
     private void logInit(@PathVariable("name") String name) {

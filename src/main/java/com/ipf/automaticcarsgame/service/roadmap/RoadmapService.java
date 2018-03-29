@@ -10,7 +10,6 @@ import com.ipf.automaticcarsgame.validator.roadmap.RoadmapValidatorProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,22 +26,22 @@ public class RoadmapService {
     }
 
     @Transactional
-    public void createRoadmap(CreateRoadmapRequest createRoadmapRequest) {
-        final ValidationResult validate = roadmapValidatorProcessor.validate(createRoadmapRequest);
-        if (validate.isValid()) {
+    public ValidationResult createRoadmap(CreateRoadmapRequest createRoadmapRequest) {
+        final ValidationResult validationResult = roadmapValidatorProcessor.validate(createRoadmapRequest);
+        if (validationResult.isValid()) {
             final Roadmap roadmap = RoadmapMapper.mapToRoadmap(createRoadmapRequest);
             this.roadmapRepository.save(roadmap);
+            return ValidationResult.ValidationResultBuilder.builder().build();
         } else {
-            validate.getErrors().forEach(System.out::println);
+            return validationResult;
         }
-
     }
 
     @Transactional
-    public boolean deleteRoadmap(String name) {
+    public ValidationResult deleteRoadmap(String name) {
         final Optional<Roadmap> roadmap = this.roadmapRepository.findByNameIgnoreCaseAndDeleted(name, false);
         if (!roadmap.isPresent()) {
-            return false;
+            return createErrorResult();
         }
         final Optional<Game> game = this.gameRepository.findByRoadmap(roadmap.get());
         if (!game.isPresent()) {
@@ -50,12 +49,12 @@ public class RoadmapService {
         } else {
             roadmap.get().setDeleted(true);
         }
-        return true;
+        return ValidationResult.ValidationResultBuilder.builder().build();
 
     }
 
-    public static class Result{
-        private boolean success;
-        private List<ValidationResult.Error> errors;
+    private ValidationResult createErrorResult() {
+        return ValidationResult.ValidationResultBuilder.builder().addError(new ValidationResult.Error("DOES_NOT_EXIST", "Roadmap does not exist")).build();
     }
+
 }

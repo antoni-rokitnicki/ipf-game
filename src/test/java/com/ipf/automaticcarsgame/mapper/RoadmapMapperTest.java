@@ -11,8 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RoadmapMapperTest {
 
-
-    public static final String MAP_NAME = "map_name";
+    private static final String MAP_NAME = "map_name";
 
     @Test
     public void shouldMapToRoadmap() {

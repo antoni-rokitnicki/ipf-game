@@ -21,7 +21,7 @@ public class ValidationResult {
         this.errors = errors;
     }
 
-    public ValidationResult addError(Error error){
+    public ValidationResult addError(Error error) {
         this.errors.add(error);
         return this;
     }
@@ -83,10 +83,17 @@ public class ValidationResult {
             return this;
         }
 
+        public ValidationResultBuilder addErrors(List<Error> errors) {
+            this.errors.addAll(errors);
+            return this;
+        }
+
         public ValidationResult build() {
             ValidationResult validationResult = new ValidationResult();
             validationResult.setErrors(errors);
             return validationResult;
         }
     }
+
+
 }

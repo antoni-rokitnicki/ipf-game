@@ -3,7 +3,6 @@ package com.ipf.automaticcarsgame.domain;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-// todo czy jest dobra nazwa?
 @Embeddable
 public class Position {
 

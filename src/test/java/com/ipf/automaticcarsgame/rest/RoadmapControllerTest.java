@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_CLASS;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
@@ -30,6 +29,7 @@ public class RoadmapControllerTest {
 
         final ResponseEntity<String> response = this.restTemplate.exchange(String.format("/api/maps/%s", notUsedMapId), HttpMethod.DELETE, createEmptyBody(), String.class);
 
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(JsonPath.<Boolean>read(response.getBody(), "$.success")).isTrue();
     }
 
@@ -39,6 +39,7 @@ public class RoadmapControllerTest {
 
         final ResponseEntity<String> response = this.restTemplate.exchange(String.format("/api/maps/%s", notUsedMapId), HttpMethod.DELETE, createEmptyBody(), String.class);
 
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(JsonPath.<Boolean>read(response.getBody(), "$.success")).isFalse();
     }
 
