@@ -15,10 +15,7 @@ public class Position {
         this.col = col;
     }
 
-    @Column(name = "ROW")
     private Integer row;
-
-    @Column(name = "COL")
     private Integer col;
 
     public Integer getRow() {
@@ -53,5 +50,13 @@ public class Position {
         int result = row != null ? row.hashCode() : 0;
         result = 31 * result + (col != null ? col.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "row=" + row +
+                ", col=" + col +
+                '}';
     }
 }

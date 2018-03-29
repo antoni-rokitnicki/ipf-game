@@ -51,6 +51,9 @@ public class CarService {
 
     @Transactional
     public ValidationResult removeCar(CarRequest carRequest) {
+
+        // TODO car deleted
+
         ValidationResult validationResult = carRequestValidator.validate(carRequest);
 
         if (validationResult.isValid()) {

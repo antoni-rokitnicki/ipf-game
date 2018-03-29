@@ -43,16 +43,6 @@ public class RoadmapService {
 
     }
 
-    private List<RoadmapPosition> mapToPositionList(int[][] fields) {
-        final List<RoadmapPosition> roadmapPositions = new ArrayList<>();
-        roadmapPositions.add(new RoadmapPosition(new Position(1, 1), (byte) 1));
-        roadmapPositions.add(new RoadmapPosition(new Position(2, 1), (byte) 1));
-        roadmapPositions.add(new RoadmapPosition(new Position(3, 1), (byte) 0));
-        roadmapPositions.add(new RoadmapPosition(new Position(4, 1), (byte) 0));
-        roadmapPositions.add(new RoadmapPosition(new Position(5, 1), (byte) 1));
-        return roadmapPositions;
-    }
-
     @Transactional
     public boolean deleteRoadmap(String name) {
         final Optional<Roadmap> roadmap = this.roadmapRepository.findByNameIgnoreCaseAndDeleted(name, false);
@@ -68,4 +58,36 @@ public class RoadmapService {
         return true;
 
     }
+
+    /**
+     * check whether a position is in Map (Matrix)
+     */
+    public boolean checkIfMapContainField(Roadmap roadmap, Position position) {
+        return false;
+    }
+
+    /**
+     * check whether a position is in Map (Matrix) and isn't a wall
+     */
+    public boolean checkIfFieldIsCorrect() {
+        return false;
+    }
+
+    /**
+     * check whether a position is occupied through other car
+     */
+    public boolean checkIfFieldIsOccupied(Position position) {
+        return false;
+    }
+
+    private List<RoadmapPosition> mapToPositionList(int[][] fields) {
+        final List<RoadmapPosition> roadmapPositions = new ArrayList<>();
+        roadmapPositions.add(new RoadmapPosition(new Position(1, 1), (byte) 1));
+        roadmapPositions.add(new RoadmapPosition(new Position(2, 1), (byte) 1));
+        roadmapPositions.add(new RoadmapPosition(new Position(3, 1), (byte) 0));
+        roadmapPositions.add(new RoadmapPosition(new Position(4, 1), (byte) 0));
+        roadmapPositions.add(new RoadmapPosition(new Position(5, 1), (byte) 1));
+        return roadmapPositions;
+    }
+
 }
