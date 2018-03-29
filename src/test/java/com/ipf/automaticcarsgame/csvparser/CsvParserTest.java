@@ -25,8 +25,7 @@ public class CsvParserTest {
         assertThat(result).contains(new int[][]{
                 {1, 0, 0},
                 {1, 1, 0},
-                {1, 1, 0},
-                {1, 1, 0, 0}
+                {1, 1, 0}
         });
     }
 
