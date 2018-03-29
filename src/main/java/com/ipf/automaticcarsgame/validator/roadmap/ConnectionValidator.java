@@ -21,8 +21,8 @@ public class ConnectionValidator implements RoadmapValidator {
                 if (fields[row][col] == 0) {
                     roads[row][col] = 0;
                 } else {
-                    int top = getTopAreaNumber(row, col, roads);
-                    int left = getLeftAreaNumber(row, col, roads);
+                    int top = getTopRoadNumber(row, col, roads);
+                    int left = getLeftRoadNumber(row, col, roads);
                     if (top == 0 && left == 0) {
                         roads[row][col] = areaNumber;
                         areaNumber++;
@@ -61,7 +61,7 @@ public class ConnectionValidator implements RoadmapValidator {
         return true;
     }
 
-    private int getLeftAreaNumber(int row, int col, int[][] roads) {
+    private int getLeftRoadNumber(int row, int col, int[][] roads) {
         if (col > 0) {
             return roads[row][col - 1];
         } else {
@@ -69,7 +69,7 @@ public class ConnectionValidator implements RoadmapValidator {
         }
     }
 
-    private int getTopAreaNumber(int row, int col, int[][] roads) {
+    private int getTopRoadNumber(int row, int col, int[][] roads) {
         if (row > 0) {
             return roads[row - 1][col];
         } else {
