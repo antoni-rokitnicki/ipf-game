@@ -37,7 +37,7 @@ public class GameController {
         return ResponseMapper.map(validationResult);
     }
 
-    @PostMapping
+    @PostMapping("/cars")
     ResponseEntity<Object> addCarToGame(@RequestBody GameCarRequest gameCarRequest) {
         LOG.info("add car to game, request: {}", gameCarRequest);
 

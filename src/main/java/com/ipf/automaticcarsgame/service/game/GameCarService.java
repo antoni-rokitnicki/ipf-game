@@ -19,7 +19,6 @@ public class GameCarService {
 
     public ValidationResult addCarToGame(GameCarRequest gameCarRequest){
         ValidationResult result = putCarInGameValidator.validate(gameCarRequest);
-
-
+        return result;
     }
 }
