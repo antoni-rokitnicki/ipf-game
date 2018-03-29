@@ -1,12 +1,8 @@
 package com.ipf.automaticcarsgame.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 public final class ResponseErrorBuilder {
-    private int code;
-    private List<String> messages = new ArrayList<>();
+    private String code;
+    private String message;
 
     private ResponseErrorBuilder() {
     }
@@ -15,25 +11,21 @@ public final class ResponseErrorBuilder {
         return new ResponseErrorBuilder();
     }
 
-    public ResponseErrorBuilder withCode(int code) {
+    public ResponseErrorBuilder withCode(String code) {
         this.code = code;
         return this;
     }
 
-    public ResponseErrorBuilder withMessages(List<String> messages) {
-        this.messages = messages;
-        return this;
-    }
-
-    public ResponseErrorBuilder addMessage(String message) {
-        this.messages.add(message);
+    public ResponseErrorBuilder withMessage(String message) {
+        this.message = message;
         return this;
     }
 
     public ResponseError build() {
         ResponseError responseError = new ResponseError();
-        this.messages.stream().forEach(mess -> responseError.addMessage(mess));
         responseError.setCode(code);
+        responseError.setMessage(message);
+
         return responseError;
     }
 }

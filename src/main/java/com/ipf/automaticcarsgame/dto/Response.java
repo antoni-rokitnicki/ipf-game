@@ -1,38 +1,39 @@
 package com.ipf.automaticcarsgame.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Response<T> {
-    private boolean success;
-    private ResponseError error;
+    private List<ResponseError> errors = new ArrayList<>();
     private T data;
 
     public Response() {
-        this.success = true;
+
     }
 
     public Response(T data) {
-        this.success = true;
         this.data = data;
     }
 
-    public Response(ResponseError responseError) {
-        this.success = false;
-        this.error = responseError;
+    public Response(List<ResponseError> errors) {
+        this.errors = errors;
     }
 
     public boolean isSuccess() {
-        return success;
+        return errors.isEmpty();
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public List<ResponseError> getErrors() {
+        return errors;
     }
 
-    public ResponseError getError() {
-        return error;
+    public void setErrors(List<ResponseError> errors) {
+        this.errors = errors;
     }
 
-    public void setError(ResponseError error) {
-        this.error = error;
+    public Response<T> addError(ResponseError responseError){
+        this.errors.add(responseError);
+        return this;
     }
 
     public T getData() {
@@ -43,11 +44,11 @@ public class Response<T> {
         this.data = data;
     }
 
+
     @Override
     public String toString() {
         return "Response{" +
-                "success=" + success +
-                ", error=" + error +
+                ", errors=" + errors +
                 ", data=" + data +
                 '}';
     }

@@ -3,6 +3,7 @@ package com.ipf.automaticcarsgame.rest;
 
 import com.ipf.automaticcarsgame.csvparser.CsvParser;
 import com.ipf.automaticcarsgame.dto.Response;
+import com.ipf.automaticcarsgame.dto.ResponseError;
 import com.ipf.automaticcarsgame.dto.ResponseErrorBuilder;
 import com.ipf.automaticcarsgame.service.roadmap.CreateRoadmapRequest;
 import com.ipf.automaticcarsgame.service.roadmap.RoadmapService;
@@ -53,7 +54,10 @@ class RoadmapController {
 
     private Response<Void> createResponse(boolean deleted) {
         if (!deleted) {
-            return new Response<>(ResponseErrorBuilder.builder().withCode(400).addMessage("Roadmap does not exist").build());
+            Response<Void> response = new Response<>();
+            ResponseError responseError = ResponseErrorBuilder.builder().withCode("ROADMAP_NOT_EXIST").withMessage("Roadmap does not exist").build();
+            response.addError(responseError);
+            return response;
         }
         return new Response<>();
     }

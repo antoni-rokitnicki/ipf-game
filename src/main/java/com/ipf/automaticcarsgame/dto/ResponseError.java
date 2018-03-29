@@ -1,40 +1,38 @@
 package com.ipf.automaticcarsgame.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ResponseError {
-    private int code;
-    private List<String> messages = new ArrayList<>();
+    private String code;
+    private String message;
 
     public ResponseError() {
     }
 
-    public ResponseError(int code) {
+    public ResponseError(String code, String message) {
         this.code = code;
+        this.message = message;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public List<String> getMessages() {
-        return messages;
+    public String getMessage() {
+        return message;
     }
 
-    public void addMessage(String message) {
-        this.messages.add(message);
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     @Override
     public String toString() {
         return "ResponseError{" +
                 "code=" + code +
-                ", messages=" + messages +
+                ", message=" + message +
                 '}';
     }
 }

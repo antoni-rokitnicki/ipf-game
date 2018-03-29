@@ -18,13 +18,17 @@ public class CarRequestValidator implements CarValidator {
             validationResult.addError(new Error("Car's name cannot be null or empty"));
         }
 
-        if (!StringUtils.isEmpty(carRequest.getType())) {
+
+        if (StringUtils.isEmpty(carRequest.getType())) {
+            validationResult.addError(new Error("CarType cannot be empty"));
+        }else{
             try {
                 CarType.valueOf(carRequest.getType());
             } catch (IllegalArgumentException e) {
                 validationResult.addError(new Error("CarType \' " + carRequest.getType() + "\' is not correct"));
             }
         }
+
 
         return validationResult;
     }
