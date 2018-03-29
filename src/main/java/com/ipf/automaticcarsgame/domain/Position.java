@@ -54,4 +54,12 @@ public class Position {
         result = 31 * result + (col != null ? col.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "row=" + row +
+                ", col=" + col +
+                '}';
+    }
 }
