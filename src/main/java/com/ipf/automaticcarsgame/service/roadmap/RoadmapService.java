@@ -1,6 +1,7 @@
 package com.ipf.automaticcarsgame.service.roadmap;
 
 import com.ipf.automaticcarsgame.domain.Game;
+import com.ipf.automaticcarsgame.domain.Position;
 import com.ipf.automaticcarsgame.domain.Roadmap;
 import com.ipf.automaticcarsgame.mapper.RoadmapMapper;
 import com.ipf.automaticcarsgame.repository.GameRepository;
@@ -51,6 +52,27 @@ public class RoadmapService {
         }
         return ValidationResult.ValidationResultBuilder.builder().build();
 
+    }
+
+    /**
+     * check whether a position is in Map (Matrix)
+     */
+    public boolean checkIfMapContainField(Roadmap roadmap, Position position) {
+        return false;
+    }
+
+    /**
+     * check whether a position is in Map (Matrix) and isn't a wall
+     */
+    public boolean checkIfFieldIsCorrect() {
+        return false;
+    }
+
+    /**
+     * check whether a position is occupied through other car
+     */
+    public boolean checkIfFieldIsOccupied(Position position) {
+        return false;
     }
 
     private ValidationResult createErrorResult() {

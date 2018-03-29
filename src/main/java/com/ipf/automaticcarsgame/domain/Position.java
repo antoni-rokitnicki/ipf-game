@@ -14,10 +14,7 @@ public class Position {
         this.col = col;
     }
 
-    @Column(name = "ROW")
     private Integer row;
-
-    @Column(name = "COL")
     private Integer col;
 
     public Integer getRow() {

@@ -23,7 +23,7 @@ public class GameAlreadyExistValidator implements GameValidator{
         ValidationResult validationResult = new ValidationResult();
 
         if(!StringUtils.isEmpty(gameRequest.getRoadMapName())){
-            Optional<Game> gameOpt = this.gameRepository.findByRoadMapName(gameRequest.getRoadMapName());
+            Optional<Game> gameOpt = this.gameRepository.findActiveGameByRoadMapName(gameRequest.getRoadMapName());
 
             if (gameOpt.isPresent()) {
                 ValidationResult.Error gameAlreadyExist = new ValidationResult.Error("GAME_ALREADY_EXIST", "Game on map: " + gameRequest.getRoadMapName() + " exists");

@@ -21,7 +21,7 @@ public class GameMapper {
     public Game map(GameRequest gameRequest) {
         Game game = new Game();
         Optional<Roadmap> roadmapOpt = roadmapRepository.findByNameIgnoreCaseAndDeleted(gameRequest.getRoadMapName(), false);
-        roadmapOpt.ifPresent(game::setRoadmap);
+        roadmapOpt.ifPresent(roadmap -> game.setMapId(roadmap.getId()));
 
         return game;
     }
