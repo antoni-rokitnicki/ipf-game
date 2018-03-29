@@ -12,9 +12,6 @@ public class ConnectionValidator implements RoadmapValidator {
     private static final String UNLINKED_ROADS = "UNLINKED_ROADS";
 
     public Result validate(RoadmapRequest gameMap) {
-        if (gameMap == null || gameMap.getFields() == null || gameMap.getFields().length == 0) {
-            return createError();
-        }
         final int[][] fields = gameMap.getFields();
         final int[][] roads = new int[fields.length][fields.length];
 
@@ -48,7 +45,7 @@ public class ConnectionValidator implements RoadmapValidator {
         if (checkIfExistOnlyOneRoad(roads)) {
             return createSuccessValidation();
         } else {
-            return createError();
+            return createError(UNLINKED_ROADS, "Unlinked roads");
         }
 
     }
@@ -90,13 +87,4 @@ public class ConnectionValidator implements RoadmapValidator {
         }
     }
 
-
-    private Result createError() {
-        final Result validation = new Result();
-        final Result.Error error = new Result.Error();
-        error.setCode(UNLINKED_ROADS);
-        error.setMessage("Unlinked roads");
-        validation.addError(error);
-        return validation;
-    }
 }

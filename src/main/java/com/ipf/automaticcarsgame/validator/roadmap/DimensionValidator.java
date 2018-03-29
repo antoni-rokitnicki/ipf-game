@@ -1,7 +1,7 @@
 package com.ipf.automaticcarsgame.validator.roadmap;
 
-import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import com.ipf.automaticcarsgame.dto.Result;
+import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -14,22 +14,13 @@ public class DimensionValidator implements RoadmapValidator {
 
     public Result validate(RoadmapRequest gameMap) {
         if (gameMap == null || gameMap.getFields() == null || gameMap.getFields().length == 0) {
-            return createError();
+            return createError(INCORRECT_DIMENSION, "Empty value");
         }
         final boolean incorrectDimension = Arrays.stream(gameMap.getFields()).filter(row -> row.length != gameMap.getFields().length).findAny().isPresent();
         if (incorrectDimension) {
-            return createError();
+            return createError(INCORRECT_DIMENSION, "Map must be square");
         }
         return createSuccessValidation();
-    }
-
-    private Result createError() {
-        final Result validation = new Result();
-        final Result.Error error = new Result.Error();
-        error.setCode(INCORRECT_DIMENSION);
-        error.setMessage("Map must be square");
-        validation.addError(error);
-        return validation;
     }
 
 }

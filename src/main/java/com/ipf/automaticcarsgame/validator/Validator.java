@@ -8,4 +8,13 @@ public interface Validator<T> {
     default Result createSuccessValidation() {
         return new Result();
     }
+
+    default Result createError(String code, String message) {
+        final Result validation = new Result();
+        final Result.Error error = new Result.Error();
+        error.setCode(code);
+        error.setMessage(message);
+        validation.addError(error);
+        return validation;
+    }
 }
