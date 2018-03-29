@@ -14,7 +14,7 @@ import java.util.List;
 public class CsvParser {
 
     public int[][] pareseCsv(InputStream inputStream) throws IOException {
-        final CSVParser csvParser = CSVFormat.DEFAULT.parse(new InputStreamReader(inputStream));
+        final CSVParser csvParser = CSVFormat.DEFAULT.withTrim().parse(new InputStreamReader(inputStream));
         final List<CSVRecord> records = csvParser.getRecords();
         return records.stream().map(row -> {
             final int[] convertedRow = new int[row.size()];

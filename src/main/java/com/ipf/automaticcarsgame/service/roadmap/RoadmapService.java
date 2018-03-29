@@ -1,9 +1,8 @@
 package com.ipf.automaticcarsgame.service.roadmap;
 
 import com.ipf.automaticcarsgame.domain.Game;
-import com.ipf.automaticcarsgame.domain.Position;
 import com.ipf.automaticcarsgame.domain.Roadmap;
-import com.ipf.automaticcarsgame.domain.RoadmapPosition;
+import com.ipf.automaticcarsgame.mapper.RoadmapMapper;
 import com.ipf.automaticcarsgame.repository.GameRepository;
 import com.ipf.automaticcarsgame.repository.RoadmapRepository;
 import com.ipf.automaticcarsgame.validator.ValidationResult;
@@ -11,7 +10,6 @@ import com.ipf.automaticcarsgame.validator.roadmap.RoadmapValidatorProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,26 +29,13 @@ public class RoadmapService {
     @Transactional
     public void createRoadmap(CreateRoadmapRequest createRoadmapRequest) {
         final ValidationResult validate = roadmapValidatorProcessor.validate(createRoadmapRequest);
-
         if (validate.isValid()) {
-            final Roadmap roadmap = new Roadmap();
-            roadmap.setName(createRoadmapRequest.getName());
-            roadmap.setPositions(mapToPositionList(createRoadmapRequest.getFields()));
+            final Roadmap roadmap = RoadmapMapper.mapToRoadmap(createRoadmapRequest);
             this.roadmapRepository.save(roadmap);
         } else {
             validate.getErrors().forEach(System.out::println);
         }
 
-    }
-
-    private List<RoadmapPosition> mapToPositionList(int[][] fields) {
-        final List<RoadmapPosition> roadmapPositions = new ArrayList<>();
-        roadmapPositions.add(new RoadmapPosition(new Position(1, 1), (byte) 1));
-        roadmapPositions.add(new RoadmapPosition(new Position(2, 1), (byte) 1));
-        roadmapPositions.add(new RoadmapPosition(new Position(3, 1), (byte) 0));
-        roadmapPositions.add(new RoadmapPosition(new Position(4, 1), (byte) 0));
-        roadmapPositions.add(new RoadmapPosition(new Position(5, 1), (byte) 1));
-        return roadmapPositions;
     }
 
     @Transactional
@@ -67,5 +52,10 @@ public class RoadmapService {
         }
         return true;
 
+    }
+
+    public static class Result{
+        private boolean success;
+        private List<ValidationResult.Error> errors;
     }
 }
