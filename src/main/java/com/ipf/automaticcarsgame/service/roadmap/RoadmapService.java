@@ -1,12 +1,12 @@
 package com.ipf.automaticcarsgame.service.roadmap;
 
-import com.ipf.automaticcarsgame.domain.Game;
-import com.ipf.automaticcarsgame.domain.Position;
-import com.ipf.automaticcarsgame.domain.Roadmap;
+import com.ipf.automaticcarsgame.domain.*;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import com.ipf.automaticcarsgame.mapper.RoadmapMapper;
+import com.ipf.automaticcarsgame.repository.GameCarRepository;
 import com.ipf.automaticcarsgame.repository.GameRepository;
+import com.ipf.automaticcarsgame.repository.RoadmapPositionRepository;
 import com.ipf.automaticcarsgame.repository.RoadmapRepository;
 import com.ipf.automaticcarsgame.validator.roadmap.RoadmapValidatorProcessor;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,11 @@ public class RoadmapService {
     private final RoadmapRepository roadmapRepository;
     private final GameRepository gameRepository;
 
-    public RoadmapService(RoadmapValidatorProcessor roadmapValidatorProcessor, RoadmapRepository roadmapRepository, GameRepository gameRepository) {
+    public RoadmapService(RoadmapValidatorProcessor roadmapValidatorProcessor,
+                          RoadmapRepository roadmapRepository,
+                          RoadmapPositionRepository roadmapPositionRepository,
+                          GameRepository gameRepository,
+                          GameCarRepository gameCarRepository) {
         this.roadmapValidatorProcessor = roadmapValidatorProcessor;
         this.roadmapRepository = roadmapRepository;
         this.gameRepository = gameRepository;
@@ -57,27 +61,6 @@ public class RoadmapService {
 
     public List<Roadmap> findAll() {
         return (List<Roadmap>) this.roadmapRepository.findAll();
-    }
-
-    /**
-     * check whether a position is in Map (Matrix)
-     */
-    public boolean checkIfMapContainField(Roadmap roadmap, Position position) {
-        return false;
-    }
-
-    /**
-     * check whether a position is in Map (Matrix) and isn't a wall
-     */
-    public boolean checkIfFieldIsCorrect() {
-        return false;
-    }
-
-    /**
-     * check whether a position is occupied through other car
-     */
-    public boolean checkIfFieldIsOccupied(Position position) {
-        return false;
     }
 
     private Result createNotExistErrorResult() {

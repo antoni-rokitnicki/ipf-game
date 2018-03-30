@@ -1,10 +1,23 @@
 package com.ipf.automaticcarsgame.domain;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
+import javax.persistence.*;
 
-@Embeddable
+@Entity
+@Table(name = "ROADMAP_POSITION")
 public class RoadmapPosition {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Embedded
+    private Position position;
+
+    private Byte value;
+
+    @ManyToOne
+    @JoinColumn(name = "MAP_ID", insertable = false, updatable = false)
+    private Roadmap roadmap;
 
     public RoadmapPosition() {
     }
@@ -14,10 +27,13 @@ public class RoadmapPosition {
         this.value = value;
     }
 
-    @Embedded
-    private Position position;
+    public Integer getId() {
+        return id;
+    }
 
-    private Byte value;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Position getPosition() {
         return position;
@@ -35,28 +51,34 @@ public class RoadmapPosition {
         this.value = value;
     }
 
+    public Roadmap getRoadmap() {
+        return roadmap;
+    }
+
+    public void setRoadmap(Roadmap roadmap) {
+        this.roadmap = roadmap;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof RoadmapPosition)) return false;
 
         RoadmapPosition that = (RoadmapPosition) o;
 
-        if (position != null ? !position.equals(that.position) : that.position != null) return false;
-        return value != null ? value.equals(that.value) : that.value == null;
+        return id != null ? id.equals(that.id) : that.id == null;
     }
 
     @Override
     public int hashCode() {
-        int result = position != null ? position.hashCode() : 0;
-        result = 31 * result + (value != null ? value.hashCode() : 0);
-        return result;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "RoadmapPosition{" +
-                "position=" + position +
+                "id=" + id +
+                ", position=" + position +
                 ", value=" + value +
                 '}';
     }
