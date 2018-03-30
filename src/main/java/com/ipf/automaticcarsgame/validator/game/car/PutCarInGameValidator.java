@@ -3,18 +3,17 @@ package com.ipf.automaticcarsgame.validator.game.car;
 import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.domain.Position;
 import com.ipf.automaticcarsgame.domain.Roadmap;
+import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.game.GameCarRequest;
 import com.ipf.automaticcarsgame.repository.CarRepository;
 import com.ipf.automaticcarsgame.repository.GameCarRepository;
 import com.ipf.automaticcarsgame.repository.RoadmapRepository;
-import com.ipf.automaticcarsgame.dto.Result;
-
-import static com.ipf.automaticcarsgame.dto.Result.Error;
-
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Optional;
+
+import static com.ipf.automaticcarsgame.dto.Result.Error;
 
 @Component
 public class PutCarInGameValidator implements GameCarValidator {

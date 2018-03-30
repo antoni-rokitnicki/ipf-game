@@ -1,8 +1,8 @@
 package com.ipf.automaticcarsgame.validator.roadmap;
 
 
-import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import com.ipf.automaticcarsgame.dto.Result;
+import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

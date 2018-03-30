@@ -1,14 +1,15 @@
 package com.ipf.automaticcarsgame.validator.car;
 
 
+import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.dto.car.CarType;
-import com.ipf.automaticcarsgame.dto.Result;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -19,7 +20,7 @@ public class CarRequestValidatorTest {
     CarRequestValidator carRequestValidator;
 
     @Test
-    public void shouldBeValidCarRequest(){
+    public void shouldBeValidCarRequest() {
         CarRequest toyota = new CarRequest("Toyota", CarType.NORMAL_CAR.name());
 
         Result result = carRequestValidator.validate(toyota);
@@ -29,7 +30,7 @@ public class CarRequestValidatorTest {
 
 
     @Test
-    public void shouldBeInValidCarRequest(){
+    public void shouldBeInValidCarRequest() {
         CarRequest car1 = new CarRequest();
         Result result = carRequestValidator.validate(car1);
 

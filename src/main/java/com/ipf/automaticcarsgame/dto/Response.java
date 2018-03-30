@@ -31,7 +31,7 @@ public class Response<T> {
         this.errors = errors;
     }
 
-    public Response<T> addError(ResponseError responseError){
+    public Response<T> addError(ResponseError responseError) {
         this.errors.add(responseError);
         return this;
     }

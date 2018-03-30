@@ -1,7 +1,7 @@
 package com.ipf.automaticcarsgame.mapper;
 
-import com.ipf.automaticcarsgame.parser.CsvParser;
 import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
+import com.ipf.automaticcarsgame.parser.CsvParser;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;

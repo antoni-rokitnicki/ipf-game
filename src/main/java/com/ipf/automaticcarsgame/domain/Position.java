@@ -1,6 +1,5 @@
 package com.ipf.automaticcarsgame.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable

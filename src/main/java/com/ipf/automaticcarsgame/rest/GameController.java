@@ -1,19 +1,19 @@
 package com.ipf.automaticcarsgame.rest;
 
+import com.ipf.automaticcarsgame.domain.Game;
 import com.ipf.automaticcarsgame.dto.Response;
+import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.game.GameCarRequest;
 import com.ipf.automaticcarsgame.dto.game.GameRequest;
 import com.ipf.automaticcarsgame.service.game.GameCarService;
 import com.ipf.automaticcarsgame.service.game.GameService;
-import com.ipf.automaticcarsgame.dto.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 import static com.ipf.automaticcarsgame.mapper.ResponseEntityMapper.mapToResponseEntity;
 
@@ -46,4 +46,12 @@ public class GameController {
         Result result = gameCarService.addCarToGame(gameCarRequest);
         return mapToResponseEntity(result);
     }
+
+    @GetMapping("/{mapName}")
+    ResponseEntity<Response<Optional<Game>>> getActiveGame(@PathVariable("mapName") String mapName) {
+        LOG.info("getActiveGame, id: {}", mapName);
+        final Optional<Game> game = gameService.getActiveGameByMapName(mapName);
+        return mapToResponseEntity(game);
+    }
+
 }

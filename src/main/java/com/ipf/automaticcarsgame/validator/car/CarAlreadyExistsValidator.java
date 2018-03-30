@@ -1,15 +1,15 @@
 package com.ipf.automaticcarsgame.validator.car;
 
 import com.ipf.automaticcarsgame.domain.Car;
+import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.ipf.automaticcarsgame.repository.CarRepository;
-import com.ipf.automaticcarsgame.dto.Result;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
-public class CarAlreadyExistsValidator implements CarValidator{
+public class CarAlreadyExistsValidator implements CarValidator {
 
     private final CarRepository carRepository;
 

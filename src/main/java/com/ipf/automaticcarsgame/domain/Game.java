@@ -2,10 +2,11 @@ package com.ipf.automaticcarsgame.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "GAME")
-public class Game extends AudityEntity{
+public class Game extends AudityEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +18,9 @@ public class Game extends AudityEntity{
     @ManyToOne
     @JoinColumn(name = "map_id", insertable = false, updatable = false)
     private Roadmap roadmap;
+
+    @OneToMany(mappedBy = "game")
+    private List<GameCar> gameCars;
 
     @Column(name = "FINISH_DATE")
     private Date finishDate;
