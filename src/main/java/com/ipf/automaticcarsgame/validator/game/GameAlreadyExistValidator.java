@@ -1,16 +1,16 @@
 package com.ipf.automaticcarsgame.validator.game;
 
 import com.ipf.automaticcarsgame.domain.Game;
+import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.game.GameRequest;
 import com.ipf.automaticcarsgame.repository.GameRepository;
-import com.ipf.automaticcarsgame.dto.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
 @Component
-public class GameAlreadyExistValidator implements GameValidator{
+public class GameAlreadyExistValidator implements GameValidator {
 
     private final GameRepository gameRepository;
 
@@ -22,7 +22,7 @@ public class GameAlreadyExistValidator implements GameValidator{
     public Result validate(GameRequest gameRequest) {
         Result result = new Result();
 
-        if(!StringUtils.isEmpty(gameRequest.getRoadMapName())){
+        if (!StringUtils.isEmpty(gameRequest.getRoadMapName())) {
             Optional<Game> gameOpt = this.gameRepository.findActiveGameByRoadMapName(gameRequest.getRoadMapName());
 
             if (gameOpt.isPresent()) {

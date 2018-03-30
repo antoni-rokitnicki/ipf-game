@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -16,5 +15,6 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
 
     @Query("select g from Game g where g.roadmap.name = :mapName and g.finishDate is null")
     Optional<Game> findActiveGameByRoadMapName(@Param("mapName") String roadMapName);
+
 }
 

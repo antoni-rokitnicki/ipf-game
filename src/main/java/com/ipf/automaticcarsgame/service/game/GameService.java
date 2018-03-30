@@ -1,14 +1,16 @@
 package com.ipf.automaticcarsgame.service.game;
 
 import com.ipf.automaticcarsgame.domain.Game;
+import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.game.GameRequest;
 import com.ipf.automaticcarsgame.mapper.GameMapper;
 import com.ipf.automaticcarsgame.repository.GameRepository;
-import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.validator.game.GameAlreadyExistValidator;
 import com.ipf.automaticcarsgame.validator.game.GameRequestValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class GameService {
@@ -41,7 +43,7 @@ public class GameService {
         return result;
     }
 
-    public Result validate(GameRequest gameRequest){
+    public Result validate(GameRequest gameRequest) {
         Result result = gameRequestValidator.validate(gameRequest);
 
         if (result.isValid()) {
@@ -49,5 +51,9 @@ public class GameService {
         }
 
         return result;
+    }
+
+    public Optional<Game> getActiveGameByMapName(String mapName) {
+        return this.gameRepository.findActiveGameByRoadMapName(mapName);
     }
 }

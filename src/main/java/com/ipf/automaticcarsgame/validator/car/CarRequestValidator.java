@@ -1,9 +1,9 @@
 package com.ipf.automaticcarsgame.validator.car;
 
-import com.ipf.automaticcarsgame.dto.car.CarRequest;
-import com.ipf.automaticcarsgame.dto.car.CarType;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.Result.Error;
+import com.ipf.automaticcarsgame.dto.car.CarRequest;
+import com.ipf.automaticcarsgame.dto.car.CarType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -20,7 +20,7 @@ public class CarRequestValidator implements CarValidator {
 
         if (StringUtils.isEmpty(carRequest.getType())) {
             result.addError(new Error("CarType cannot be empty"));
-        }else{
+        } else {
             try {
                 CarType.valueOf(carRequest.getType());
             } catch (IllegalArgumentException e) {
