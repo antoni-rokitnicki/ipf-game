@@ -1,6 +1,7 @@
 package com.ipf.automaticcarsgame.service.roadmap;
 
-import com.ipf.automaticcarsgame.domain.*;
+import com.ipf.automaticcarsgame.domain.Game;
+import com.ipf.automaticcarsgame.domain.Roadmap;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import com.ipf.automaticcarsgame.mapper.RoadmapMapper;

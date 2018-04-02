@@ -1,5 +1,7 @@
 package com.ipf.automaticcarsgame.rest;
 
+import com.ipf.automaticcarsgame.dto.HistoryDto;
+import com.ipf.automaticcarsgame.dto.HistoryRequest;
 import com.ipf.automaticcarsgame.dto.Response;
 import com.ipf.automaticcarsgame.service.game.GameHistoryService;
 import org.slf4j.Logger;
@@ -25,7 +27,7 @@ public class GameHistoryController {
     }
 
     @GetMapping
-    ResponseEntity<Response<GameHistoryService.HistoryDto>> search(HistoryRequest searchRequest) {
+    ResponseEntity<Response<HistoryDto>> search(HistoryRequest searchRequest) {
         LOG.info("search, searchRequest: {}", searchRequest);
         return mapToResponseEntity(gameHistoryService.getHistory(searchRequest));
     }

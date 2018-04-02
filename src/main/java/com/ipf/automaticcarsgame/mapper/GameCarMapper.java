@@ -1,6 +1,9 @@
 package com.ipf.automaticcarsgame.mapper;
 
-import com.ipf.automaticcarsgame.domain.*;
+import com.ipf.automaticcarsgame.domain.Car;
+import com.ipf.automaticcarsgame.domain.Game;
+import com.ipf.automaticcarsgame.domain.GameCar;
+import com.ipf.automaticcarsgame.domain.RoadmapPosition;
 import com.ipf.automaticcarsgame.dto.game.GameCarRequest;
 import com.ipf.automaticcarsgame.repository.CarRepository;
 import com.ipf.automaticcarsgame.repository.GameRepository;

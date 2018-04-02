@@ -1,10 +1,10 @@
 package com.ipf.automaticcarsgame.service.game;
 
 import com.ipf.automaticcarsgame.domain.GameCar;
+import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.game.GameCarRequest;
 import com.ipf.automaticcarsgame.mapper.GameCarMapper;
 import com.ipf.automaticcarsgame.repository.GameCarRepository;
-import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.validator.game.car.PutCarInGameValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package com.ipf.automaticcarsgame.rest;
+package com.ipf.automaticcarsgame.dto;
 
 import java.util.List;
 
