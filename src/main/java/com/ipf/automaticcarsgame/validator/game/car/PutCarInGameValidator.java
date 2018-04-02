@@ -1,9 +1,11 @@
 package com.ipf.automaticcarsgame.validator.game.car;
 
+import com.ipf.automaticcarsgame.domain.GameCar;
 import com.ipf.automaticcarsgame.domain.Position;
 import com.ipf.automaticcarsgame.domain.Roadmap;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.game.GameCarRequest;
+import com.ipf.automaticcarsgame.repository.GameCarRepository;
 import com.ipf.automaticcarsgame.repository.RoadmapRepository;
 import com.ipf.automaticcarsgame.service.roadmap.RoadmapPositionService;
 import org.springframework.stereotype.Component;
@@ -18,17 +20,26 @@ public class PutCarInGameValidator implements GameCarValidator {
     private final RoadmapRepository roadmapRepository;
     private final GameCarBasicValidator gameCarBasicValidator;
     private final RoadmapPositionService roadmapPositionService;
+    private final GameCarRepository gameCarRepository;
 
-    public PutCarInGameValidator(RoadmapRepository roadmapRepository, GameCarBasicValidator gameCarBasicValidator, RoadmapPositionService roadmapPositionService) {
+    public PutCarInGameValidator(RoadmapRepository roadmapRepository, GameCarBasicValidator gameCarBasicValidator, RoadmapPositionService roadmapPositionService, GameCarRepository gameCarRepository) {
         this.roadmapRepository = roadmapRepository;
         this.gameCarBasicValidator = gameCarBasicValidator;
         this.roadmapPositionService = roadmapPositionService;
+        this.gameCarRepository = gameCarRepository;
     }
 
     @Override
     public Result validate(GameCarRequest gameCarRequest) {
         Result result = gameCarBasicValidator.validate(gameCarRequest);
-        validatePosition(gameCarRequest, result);
+
+        Optional<GameCar> activeGameByCar = gameCarRepository.findGameCarByCarNameAndActiveGame(gameCarRequest.getCar());
+
+        if(activeGameByCar.isPresent()){
+            result.addError(new Error("Car already is in a game"));
+        }else{
+            validatePosition(gameCarRequest, result);
+        }
 
         return result;
     }
