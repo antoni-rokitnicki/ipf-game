@@ -29,11 +29,18 @@ public class GameHistoryService {
             final List<Movement> movements = movementRepositoryCustom.findMovements(carGame, historyRequest.getLimit());
             final HistoryDto.MovementDto movementDto = new HistoryDto.MovementDto();
             movementDto.setCar(carGame.getCar());
-            movementDto.setGame(carGame.getGame());
+            movementDto.setGame(mapToGameDto(carGame));
             movementDto.setMovements(movements);
             historyDto.getResult().add(movementDto);
         }
         return historyDto;
+    }
+
+    private HistoryDto.MovementDto.GameDto mapToGameDto(GameCar carGame) {
+        final HistoryDto.MovementDto.GameDto gameDto = new HistoryDto.MovementDto.GameDto();
+        gameDto.setId(carGame.getGame().getId());
+        gameDto.setFinishDate(carGame.getGame().getFinishDate());
+        return gameDto;
     }
 
 }

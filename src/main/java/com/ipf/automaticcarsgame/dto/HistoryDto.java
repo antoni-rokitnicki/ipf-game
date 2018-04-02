@@ -1,27 +1,27 @@
 package com.ipf.automaticcarsgame.dto;
 
 import com.ipf.automaticcarsgame.domain.Car;
-import com.ipf.automaticcarsgame.domain.Game;
 import com.ipf.automaticcarsgame.domain.Movement;
 import com.ipf.automaticcarsgame.domain.Roadmap;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HistoryDto {
     private List<MovementDto> result = new ArrayList<>();
 
     public static class MovementDto {
-        private Game game;
+        private GameDto game;
         private Roadmap roadmap;
         private Car car;
         private List<Movement> movements;
 
-        public Game getGame() {
+        public GameDto getGame() {
             return game;
         }
 
-        public void setGame(Game game) {
+        public void setGame(GameDto game) {
             this.game = game;
         }
 
@@ -57,6 +57,36 @@ public class HistoryDto {
                     ", car=" + car +
                     ", movements=" + movements +
                     '}';
+        }
+
+
+        public static class GameDto {
+            private Integer id;
+            private Date finishDate;
+
+            public Integer getId() {
+                return id;
+            }
+
+            public void setId(Integer id) {
+                this.id = id;
+            }
+
+            public Date getFinishDate() {
+                return finishDate;
+            }
+
+            public void setFinishDate(Date finishDate) {
+                this.finishDate = finishDate;
+            }
+
+            @Override
+            public String toString() {
+                return "GameDto{" +
+                        "id=" + id +
+                        ", finishDate=" + finishDate +
+                        '}';
+            }
         }
     }
 
