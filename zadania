@@ -1,0 +1,43 @@
+Mapa
+
+1. Zapis mapy (mapa powinna mieć unikalną nazwę - aktywne mapy)
+2. Usunięcie mapy (z bazy jeśli nie była użyta dotychczas, flaga jak była używana)
+3. Nie można używać mapy jeśli ma flaga usunięta. 
+
+Rozpoczęcie gry	
+1. Rozpoczynamy gre wysyłając nazwę mapy
+2. Usługa do sprawdzania statusu gry (param - nazwa mapy)
+
+Koniec gry
+1. Jeśli w ciągu 30 sekund nie było żadnego ruchu gra się kończy
+
+Samochód
+1. Dodawanie
+2. Usuwanie (jeśli nie był użyty w żadnej grze)
+3. Wyszukiwanie
+4. Każdy samochód musi mieć typ
+5. Samochód jednocześnie w jednej grze
+6. Usuwanie samochodu z gry
+
+Zmiana kierunku auta
+
+Dodawanie samochodu do gry
+1. Dodawanie samochodu do gry - nazwa auta + poyzcyja
+2. Samochód nie może być już w innej grze
+3. Samochód nie może być crashed
+4. Podana pozycja musi być poprawna
+
+Przesuwanie samochodu
+1. Normal car - ruch o 1 pole - może być crashed
+2. Monster truck - ruch o 1 pole - może być crashed tylko z innym monster truck
+3. Racer - może iść o 2 pola, może być crashed
+4. Jak kolizja usuwamy auto z gry/mapy
+5. Wszystkie dobre ruchy zapisujemy w historii
+5. Przesuwanie auto jest atomową operacją
+
+Google transalte na szybko:
+Kiedy auto Racer porusza się o 2 pola, pole pomiędzy polem początkowym i końcowym jest uważane za dostępne. Można powiedzieć, że samochody były teleportowane
+
+Cofanie
+1. Możliwość cofania o N ruchuchów z historii
+2. Jeden ruch per 1 sekunda

@@ -7,6 +7,7 @@ import com.ipf.automaticcarsgame.mapper.CarMapper;
 import com.ipf.automaticcarsgame.repository.CarRepository;
 import com.ipf.automaticcarsgame.validator.car.CarAlreadyExistsValidator;
 import com.ipf.automaticcarsgame.validator.car.CarRequestValidator;
+import com.ipf.automaticcarsgame.validator.car.RemoveCarValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,15 +24,17 @@ public class CarService {
 
     private final CarAlreadyExistsValidator carAlreadyExistsValidator;
     private final CarRequestValidator carRequestValidator;
+    private final RemoveCarValidator removeCarValidator;
 
     public CarService(CarRepository carRepository,
                       CarMapper carMapper,
                       CarAlreadyExistsValidator carAlreadyExistsValidator,
-                      CarRequestValidator carRequestValidator) {
+                      CarRequestValidator carRequestValidator, RemoveCarValidator removeCarValidator) {
         this.carRepository = carRepository;
         this.carMapper = carMapper;
         this.carAlreadyExistsValidator = carAlreadyExistsValidator;
         this.carRequestValidator = carRequestValidator;
+        this.removeCarValidator = removeCarValidator;
     }
 
     @Transactional
@@ -53,10 +56,7 @@ public class CarService {
 
     @Transactional
     public Result removeCar(CarRequest carRequest) {
-
-        // TODO car deleted
-
-        Result result = carRequestValidator.validate(carRequest);
+        Result result = removeCarValidator.validate(carRequest);
 
         if (result.isValid()) {
             Optional<Car> carOpt = carRepository.findByName(carRequest.getName());

@@ -47,11 +47,19 @@ public class GameController {
         return mapToResponseEntity(result);
     }
 
+
+    @DeleteMapping("/cars")
+    ResponseEntity<Response<Void>> removeCarFromGame(@RequestBody GameCarRequest gameCarRequest){
+        LOG.info("remove car from game, request: {}", gameCarRequest);
+
+        Result result = gameCarService.removeCarFromGame(gameCarRequest);
+        return mapToResponseEntity(result);
+    }
+
     @GetMapping("/{mapName}")
     ResponseEntity<Response<Optional<Game>>> getActiveGame(@PathVariable("mapName") String mapName) {
         LOG.info("getActiveGame, id: {}", mapName);
         final Optional<Game> game = gameService.getActiveGameByMapName(mapName);
         return mapToResponseEntity(game);
     }
-
 }
