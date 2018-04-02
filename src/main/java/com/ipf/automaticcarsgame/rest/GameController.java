@@ -3,6 +3,7 @@ package com.ipf.automaticcarsgame.rest;
 import com.ipf.automaticcarsgame.domain.Game;
 import com.ipf.automaticcarsgame.dto.Response;
 import com.ipf.automaticcarsgame.dto.Result;
+import com.ipf.automaticcarsgame.dto.ReturnCar;
 import com.ipf.automaticcarsgame.dto.game.GameCarRequest;
 import com.ipf.automaticcarsgame.dto.game.GameRequest;
 import com.ipf.automaticcarsgame.service.game.GameCarService;
@@ -13,6 +14,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Optional;
 
 import static com.ipf.automaticcarsgame.mapper.ResponseEntityMapper.mapToResponseEntity;
@@ -51,6 +54,14 @@ public class GameController {
     ResponseEntity<Response<Optional<Game>>> getActiveGame(@PathVariable("mapName") String mapName) {
         LOG.info("getActiveGame, id: {}", mapName);
         final Optional<Game> game = gameService.getActiveGameByMapName(mapName);
+        return mapToResponseEntity(game);
+    }
+
+    @PutMapping("/{gameId}/{carName}/return")
+    ResponseEntity<Response<Optional<Game>>> returnCar(@PathVariable("gameId") Integer gameId, @PathVariable("carName") String carName, @RequestBody ReturnCar returnCar) throws UnsupportedEncodingException {
+        final String decodeCarName = URLDecoder.decode(carName, "UTF-8");
+        LOG.info("returnCar, gameId: {}, carName: {}, returnCar: {}", gameId, decodeCarName, returnCar);
+        final Optional<Game> game = gameService.returnCar(gameId, decodeCarName, returnCar.getNoOfMovements());
         return mapToResponseEntity(game);
     }
 

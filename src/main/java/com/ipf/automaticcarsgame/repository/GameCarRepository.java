@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Repository
@@ -17,4 +18,5 @@ public interface GameCarRepository extends CrudRepository<GameCar, Integer> {
 
     @Query("select gc from GameCar gc where gc.positionId = :positionId and gc.game.finishDate is null")
     Optional<GameCar> findCarPositionIdInActiveGame(@Param("positionId") Integer positionId);
+
 }
