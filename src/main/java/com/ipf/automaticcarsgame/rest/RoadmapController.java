@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,10 +38,11 @@ class RoadmapController {
     }
 
     @DeleteMapping(value = "/{name}")
-    ResponseEntity<Response<Void>> deleteRoadmap(@PathVariable("name") String name) {
-        logDeleteInit(name);
-        final Result result = roadmapService.deleteRoadmap(name);
-        logDeleteResult(name, result);
+    ResponseEntity<Response<Void>> deleteRoadmap(@PathVariable("name") String name) throws UnsupportedEncodingException {
+        final String decodeName = URLDecoder.decode(name, "UTF-8");
+        logDeleteInit(decodeName);
+        final Result result = roadmapService.deleteRoadmap(decodeName);
+        logDeleteResult(decodeName, result);
         return mapToResponseEntity(result);
     }
 

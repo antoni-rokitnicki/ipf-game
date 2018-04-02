@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import static com.ipf.automaticcarsgame.mapper.ResponseEntityMapper.mapToResponseEntity;
@@ -52,14 +54,18 @@ public class CarController {
         return mapToResponseEntity(result);
     }
 
-    //todo check mapping
-    @PutMapping
-    ResponseEntity<Response<Void>> repairCar(@RequestBody CarRequest carRequest) {
-        LOG.info("repair car car, request: {}", carRequest);
+    @PutMapping(value = "/{name}/repair")
+    ResponseEntity<Response<Void>> repairCar(@PathVariable("name") String carName) throws UnsupportedEncodingException {
+        final String decodeCarName = urlDecode(carName);
+        LOG.info("repair car car, carName: {}", decodeCarName);
 
-        final Result result = carService.repairCar(carRequest);
+        final Result result = carService.repairCar(decodeCarName);
 
         return mapToResponseEntity(result);
+    }
+
+    private String urlDecode(@PathVariable("name") String carName) throws UnsupportedEncodingException {
+        return URLDecoder.decode(carName, "UTF-8");
     }
 
 

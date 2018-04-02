@@ -68,8 +68,8 @@ public class CarService {
 
 
     @Transactional
-    public Result repairCar(CarRequest carRequest) {
-        final Optional<Car> carOpt = this.carRepository.findByNameAndDeleted(carRequest.getName(), false);
+    public Result repairCar(String carName) {
+        final Optional<Car> carOpt = this.carRepository.findByNameAndDeleted(carName, false);
         if (carOpt.isPresent()) {
             carOpt.get().setCrashed(false);
             return ResultBuilder.builder().build();
