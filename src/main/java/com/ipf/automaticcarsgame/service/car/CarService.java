@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static com.ipf.automaticcarsgame.dto.Result.ResultBuilder;
+
 @Service
 public class CarService {
 
@@ -64,6 +66,22 @@ public class CarService {
         return result;
     }
 
+
+    @Transactional
+    public Result repairCar(CarRequest carRequest) {
+        final Optional<Car> carOpt = this.carRepository.findByNameAndDeleted(carRequest.getName(), false);
+        if (carOpt.isPresent()) {
+            carOpt.get().setCrashed(false);
+            return ResultBuilder.builder().build();
+        } else {
+            return ResultBuilder.builder().addError(createError()).build();
+        }
+    }
+
+    private Result.Error createError() {
+        return new Result.Error("DOES_NOT_EXIST", "Car does not exist");
+    }
+
     private Result validateCar(CarRequest carRequest) {
         Result result = carRequestValidator.validate(carRequest);
 
@@ -73,4 +91,5 @@ public class CarService {
 
         return result;
     }
+
 }

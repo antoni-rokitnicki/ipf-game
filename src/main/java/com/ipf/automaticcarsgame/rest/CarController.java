@@ -51,4 +51,16 @@ public class CarController {
 
         return mapToResponseEntity(result);
     }
+
+    //todo check mapping
+    @PutMapping
+    ResponseEntity<Response<Void>> repairCar(@RequestBody CarRequest carRequest) {
+        LOG.info("repair car car, request: {}", carRequest);
+
+        final Result result = carService.repairCar(carRequest);
+
+        return mapToResponseEntity(result);
+    }
+
+
 }

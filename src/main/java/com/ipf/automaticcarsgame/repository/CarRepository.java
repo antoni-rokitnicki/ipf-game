@@ -9,5 +9,7 @@ import java.util.Optional;
 @Repository
 public interface CarRepository extends CrudRepository<Car, Integer> {
     Optional<Car> findByName(String name);
+
+    Optional<Car> findByNameAndDeleted(String name, boolean deleted);
 }
 

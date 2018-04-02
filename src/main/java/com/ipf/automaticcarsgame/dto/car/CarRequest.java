@@ -3,8 +3,17 @@ package com.ipf.automaticcarsgame.dto.car;
 public class CarRequest {
     private String name;
     private String type;
+    private Boolean crashed;
 
     public CarRequest() {
+    }
+
+    public Boolean getCrashed() {
+        return crashed;
+    }
+
+    public void setCrashed(Boolean crashed) {
+        this.crashed = crashed;
     }
 
     public CarRequest(String name, String type) {
@@ -47,7 +56,8 @@ public class CarRequest {
     public String toString() {
         return "CarRequest{" +
                 "name='" + name + '\'' +
-                ", type=" + type +
+                ", type='" + type + '\'' +
+                ", crashed='" + crashed + '\'' +
                 '}';
     }
 }
