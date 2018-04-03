@@ -10,6 +10,7 @@ import com.ipf.automaticcarsgame.dto.game.GameRequest;
 import com.ipf.automaticcarsgame.dto.game.RemoveGameCarRequest;
 import com.ipf.automaticcarsgame.service.game.GameCarService;
 import com.ipf.automaticcarsgame.service.game.GameService;
+import com.ipf.automaticcarsgame.service.game.MovementService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -33,10 +34,12 @@ public class GameController {
 
     private final GameService gameService;
     private final GameCarService gameCarService;
+    private final MovementService movementService;
 
-    public GameController(GameService gameService, GameCarService gameCarService) {
+    public GameController(GameService gameService, GameCarService gameCarService, MovementService movementService) {
         this.gameService = gameService;
         this.gameCarService = gameCarService;
+        this.movementService = movementService;
     }
 
     @ApiOperation(value = "Create game")
@@ -59,7 +62,7 @@ public class GameController {
 
     @ApiOperation(value = "Remove car from game")
     @DeleteMapping("/cars")
-    ResponseEntity<Response<Void>> removeCarFromGame(@RequestBody RemoveGameCarRequest gameCarRequest){
+    ResponseEntity<Response<Void>> removeCarFromGame(@RequestBody RemoveGameCarRequest gameCarRequest) {
         LOG.info("remove car from game, request: {}", gameCarRequest);
 
         Result result = gameCarService.removeCarFromGame(gameCarRequest);
@@ -79,17 +82,16 @@ public class GameController {
     ResponseEntity<Response<Optional<Game>>> returnCar(@PathVariable("carName") String carName, @RequestBody ReturnCar returnCar) throws UnsupportedEncodingException {
         final String decodeCarName = URLDecoder.decode(carName, "UTF-8");
         LOG.info("returnCar, carName: {}, returnCar: {}", decodeCarName, returnCar);
-        final Optional<Game> game = gameService.returnCar(decodeCarName, returnCar.getNoOfMovements());
+        final Optional<Game> game = movementService.returnCar(decodeCarName, returnCar.getNoOfMovements());
         return mapToResponseEntity(game);
     }
-
 
     @ApiOperation(value = "Move car")
     @PutMapping("/{carName}/{direction}/{nrOfSteps}")
     ResponseEntity<Response<Void>> moveCar(@PathVariable("carName") String carName, @PathVariable("direction") MovementType direction, @PathVariable(required = false, name = "nrOfSteps") Integer nrOfSteps) throws UnsupportedEncodingException {
         final String decodeCarName = URLDecoder.decode(carName, "UTF-8");
         LOG.info("moveCar,  carName: {}", decodeCarName);
-        final Result result = gameService.moveCar(decodeCarName, direction, nrOfSteps);
+        final Result result = movementService.moveCar(decodeCarName, direction, nrOfSteps);
         return mapToResponseEntity(result);
     }
 
