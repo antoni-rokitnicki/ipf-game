@@ -1,19 +1,10 @@
 package com.ipf.automaticcarsgame.dto.game;
 
-import com.ipf.automaticcarsgame.domain.Position;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class GameCarRequest {
+public class RemoveGameCarRequest {
     private String roadmap;
     private String car;
-    private Position position;
-
-    public GameCarRequest() {
-    }
-
-    public GameCarRequest(String roadmap, String car) {
-        this.roadmap = roadmap;
-        this.car = car;
-    }
 
     public String getRoadmap() {
         return roadmap;
@@ -31,31 +22,26 @@ public class GameCarRequest {
         this.car = car;
     }
 
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
+    @JsonIgnore
+    public GameCarRequest getGameCarRequest(){
+        return new GameCarRequest(this.roadmap, this.car);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GameCarRequest)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        GameCarRequest that = (GameCarRequest) o;
+        RemoveGameCarRequest that = (RemoveGameCarRequest) o;
 
         if (roadmap != null ? !roadmap.equals(that.roadmap) : that.roadmap != null) return false;
-        if (car != null ? !car.equals(that.car) : that.car != null) return false;
-        return position != null ? position.equals(that.position) : that.position == null;
+        return car != null ? car.equals(that.car) : that.car == null;
     }
 
     @Override
     public int hashCode() {
         int result = roadmap != null ? roadmap.hashCode() : 0;
         result = 31 * result + (car != null ? car.hashCode() : 0);
-        result = 31 * result + (position != null ? position.hashCode() : 0);
         return result;
     }
 
@@ -64,7 +50,6 @@ public class GameCarRequest {
         return "GameCarRequest{" +
                 "roadmap='" + roadmap + '\'' +
                 ", car='" + car + '\'' +
-                ", position=" + position +
                 '}';
     }
 }

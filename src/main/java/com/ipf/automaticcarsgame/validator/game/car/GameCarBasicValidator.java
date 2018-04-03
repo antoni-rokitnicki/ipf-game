@@ -48,7 +48,7 @@ public class GameCarBasicValidator implements GameCarValidator {
             result.addError(new Result.Error("CAR_EMPTY", "Car's name cannot be null or empty"));
         } else {
             Optional<Car> carOpt = carRepository.findByName(gameCarRequest.getCar());
-            if (carOpt.isPresent()) {
+            if (!carOpt.isPresent()) {
                 result.addError(new Result.Error("CAR_NOT_EXIST", "Car " + gameCarRequest.getCar() + " doesn't exist"));
             }
         }

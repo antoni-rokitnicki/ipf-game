@@ -67,7 +67,7 @@ public class PutCarInGameValidator implements GameCarValidator {
             } else {
                 boolean fieldIsOccupied = roadmapPositionService.checkIfFieldIsOccupied(roadmap, gameCarRequest.getPosition());
 
-                if (!fieldIsOccupied) {
+                if (fieldIsOccupied) {
                     result.addError(new Error("FIELD_OCCUPIED", "Pointed position is occupied"));
                 }
             }
