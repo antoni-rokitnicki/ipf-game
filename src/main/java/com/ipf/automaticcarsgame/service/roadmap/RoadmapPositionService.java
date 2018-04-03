@@ -45,6 +45,20 @@ public class RoadmapPositionService {
         return gameCarOpt.isPresent();
     }
 
+    public Optional<GameCar> findCarOnField(Roadmap roadmap, Position position) {
+        Optional<RoadmapPosition> roadmapPositionOpt = roadmapPositionRepository.findByRoadmapAndPosition(roadmap, position);
+        Optional<GameCar> gameCarOpt = Optional.empty();
+        if (roadmapPositionOpt.isPresent()) {
+            gameCarOpt = gameCarRepository.findCarPositionIdInActiveGame(roadmapPositionOpt.get().getId());
+        }
+        return gameCarOpt;
+    }
+
+    public Optional<GameCar> findCarOnField(Roadmap roadmap, Position currentPosition, DirectionType moveDirection, int nrOfMoves) {
+        return findCarOnField(roadmap, findNextPosition(currentPosition, moveDirection, nrOfMoves));
+    }
+
+
     public boolean checkIfFieldIsOccupied(Roadmap roadmap, Position currentPosition, DirectionType moveDirection, int nrOfMoves) {
         return checkIfFieldIsOccupied(roadmap, findNextPosition(currentPosition, moveDirection, nrOfMoves));
     }

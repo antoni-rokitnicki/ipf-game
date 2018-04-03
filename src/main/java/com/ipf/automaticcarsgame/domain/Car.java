@@ -12,6 +12,8 @@ public class Car extends AudityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "NAME")
     private String name;
 
     @Type(type = "org.hibernate.type.NumericBooleanType")

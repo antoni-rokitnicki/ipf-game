@@ -1,6 +1,7 @@
 package com.ipf.automaticcarsgame.rest;
 
 import com.ipf.automaticcarsgame.domain.Game;
+import com.ipf.automaticcarsgame.dto.MovementType;
 import com.ipf.automaticcarsgame.dto.Response;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.ReturnCar;
@@ -80,6 +81,17 @@ public class GameController {
         LOG.info("returnCar, gameId: {}, carName: {}, returnCar: {}", gameId, decodeCarName, returnCar);
         final Optional<Game> game = gameService.returnCar(gameId, decodeCarName, returnCar.getNoOfMovements());
         return mapToResponseEntity(game);
+    }
+
+
+
+
+    @PutMapping("/moveCar/{carName}")
+    ResponseEntity<Response<Void>> moveCar(@PathVariable("carName") String carName) throws UnsupportedEncodingException {
+        final String decodeCarName = URLDecoder.decode(carName, "UTF-8");
+        LOG.info("moveCar,  carName: {}",  decodeCarName);
+        final Result result = gameService.moveCar(carName, MovementType.LEFT, 1);
+        return mapToResponseEntity(result);
     }
 
 }

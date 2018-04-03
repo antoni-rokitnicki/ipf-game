@@ -23,7 +23,7 @@ import static com.ipf.automaticcarsgame.mapper.ResponseEntityMapper.mapToRespons
 
 
 @RestController
-@RequestMapping(value = "/api/cars", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/cars")
 @Api(tags = {"Car Services"}, description = "Add, remove, find, repair car")
 public class CarController {
 
