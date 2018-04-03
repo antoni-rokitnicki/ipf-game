@@ -3,80 +3,118 @@ package com.ipf.automaticcarsgame.service.game;
 import com.ipf.automaticcarsgame.domain.Movement;
 import com.ipf.automaticcarsgame.dto.MovementType;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.runners.Parameterized.Parameters;
 
+@RunWith(value = Parameterized.class)
 public class ReturnMovementTest {
 
     private ReturnMovement returnMovement = new ReturnMovement();
 
+    final List<MovementType> historyMovements;
+    final List<MovementType> expectedReturnMovements;
+
+
+    public ReturnMovementTest(List<MovementType> historyMovements, List<MovementType> expectedReturnMovements) {
+        this.historyMovements = historyMovements;
+        this.expectedReturnMovements = expectedReturnMovements;
+    }
 
     @Test
     public void shouldReturBackRoute() {
-        final List<Movement> movements = createLastMovementList(Arrays.asList(
-                MovementType.LEFT
-        ));
+        // given
+        final List<Movement> lastMovements = createLastMovementList(this.historyMovements);
 
-        final List<Movement> returnMovements = returnMovement.findReturnMovements(movements);
+        // when
+        final List<Movement> returnMovements = returnMovement.findReturnMovements(lastMovements);
 
-        assertIsEquals(returnMovements, Arrays.asList(
-                MovementType.RIGHT
-        ));
-    }
-
-    @Test
-    public void shouldReturBackRoutee() {
-        final List<Movement> movements = createLastMovementList(Arrays.asList(
-                MovementType.LEFT,
-                MovementType.RIGHT
-        ));
-
-        final List<Movement> returnMovements = returnMovement.findReturnMovements(movements);
-
-        assertIsEquals(returnMovements, Arrays.asList(
-                MovementType.RIGHT,
-                MovementType.LEFT
-        ));
+        // then
+        assertIsEquals(returnMovements, expectedReturnMovements);
     }
 
 
-    @Test
-    public void shouldReturBackRoute2() {
-        final List<Movement> movements = createLastMovementList(Arrays.asList(
-                MovementType.FORWARD
-        ));
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {Arrays.asList(
+                        MovementType.FORWARD,
+                        MovementType.RIGHT,
+                        MovementType.FORWARD
+                ), Arrays.asList(
+                        MovementType.LEFT,
+                        MovementType.LEFT,
+                        MovementType.FORWARD,
+                        MovementType.LEFT,
+                        MovementType.FORWARD,
+                        MovementType.LEFT,
+                        MovementType.LEFT
+                )},
 
-        final List<Movement> returnMovements = returnMovement.findReturnMovements(movements);
+                {Arrays.asList(
+                        MovementType.LEFT
+                ), Arrays.asList(
+                        MovementType.RIGHT
+                )},
 
-        assertIsEquals(returnMovements, Arrays.asList(
-                MovementType.LEFT,
-                MovementType.LEFT,
-                MovementType.FORWARD
-        ));
+                {Arrays.asList(
+                        MovementType.RIGHT
+                ), Arrays.asList(
+                        MovementType.LEFT
+                )},
+
+                {Arrays.asList(
+                        MovementType.LEFT,
+                        MovementType.RIGHT
+                ), Arrays.asList(
+                        MovementType.RIGHT,
+                        MovementType.LEFT
+                )},
+
+                {Arrays.asList(
+                        MovementType.FORWARD
+                ), Arrays.asList(
+                        MovementType.LEFT,
+                        MovementType.LEFT,
+                        MovementType.FORWARD,
+                        MovementType.LEFT,
+                        MovementType.LEFT
+                )},
+
+                {Arrays.asList(
+                        MovementType.FORWARD,
+                        MovementType.FORWARD
+                ), Arrays.asList(
+                        MovementType.LEFT,
+                        MovementType.LEFT,
+                        MovementType.FORWARD,
+                        MovementType.FORWARD,
+                        MovementType.LEFT,
+                        MovementType.LEFT
+                )},
+
+                {Arrays.asList(
+                        MovementType.LEFT,
+                        MovementType.FORWARD
+                ), Arrays.asList(
+                        MovementType.RIGHT,
+                        MovementType.LEFT,
+                        MovementType.LEFT,
+                        MovementType.FORWARD,
+                        MovementType.LEFT,
+                        MovementType.LEFT
+                )}
+
+        });
     }
 
-    @Test
-    public void shouldReturBackRoute3() {
-        final List<Movement> movements = createLastMovementList(Arrays.asList(
-                MovementType.FORWARD,
-                MovementType.FORWARD
-        ));
-
-        final List<Movement> returnMovements = returnMovement.findReturnMovements(movements);
-
-        assertIsEquals(returnMovements, Arrays.asList(
-                MovementType.LEFT,
-                MovementType.LEFT,
-                MovementType.FORWARD,
-                MovementType.FORWARD,
-                MovementType.LEFT,
-                MovementType.LEFT
-        ));
-    }
 
     private void assertIsEquals(List<Movement> returnMovements, List<MovementType> exprectedList) {
         for (int i = 0; i < returnMovements.size(); i++) {
@@ -85,7 +123,6 @@ public class ReturnMovementTest {
 
     }
 
-
     private List<Movement> createLastMovementList(List<MovementType> movementTypeList) {
         return movementTypeList.stream().map(type -> {
             final Movement move = new Movement();
@@ -93,5 +130,6 @@ public class ReturnMovementTest {
             return move;
         }).collect(toList());
     }
+
 
 }
