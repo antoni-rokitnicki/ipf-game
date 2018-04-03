@@ -1,6 +1,5 @@
 package com.ipf.automaticcarsgame.rest;
 
-import com.ipf.automaticcarsgame.dto.car.CarRequest;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +28,7 @@ public class CarControllerTest {
 
     @Test
     public void shouldRepairCar() throws UnsupportedEncodingException {
-        final String crashedCar =  URLEncoder.encode("bmw x/4", "UTF-8");
+        final String crashedCar = URLEncoder.encode("bmw x/4", "UTF-8");
 
         final ResponseEntity<String> response = this.restTemplate.exchange(String.format("/api/cars/%s/repair", crashedCar), HttpMethod.PUT, createRepairCarBody(), String.class);
 

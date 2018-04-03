@@ -1,10 +1,14 @@
 package com.ipf.automaticcarsgame.rest;
 
-import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.dto.Response;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
+import com.ipf.automaticcarsgame.dto.car.CarResponse;
 import com.ipf.automaticcarsgame.service.car.CarService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -20,6 +24,7 @@ import static com.ipf.automaticcarsgame.mapper.ResponseEntityMapper.mapToRespons
 
 @RestController
 @RequestMapping(value = "/api/cars", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(tags = {"Car Services"}, description = "Add, remove, find, repair car")
 public class CarController {
 
     private static final Logger LOG = LoggerFactory.getLogger(CarController.class);
@@ -30,6 +35,7 @@ public class CarController {
         this.carService = carService;
     }
 
+    @ApiOperation(value = "Add a car to the persistent store")
     @PostMapping
     ResponseEntity<Response<Void>> createCar(@RequestBody CarRequest carRequest) {
         LOG.info("create car, request: {}", carRequest);
@@ -38,23 +44,33 @@ public class CarController {
         return mapToResponseEntity(result);
     }
 
-    @GetMapping
-    ResponseEntity<Response<List<Car>>> findAll() {
+    @ApiOperation(value = "Find all available cars")
+    @GetMapping(consumes = MediaType.ALL_VALUE)
+    ResponseEntity<Response<List<CarResponse>>> findAll() {
         LOG.info("find all cars");
-        List<Car> cars = carService.findAll();
+        List<CarResponse> cars = carService.findAll();
         return mapToResponseEntity(cars);
     }
 
-    @DeleteMapping
-    ResponseEntity<Response<Void>> removeCar(@RequestBody CarRequest carRequest) {
-        LOG.info("remove car, request: {}", carRequest);
+    @ApiOperation(value = "Remove a car from the persistent store")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "carName", required = true, dataType = "String", paramType = "path")
+    })
+    @DeleteMapping(value = "/{name}", consumes = MediaType.ALL_VALUE)
+    ResponseEntity<Response<Void>> removeCar(@PathVariable("name") String carName) throws UnsupportedEncodingException {
+        final String decodeCarName = urlDecode(carName);
+        LOG.info("remove car, carName: {}", decodeCarName);
 
-        Result result = carService.removeCar(carRequest);
+        Result result = carService.removeCar(decodeCarName);
 
         return mapToResponseEntity(result);
     }
 
-    @PutMapping(value = "/{name}/repair")
+    @ApiOperation(value = "Repair crashed car")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "carName", required = true, dataType = "String", paramType = "path")
+    })
+    @PutMapping(value = "/{name}/repair", consumes = MediaType.ALL_VALUE)
     ResponseEntity<Response<Void>> repairCar(@PathVariable("name") String carName) throws UnsupportedEncodingException {
         final String decodeCarName = urlDecode(carName);
         LOG.info("repair car car, carName: {}", decodeCarName);

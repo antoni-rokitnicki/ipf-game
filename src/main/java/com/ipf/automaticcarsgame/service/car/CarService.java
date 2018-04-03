@@ -3,6 +3,7 @@ package com.ipf.automaticcarsgame.service.car;
 import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
+import com.ipf.automaticcarsgame.dto.car.CarResponse;
 import com.ipf.automaticcarsgame.mapper.CarMapper;
 import com.ipf.automaticcarsgame.repository.CarRepository;
 import com.ipf.automaticcarsgame.validator.car.CarAlreadyExistsValidator;
@@ -50,15 +51,19 @@ public class CarService {
     }
 
     @Transactional
-    public List<Car> findAll() {
-        return (List<Car>) this.carRepository.findAll();
+    public List<CarResponse> findAll() {
+        Iterable<Car> cars = this.carRepository.findAll();
+        return carMapper.map(cars);
     }
 
     @Transactional
-    public Result removeCar(CarRequest carRequest) {
+    public Result removeCar(String carName) {
+        CarRequest carRequest = new CarRequest(carName);
         Result result = removeCarValidator.validate(carRequest);
 
         if (result.isValid()) {
+
+
             Optional<Car> carOpt = carRepository.findByName(carRequest.getName());
             carOpt.ifPresent(carRepository::delete);
         }
@@ -69,7 +74,7 @@ public class CarService {
 
     @Transactional
     public Result repairCar(String carName) {
-        final Optional<Car> carOpt = this.carRepository.findByNameAndDeleted(carName, false);
+        final Optional<Car> carOpt = this.carRepository.findByName(carName);
         if (carOpt.isPresent()) {
             carOpt.get().setCrashed(false);
             return ResultBuilder.builder().build();

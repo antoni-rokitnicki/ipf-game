@@ -2,8 +2,10 @@ package com.ipf.automaticcarsgame.service.roadmap;
 
 import com.ipf.automaticcarsgame.domain.Game;
 import com.ipf.automaticcarsgame.domain.Roadmap;
+import com.ipf.automaticcarsgame.domain.RoadmapPosition;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
+import com.ipf.automaticcarsgame.dto.roadmap.RoadmapResponse;
 import com.ipf.automaticcarsgame.mapper.RoadmapMapper;
 import com.ipf.automaticcarsgame.repository.GameCarRepository;
 import com.ipf.automaticcarsgame.repository.GameRepository;
@@ -39,6 +41,7 @@ public class RoadmapService {
         if (result.isValid()) {
             final Roadmap roadmap = RoadmapMapper.mapToRoadmap(createRoadmapRequest);
             this.roadmapRepository.save(roadmap);
+
             return Result.ResultBuilder.builder().build();
         } else {
             return result;
@@ -60,8 +63,9 @@ public class RoadmapService {
         return Result.ResultBuilder.builder().build();
     }
 
-    public List<Roadmap> findAll() {
-        return (List<Roadmap>) this.roadmapRepository.findAll();
+    public List<RoadmapResponse> findAll() {
+        List<RoadmapResponse> responseList = RoadmapMapper.map((List<Roadmap>) this.roadmapRepository.findAll());
+        return responseList;
     }
 
     private Result createNotExistErrorResult() {
