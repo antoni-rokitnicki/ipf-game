@@ -6,6 +6,11 @@
 java -jar automatic-cars-game-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
 ```
 
+### Testing REST Services
+```
+http://localhost:8080/swagger-ui.html
+```
+
 ### Production environment
 with default application.properites
 ```

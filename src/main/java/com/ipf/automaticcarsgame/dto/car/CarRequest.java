@@ -1,19 +1,21 @@
 package com.ipf.automaticcarsgame.dto.car;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel
 public class CarRequest {
+    @ApiModelProperty(value = "Car's name")
     private String name;
+
+    @ApiModelProperty(value = "Car types", allowableValues="NORMAL_CAR, MONSTER_TRAC, RACER")
     private String type;
-    private Boolean crashed;
 
     public CarRequest() {
     }
 
-    public Boolean getCrashed() {
-        return crashed;
-    }
-
-    public void setCrashed(Boolean crashed) {
-        this.crashed = crashed;
+    public CarRequest(String name) {
+        this.name = name;
     }
 
     public CarRequest(String name, String type) {
@@ -57,7 +59,6 @@ public class CarRequest {
         return "CarRequest{" +
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
-                ", crashed='" + crashed + '\'' +
                 '}';
     }
 }

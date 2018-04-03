@@ -16,7 +16,7 @@ public class RoadmapPosition {
     private Byte value;
 
     @ManyToOne
-    @JoinColumn(name = "MAP_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "MAP_ID")
     private Roadmap roadmap;
 
     public RoadmapPosition() {

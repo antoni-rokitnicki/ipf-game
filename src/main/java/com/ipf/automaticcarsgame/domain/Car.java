@@ -15,10 +15,8 @@ public class Car extends AudityEntity {
     private String name;
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "CRASHED")
     private boolean crashed;
-
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private boolean deleted;
 
     @Enumerated(EnumType.STRING)
     private CarType type;
@@ -55,14 +53,6 @@ public class Car extends AudityEntity {
         this.crashed = crashed;
     }
 
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,7 +74,6 @@ public class Car extends AudityEntity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", crashed=" + crashed +
-                ", deleted=" + deleted +
                 ", type=" + type +
                 '}';
     }

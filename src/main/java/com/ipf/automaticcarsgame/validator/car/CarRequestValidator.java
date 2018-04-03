@@ -24,7 +24,7 @@ public class CarRequestValidator implements CarValidator {
             try {
                 CarType.valueOf(carRequest.getType());
             } catch (IllegalArgumentException e) {
-                result.addError(new Error("CarType \' " + carRequest.getType() + "\' is not correct"));
+                result.addError(new Error("CarType '" + carRequest.getType() + "' is not correct"));
             }
         }
 

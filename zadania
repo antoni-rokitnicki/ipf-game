@@ -35,9 +35,8 @@ Przesuwanie samochodu
 5. Wszystkie dobre ruchy zapisujemy w historii
 5. Przesuwanie auto jest atomową operacją
 
-Google transalte na szybko:
-Kiedy auto Racer porusza się o 2 pola, pole pomiędzy polem początkowym i końcowym jest uważane za dostępne. Można powiedzieć, że samochody były teleportowane
-
 Cofanie
 1. Możliwość cofania o N ruchuchów z historii
 2. Jeden ruch per 1 sekunda
+
+Globar Error handler
