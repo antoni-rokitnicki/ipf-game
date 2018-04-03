@@ -13,6 +13,6 @@ import java.util.List;
 public interface MovementRepository extends CrudRepository<Movement, Integer> {
 
     @Query("select m from Movement m where m.gameCar.game.id = :gameId and m.gameCar.car.name = :carName and m.gameCar.game.finishDate > :date ORDER BY insertDate DESC ")
-    List<Movement> findMovements(@Param("gameId") Integer gameId, @Param("carName") String carName, @Param("date") Date date);
+    List<Movement> findMovementsInActiveGame(@Param("gameId") Integer gameId, @Param("carName") String carName, @Param("date") Date date);
 
 }

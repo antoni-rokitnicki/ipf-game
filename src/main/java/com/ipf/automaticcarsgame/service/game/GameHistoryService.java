@@ -25,7 +25,6 @@ public class GameHistoryService {
 
 
     public HistoryDto getHistory(HistoryRequest historyRequest) {
-        // todo  dokoncz
         final List<GameCar> games = gameCarRepositoryCustom.findGamesCar(historyRequest.getGameId(), historyRequest.getMapName(), historyRequest.getCarName());
         final HistoryDto historyDto = new HistoryDto();
         for (GameCar carGame : games) {

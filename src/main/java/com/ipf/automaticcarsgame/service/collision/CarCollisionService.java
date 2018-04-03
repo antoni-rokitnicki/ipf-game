@@ -18,7 +18,7 @@ public class CarCollisionService {
         this.collisionMap = collisionMap.stream().collect(toMap(Collision::getCarType, collision -> collision));
     }
 
-    public void crash(Car movingCar, Car standingCar) {
+    public boolean crash(Car movingCar, Car standingCar) {
         final CrashResult crashResult = this.collisionMap.get(movingCar.getType()).crash(standingCar);
         if (crashResult.getCrashedCar().contains(CrashedCarType.MOVING_CAR)) {
             movingCar.setCrashed(true);
@@ -26,7 +26,7 @@ public class CarCollisionService {
         if (crashResult.getCrashedCar().contains(CrashedCarType.STANDING_CAR)) {
             standingCar.setCrashed(true);
         }
-
+        return crashResult.getCrashedCar().contains(CrashedCarType.MOVING_CAR);
     }
 
 

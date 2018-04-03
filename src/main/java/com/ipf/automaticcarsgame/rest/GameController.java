@@ -53,7 +53,7 @@ public class GameController {
 
 
     @DeleteMapping("/cars")
-    ResponseEntity<Response<Void>> removeCarFromGame(@RequestBody GameCarRequest gameCarRequest){
+    ResponseEntity<Response<Void>> removeCarFromGame(@RequestBody GameCarRequest gameCarRequest) {
         LOG.info("remove car from game, request: {}", gameCarRequest);
 
         Result result = gameCarService.removeCarFromGame(gameCarRequest);
@@ -67,22 +67,20 @@ public class GameController {
         return mapToResponseEntity(game);
     }
 
-    @PutMapping("/{gameId}/{carName}/return")
-    ResponseEntity<Response<Optional<Game>>> returnCar(@PathVariable("gameId") Integer gameId, @PathVariable("carName") String carName, @RequestBody ReturnCar returnCar) throws UnsupportedEncodingException {
+    @PutMapping("/{carName}/return")
+    ResponseEntity<Response<Optional<Game>>> returnCar(@PathVariable("carName") String carName, @RequestBody ReturnCar returnCar) throws UnsupportedEncodingException {
         final String decodeCarName = URLDecoder.decode(carName, "UTF-8");
-        LOG.info("returnCar, gameId: {}, carName: {}, returnCar: {}", gameId, decodeCarName, returnCar);
-        final Optional<Game> game = gameService.returnCar(gameId, decodeCarName, returnCar.getNoOfMovements());
+        LOG.info("returnCar, carName: {}, returnCar: {}", decodeCarName, returnCar);
+        final Optional<Game> game = gameService.returnCar(decodeCarName, returnCar.getNoOfMovements());
         return mapToResponseEntity(game);
     }
 
 
-
-
-    @PutMapping("/moveCar/{carName}")
-    ResponseEntity<Response<Void>> moveCar(@PathVariable("carName") String carName) throws UnsupportedEncodingException {
+    @PutMapping("/{carName}/{direction}/{nrOfSteps}")
+    ResponseEntity<Response<Void>> moveCar(@PathVariable("carName") String carName, @PathVariable("direction") MovementType direction, @PathVariable(required = false, name = "nrOfSteps") Integer nrOfSteps) throws UnsupportedEncodingException {
         final String decodeCarName = URLDecoder.decode(carName, "UTF-8");
-        LOG.info("moveCar,  carName: {}",  decodeCarName);
-        final Result result = gameService.moveCar(carName, MovementType.LEFT, 1);
+        LOG.info("moveCar,  carName: {}", decodeCarName);
+        final Result result = gameService.moveCar(decodeCarName, direction, nrOfSteps);
         return mapToResponseEntity(result);
     }
 

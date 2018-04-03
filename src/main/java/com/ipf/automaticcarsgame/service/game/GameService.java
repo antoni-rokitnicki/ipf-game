@@ -34,12 +34,13 @@ public class GameService {
     private final MovementService movementService;
     private final CarCollisionService carCollisionService;
     private final RoadmapPositionRepository roadmapPositionRepository;
+    private final ReturnMovement returnMovement;
 
 
     public GameService(GameRepository gameRepository,
                        GameRequestValidator gameRequestValidator,
                        GameAlreadyExistValidator gameAlreadyExistValidator,
-                       GameMapper gameMapper, MovementRepository movementRepository, GameCarRepository gameCarRepository, RoadmapPositionService roadmapPositionService, MovementService movementService, CarCollisionService carCollisionService, RoadmapPositionRepository roadmapPositionRepository) {
+                       GameMapper gameMapper, MovementRepository movementRepository, GameCarRepository gameCarRepository, RoadmapPositionService roadmapPositionService, MovementService movementService, CarCollisionService carCollisionService, RoadmapPositionRepository roadmapPositionRepository, ReturnMovement returnMovement) {
         this.gameRepository = gameRepository;
         this.gameRequestValidator = gameRequestValidator;
         this.gameAlreadyExistValidator = gameAlreadyExistValidator;
@@ -50,6 +51,7 @@ public class GameService {
         this.movementService = movementService;
         this.carCollisionService = carCollisionService;
         this.roadmapPositionRepository = roadmapPositionRepository;
+        this.returnMovement = returnMovement;
     }
 
     @Transactional
@@ -66,11 +68,9 @@ public class GameService {
 
     public Result validate(GameRequest gameRequest) {
         Result result = gameRequestValidator.validate(gameRequest);
-
         if (result.isValid()) {
             result = gameAlreadyExistValidator.validate(gameRequest);
         }
-
         return result;
     }
 
@@ -78,47 +78,74 @@ public class GameService {
         return this.gameRepository.findActiveGameByRoadMapName(mapName);
     }
 
+    @Transactional
     public synchronized Result moveCar(String carName, MovementType movementType, Integer nrOfMovemetns) {
         // todo validations
+
         final Optional<GameCar> gameCar = this.gameCarRepository.findGameCarByCarNameAndActiveGame(carName);
         final Position currPosition = roadmapPositionRepository.findById(gameCar.get().getPositionId()).get().getPosition();
-
+        Result result = new Result();
         if (MovementType.LEFT.equals(movementType)) {
-            final DirectionType currnetDirection = gameCar.get().getCurrnetDirection();
-            gameCar.get().setCurrnetDirection(currnetDirection.nextLeftDirection());
+            changeDirectionLeft(gameCar);
         } else if (MovementType.RIGHT.equals(movementType)) {
-            final DirectionType currnetDirection = gameCar.get().getCurrnetDirection();
-            gameCar.get().setCurrnetDirection(currnetDirection.nextRightDirection());
+            chageDirectionRight(gameCar);
         } else if (MovementType.FORWARD.equals(movementType)) {
+            nrOfMovemetns = nrOfMovemetns == null ? 1 : nrOfMovemetns;
             final DirectionType currnetDirection = gameCar.get().getCurrnetDirection();
-            final boolean isRoad = this.roadmapPositionService.checkIfFieldIsCorrect(gameCar.get().getGame().getRoadmap(), currPosition, currnetDirection, nrOfMovemetns);
+            final Position nextPosition = roadmapPositionService.findNextPosition(currPosition, currnetDirection, nrOfMovemetns);
+            final Optional<RoadmapPosition> nextRoadmapPosition = this.roadmapPositionRepository.findByRoadmapAndPosition(gameCar.get().getGame().getRoadmap(), nextPosition);
+            final boolean isRoad = this.roadmapPositionService.checkIfFieldIsCorrect(gameCar.get().getGame().getRoadmap(), nextPosition);
             if (!isRoad) {
                 gameCar.get().getCar().setCrashed(true);
+                result = createCrashedResult();
             } else {
-                final Optional<GameCar> carOnField = this.roadmapPositionService.findCarOnField(gameCar.get().getGame().getRoadmap(), currPosition, currnetDirection, nrOfMovemetns);
+                final Optional<GameCar> carOnField = this.roadmapPositionService.findCarOnField(gameCar.get().getGame().getRoadmap(), nextPosition);
                 if (carOnField.isPresent()) {
                     final Car movingCar = gameCar.get().getCar();
                     final Car standingCar = carOnField.get().getCar();
-                    carCollisionService.crash(movingCar, standingCar);
-
-                    //this.roadmapPositionService.findNextPosition()
-
-                    //gameCar.get().setPositionId();
-                    // stłuczka
+                    final boolean crashMovingCar = carCollisionService.crash(movingCar, standingCar);
+                    gameCar.get().setPositionId(nextRoadmapPosition.get().getId());
+                    if (crashMovingCar) {
+                        result = createCrashedResult();
+                    }
+                } else {
+                    gameCar.get().setPositionId(nextRoadmapPosition.get().getId());
                 }
+
             }
         }
 
         movementService.saveMovement(gameCar.get(), movementType, nrOfMovemetns);
-        gameCar.get().getGame().setFinishDate(Date.from(ZonedDateTime.now().plusSeconds(30).toInstant()));
+        gameCar.get().getGame().setFinishDate(Date.from(ZonedDateTime.now().plusSeconds(5 * 60).toInstant()));
 
-        return new Result();
+        return result;
     }
 
-    public Optional<Game> returnCar(Integer gameId, String carName, int noOfMovements) {
-        final List<Movement> movements = this.movementRepository.findMovements(gameId, carName, new Date());
+    private void chageDirectionRight(Optional<GameCar> gameCar) {
+        final DirectionType currnetDirection = gameCar.get().getCurrnetDirection();
+        gameCar.get().setCurrnetDirection(currnetDirection.nextRightDirection());
+    }
+
+    private void changeDirectionLeft(Optional<GameCar> gameCar) {
+        final DirectionType currnetDirection = gameCar.get().getCurrnetDirection();
+        gameCar.get().setCurrnetDirection(currnetDirection.nextLeftDirection());
+    }
+
+    private Result createCrashedResult() {
+        return Result.ResultBuilder.builder().addError(new Result.Error("CRASHED", "Car has been crashed")).build();
+    }
+
+    @Transactional
+    public Optional<Game> returnCar(String carName, int noOfMovements) {
+        final Optional<GameCar> gameCar = this.gameCarRepository.findGameCarByCarNameAndActiveGame(carName);
+        final Integer gameId = gameCar.get().getGameId();
+
+        final List<Movement> movements = this.movementRepository.findMovementsInActiveGame(gameId, carName, new Date());
         final List<Movement> movments = movements.subList(0, noOfMovements);
-        // todo
+        final List<Movement> returnMovements = returnMovement.findReturnMovements(movments);
+        returnMovements.stream().forEach(mov -> {
+            this.moveCar(carName, mov.getType(), mov.getNrOfMovements());
+        });
 
         return null;
     }

@@ -16,7 +16,7 @@ public class MovementService {
     }
 
 
-    public void saveMovement(GameCar gameCar, MovementType movementType, int nrOfMovemetns) {
+    public void saveMovement(GameCar gameCar, MovementType movementType, Integer nrOfMovemetns) {
         final Movement movement = new Movement();
         movement.setType(movementType);
         movement.setGameCar(gameCar);
