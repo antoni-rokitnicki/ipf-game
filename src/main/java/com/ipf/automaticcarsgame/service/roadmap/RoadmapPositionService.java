@@ -1,9 +1,6 @@
 package com.ipf.automaticcarsgame.service.roadmap;
 
-import com.ipf.automaticcarsgame.domain.GameCar;
-import com.ipf.automaticcarsgame.domain.Position;
-import com.ipf.automaticcarsgame.domain.Roadmap;
-import com.ipf.automaticcarsgame.domain.RoadmapPosition;
+import com.ipf.automaticcarsgame.domain.*;
 import com.ipf.automaticcarsgame.repository.GameCarRepository;
 import com.ipf.automaticcarsgame.repository.RoadmapPositionRepository;
 import org.springframework.stereotype.Service;
@@ -30,6 +27,10 @@ public class RoadmapPositionService {
         return roadmapPositionOpt.filter(roadmapPosition -> roadmapPosition.getValue().compareTo((byte) 0) > 0).isPresent();
     }
 
+    public boolean checkIfFieldIsCorrect(Roadmap roadmap, Position currentPosition, DirectionType moveDirection, int nrOfMoves) {
+        return checkIfFieldIsCorrect(roadmap, findNextPosition(currentPosition, moveDirection, nrOfMoves));
+    }
+
     /**
      * check whether a position is occupied through other car
      */
@@ -43,4 +44,26 @@ public class RoadmapPositionService {
 
         return gameCarOpt.isPresent();
     }
+
+    public boolean checkIfFieldIsOccupied(Roadmap roadmap, Position currentPosition, DirectionType moveDirection, int nrOfMoves) {
+        return checkIfFieldIsOccupied(roadmap, findNextPosition(currentPosition, moveDirection, nrOfMoves));
+    }
+
+    public Position findNextPosition(Position currentPosition, DirectionType moveDirection, int nrOfMoves) {
+        final Integer row = currentPosition.getRow();
+        final Integer col = currentPosition.getCol();
+        if (DirectionType.NORTH.equals(moveDirection)) {
+            return new Position(row - nrOfMoves, col);
+        } else if (DirectionType.SOUTH.equals(moveDirection)) {
+            return new Position(row + nrOfMoves, col);
+        } else if (DirectionType.WEST.equals(moveDirection)) {
+            return new Position(row, col - nrOfMoves);
+        } else if (DirectionType.EAST.equals(moveDirection)) {
+            return new Position(row, col + nrOfMoves);
+        } else {
+            throw new UnsupportedOperationException("Unsupported moveDirection: " + moveDirection);
+        }
+    }
+
+
 }

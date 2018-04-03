@@ -27,6 +27,10 @@ public class GameCar extends AudityEntity {
     @Column(name = "POSITION_ID")
     private Integer positionId;
 
+    @Column(name = "CURRNET_DIRECTION")
+    @Enumerated(EnumType.STRING)
+    private DirectionType currnetDirection;
+
     public Integer getId() {
         return id;
     }
@@ -75,6 +79,14 @@ public class GameCar extends AudityEntity {
         this.positionId = positionId;
     }
 
+    public DirectionType getCurrnetDirection() {
+        return currnetDirection;
+    }
+
+    public void setCurrnetDirection(DirectionType currnetDirection) {
+        this.currnetDirection = currnetDirection;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -99,6 +111,8 @@ public class GameCar extends AudityEntity {
                 ", carId=" + carId +
                 ", car=" + car +
                 ", positionId=" + positionId +
+                ", currnetDirection=" + currnetDirection +
                 "} " + super.toString();
     }
+
 }
