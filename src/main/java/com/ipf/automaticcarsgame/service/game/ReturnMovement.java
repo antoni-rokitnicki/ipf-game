@@ -3,10 +3,12 @@ package com.ipf.automaticcarsgame.service.game;
 
 import com.ipf.automaticcarsgame.domain.Movement;
 import com.ipf.automaticcarsgame.dto.MovementType;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ReturnMovement {
 
     public List<Movement> findReturnMovements(List<Movement> lastMovementsList) {
@@ -24,7 +26,7 @@ public class ReturnMovement {
                     addMovement(returnMovements, MovementType.FORWARD);
                     turnedInReturnDirection = true;
                 }
-                if (i == lastMovementsList.size() - 1) {
+                if (isLastMovement(lastMovementsList, i)) {
                     addMovement(returnMovements, MovementType.LEFT);
                     addMovement(returnMovements, MovementType.LEFT);
                 }
@@ -36,6 +38,10 @@ public class ReturnMovement {
 
         }
         return returnMovements;
+    }
+
+    private boolean isLastMovement(List<Movement> lastMovementsList, int i) {
+        return i == lastMovementsList.size() - 1;
     }
 
     private void addMovement(List<Movement> returnMovements, MovementType type) {

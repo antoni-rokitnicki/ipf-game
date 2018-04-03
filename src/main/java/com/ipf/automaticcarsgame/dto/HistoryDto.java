@@ -1,22 +1,22 @@
 package com.ipf.automaticcarsgame.dto;
 
-import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.domain.Movement;
 import com.ipf.automaticcarsgame.domain.Roadmap;
 import com.ipf.automaticcarsgame.dto.car.CarDto;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class HistoryDto {
-    private List<MovementDto> result = new ArrayList<>();
+    private List<HistoryDetailsDto> result = new ArrayList<>();
 
-    public static class MovementDto {
+    public static class HistoryDetailsDto {
         private GameDto game;
         private Roadmap roadmap;
         private CarDto car;
-        private List<Movement> movements;
+        private List<MovementDto> movements;
 
         public GameDto getGame() {
             return game;
@@ -42,11 +42,11 @@ public class HistoryDto {
             this.car = car;
         }
 
-        public List<Movement> getMovements() {
+        public List<MovementDto> getMovements() {
             return movements;
         }
 
-        public void setMovements(List<Movement> movements) {
+        public void setMovements(List<MovementDto> movements) {
             this.movements = movements;
         }
 
@@ -89,13 +89,53 @@ public class HistoryDto {
                         '}';
             }
         }
+
+        public static class MovementDto {
+            private Integer id;
+            private String type;
+            private ZonedDateTime data;
+
+            public Integer getId() {
+                return id;
+            }
+
+            public void setId(Integer id) {
+                this.id = id;
+            }
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public ZonedDateTime getData() {
+                return data;
+            }
+
+            public void setData(ZonedDateTime data) {
+                this.data = data;
+            }
+
+            @Override
+            public String toString() {
+                return "MovementDto{" +
+                        "id=" + id +
+                        ", type='" + type + '\'' +
+                        ", data=" + data +
+                        '}';
+            }
+        }
     }
 
-    public List<MovementDto> getResult() {
+
+    public List<HistoryDetailsDto> getResult() {
         return result;
     }
 
-    public void setResult(List<MovementDto> result) {
+    public void setResult(List<HistoryDetailsDto> result) {
         this.result = result;
     }
 

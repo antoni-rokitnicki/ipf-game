@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 @Service
 public class GameHistoryService {
     private final MovementRepositoryCustom movementRepositoryCustom;
@@ -28,17 +30,27 @@ public class GameHistoryService {
         final HistoryDto historyDto = new HistoryDto();
         for (GameCar carGame : games) {
             final List<Movement> movements = movementRepositoryCustom.findMovements(carGame, historyRequest.getLimit());
-            final HistoryDto.MovementDto movementDto = new HistoryDto.MovementDto();
-            movementDto.setCar(CarMapper.map(carGame.getCar()));
-            movementDto.setGame(mapToGameDto(carGame));
-            movementDto.setMovements(movements);
-            historyDto.getResult().add(movementDto);
+            final HistoryDto.HistoryDetailsDto movementDerailsDto = new HistoryDto.HistoryDetailsDto();
+            movementDerailsDto.setCar(CarMapper.map(carGame.getCar()));
+            movementDerailsDto.setGame(mapToGameDto(carGame));
+            movementDerailsDto.setMovements(mapToMovementDtoList(movements));
+            historyDto.getResult().add(movementDerailsDto);
         }
         return historyDto;
     }
 
-    private HistoryDto.MovementDto.GameDto mapToGameDto(GameCar carGame) {
-        final HistoryDto.MovementDto.GameDto gameDto = new HistoryDto.MovementDto.GameDto();
+    private List<HistoryDto.HistoryDetailsDto.MovementDto> mapToMovementDtoList(List<Movement> movements) {
+        return movements.stream().map(mov -> {
+            final HistoryDto.HistoryDetailsDto.MovementDto movementDto = new HistoryDto.HistoryDetailsDto.MovementDto();
+            movementDto.setId(mov.getId());
+            movementDto.setType(mov.getType().name());
+            movementDto.setData(mov.getInsertDate());
+            return movementDto;
+        }).collect(toList());
+    }
+
+    private HistoryDto.HistoryDetailsDto.GameDto mapToGameDto(GameCar carGame) {
+        final HistoryDto.HistoryDetailsDto.GameDto gameDto = new HistoryDto.HistoryDetailsDto.GameDto();
         gameDto.setId(carGame.getGame().getId());
         gameDto.setFinishDate(carGame.getGame().getFinishDate());
         return gameDto;

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.ipf.automaticcarsgame.mapper.ResponseEntityMapper.mapToResponseEntity;
 
 @RestController
-@RequestMapping(value = "/api/history", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/history")
 public class GameHistoryController {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameHistoryController.class);

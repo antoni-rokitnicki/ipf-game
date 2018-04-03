@@ -29,7 +29,7 @@ public class GameCar extends AudityEntity {
 
     @Column(name = "CURRNET_DIRECTION")
     @Enumerated(EnumType.STRING)
-    private DirectionType currnetDirection;
+    private DirectionType currnetDirection = DirectionType.NORTH;
 
     public Integer getId() {
         return id;

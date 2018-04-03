@@ -22,6 +22,9 @@ public class Movement extends AudityEntity {
     @Enumerated(EnumType.STRING)
     private MovementType type;
 
+    @Column(name = "NR_OF_MOVEMENTS")
+    private Integer nrOfMovements;
+
     public Integer getId() {
         return id;
     }
@@ -54,6 +57,14 @@ public class Movement extends AudityEntity {
         this.type = type;
     }
 
+    public Integer getNrOfMovements() {
+        return nrOfMovements;
+    }
+
+    public void setNrOfMovements(Integer nrOfMovements) {
+        this.nrOfMovements = nrOfMovements;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,6 +87,7 @@ public class Movement extends AudityEntity {
                 ", gameCarId=" + gameCarId +
                 ", gameCar=" + gameCar +
                 ", type=" + type +
-                "} " + super.toString();
+                ", nrOfMovements=" + nrOfMovements +
+                '}';
     }
 }
