@@ -2,8 +2,8 @@ package com.ipf.automaticcarsgame.service.car;
 
 import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.dto.Result;
+import com.ipf.automaticcarsgame.dto.car.CarDto;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
-import com.ipf.automaticcarsgame.dto.car.CarResponse;
 import com.ipf.automaticcarsgame.mapper.CarMapper;
 import com.ipf.automaticcarsgame.repository.CarRepository;
 import com.ipf.automaticcarsgame.validator.car.CarAlreadyExistsValidator;
@@ -21,18 +21,15 @@ import static com.ipf.automaticcarsgame.dto.Result.ResultBuilder;
 public class CarService {
 
     private final CarRepository carRepository;
-    private final CarMapper carMapper;
 
     private final CarAlreadyExistsValidator carAlreadyExistsValidator;
     private final CarRequestValidator carRequestValidator;
     private final RemoveCarValidator removeCarValidator;
 
     public CarService(CarRepository carRepository,
-                      CarMapper carMapper,
                       CarAlreadyExistsValidator carAlreadyExistsValidator,
                       CarRequestValidator carRequestValidator, RemoveCarValidator removeCarValidator) {
         this.carRepository = carRepository;
-        this.carMapper = carMapper;
         this.carAlreadyExistsValidator = carAlreadyExistsValidator;
         this.carRequestValidator = carRequestValidator;
         this.removeCarValidator = removeCarValidator;
@@ -43,7 +40,7 @@ public class CarService {
         Result result = validateCar(carRequest);
 
         if (result.isValid()) {
-            Car car = carMapper.map(carRequest);
+            Car car = CarMapper.map(carRequest);
             carRepository.save(car);
         }
 
@@ -51,9 +48,9 @@ public class CarService {
     }
 
     @Transactional
-    public List<CarResponse> findAll() {
+    public List<CarDto> findAll() {
         Iterable<Car> cars = this.carRepository.findAll();
-        return carMapper.map(cars);
+        return CarMapper.map(cars);
     }
 
     @Transactional

@@ -2,7 +2,7 @@ package com.ipf.automaticcarsgame.dto.car;
 
 import java.time.ZonedDateTime;
 
-public class CarResponse {
+public class CarDto {
     private String carName;
     private CarType type;
     private boolean crashed;
@@ -52,9 +52,9 @@ public class CarResponse {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CarResponse)) return false;
+        if (!(o instanceof CarDto)) return false;
 
-        CarResponse that = (CarResponse) o;
+        CarDto that = (CarDto) o;
 
         if (crashed != that.crashed) return false;
         if (carName != null ? !carName.equals(that.carName) : that.carName != null) return false;
@@ -75,7 +75,7 @@ public class CarResponse {
 
     @Override
     public String toString() {
-        return "CarResponse{" +
+        return "CarDto{" +
                 "carName='" + carName + '\'' +
                 ", type=" + type +
                 ", crashed=" + crashed +

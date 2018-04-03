@@ -2,8 +2,8 @@ package com.ipf.automaticcarsgame.rest;
 
 import com.ipf.automaticcarsgame.dto.Response;
 import com.ipf.automaticcarsgame.dto.Result;
+import com.ipf.automaticcarsgame.dto.car.CarDto;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
-import com.ipf.automaticcarsgame.dto.car.CarResponse;
 import com.ipf.automaticcarsgame.service.car.CarService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -46,9 +46,9 @@ public class CarController {
 
     @ApiOperation(value = "Find all available cars")
     @GetMapping(consumes = MediaType.ALL_VALUE)
-    ResponseEntity<Response<List<CarResponse>>> findAll() {
+    ResponseEntity<Response<List<CarDto>>> findAll() {
         LOG.info("find all cars");
-        List<CarResponse> cars = carService.findAll();
+        List<CarDto> cars = carService.findAll();
         return mapToResponseEntity(cars);
     }
 

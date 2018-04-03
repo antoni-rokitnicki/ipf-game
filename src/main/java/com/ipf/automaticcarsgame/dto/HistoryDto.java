@@ -3,6 +3,7 @@ package com.ipf.automaticcarsgame.dto;
 import com.ipf.automaticcarsgame.domain.Car;
 import com.ipf.automaticcarsgame.domain.Movement;
 import com.ipf.automaticcarsgame.domain.Roadmap;
+import com.ipf.automaticcarsgame.dto.car.CarDto;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +15,7 @@ public class HistoryDto {
     public static class MovementDto {
         private GameDto game;
         private Roadmap roadmap;
-        private Car car;
+        private CarDto car;
         private List<Movement> movements;
 
         public GameDto getGame() {
@@ -33,11 +34,11 @@ public class HistoryDto {
             this.roadmap = roadmap;
         }
 
-        public Car getCar() {
+        public CarDto getCar() {
             return car;
         }
 
-        public void setCar(Car car) {
+        public void setCar(CarDto car) {
             this.car = car;
         }
 

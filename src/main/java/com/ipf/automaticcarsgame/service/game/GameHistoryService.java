@@ -4,6 +4,7 @@ import com.ipf.automaticcarsgame.domain.GameCar;
 import com.ipf.automaticcarsgame.domain.Movement;
 import com.ipf.automaticcarsgame.dto.HistoryDto;
 import com.ipf.automaticcarsgame.dto.HistoryRequest;
+import com.ipf.automaticcarsgame.mapper.CarMapper;
 import com.ipf.automaticcarsgame.repository.GameCarRepositoryCustom;
 import com.ipf.automaticcarsgame.repository.MovementRepositoryCustom;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class GameHistoryService {
         for (GameCar carGame : games) {
             final List<Movement> movements = movementRepositoryCustom.findMovements(carGame, historyRequest.getLimit());
             final HistoryDto.MovementDto movementDto = new HistoryDto.MovementDto();
-            movementDto.setCar(carGame.getCar());
+            movementDto.setCar(CarMapper.map(carGame.getCar()));
             movementDto.setGame(mapToGameDto(carGame));
             movementDto.setMovements(movements);
             historyDto.getResult().add(movementDto);

@@ -1,18 +1,20 @@
 package com.ipf.automaticcarsgame.mapper;
 
 import com.ipf.automaticcarsgame.domain.Car;
+import com.ipf.automaticcarsgame.dto.car.CarDto;
 import com.ipf.automaticcarsgame.dto.car.CarRequest;
-import com.ipf.automaticcarsgame.dto.car.CarResponse;
 import com.ipf.automaticcarsgame.dto.car.CarType;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+
 public class CarMapper {
 
-    public Car map(CarRequest carRequest) {
+    private CarMapper() {
+    }
+
+    public static Car map(CarRequest carRequest) {
         Car car = new Car();
         car.setName(carRequest.getName());
 
@@ -22,24 +24,24 @@ public class CarMapper {
         return car;
     }
 
-    public List<CarResponse> map(Iterable<Car> cars) {
-        List<CarResponse> carResponses = new ArrayList<>();
+    public static List<CarDto> map(Iterable<Car> cars) {
+        List<CarDto> carRespons = new ArrayList<>();
         for (Car car : cars) {
-            carResponses.add(map(car));
+            carRespons.add(map(car));
         }
 
-        return carResponses;
+        return carRespons;
     }
 
-    public CarResponse map(Car car) {
-        CarResponse carResponse = new CarResponse();
-        carResponse.setCarName(car.getName());
-        carResponse.setType(car.getType());
-        carResponse.setCrashed(car.isCrashed());
-        carResponse.setInsertDate(car.getInsertDate());
-        carResponse.setUpdateDate(car.getUpdateDate());
+    public static CarDto map(Car car) {
+        CarDto carDto = new CarDto();
+        carDto.setCarName(car.getName());
+        carDto.setType(car.getType());
+        carDto.setCrashed(car.isCrashed());
+        carDto.setInsertDate(car.getInsertDate());
+        carDto.setUpdateDate(car.getUpdateDate());
 
-        return carResponse;
+        return carDto;
     }
 
 
