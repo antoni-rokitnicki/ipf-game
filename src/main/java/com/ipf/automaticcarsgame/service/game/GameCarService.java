@@ -4,6 +4,7 @@ import com.ipf.automaticcarsgame.domain.Game;
 import com.ipf.automaticcarsgame.domain.GameCar;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.game.GameCarRequest;
+import com.ipf.automaticcarsgame.dto.game.RemoveGameCarRequest;
 import com.ipf.automaticcarsgame.mapper.GameCarMapper;
 import com.ipf.automaticcarsgame.repository.GameCarRepository;
 import com.ipf.automaticcarsgame.validator.game.car.PutCarInGameValidator;
@@ -44,11 +45,11 @@ public class GameCarService {
     }
 
     @Transactional
-    public Result removeCarFromGame(GameCarRequest gameCarRequest){
-        Result result = removeCarFromGameValidator.validate(gameCarRequest);
+    public Result removeCarFromGame(RemoveGameCarRequest removeGameCarRequest){
+        Result result = removeCarFromGameValidator.validate(removeGameCarRequest.getGameCarRequest());
 
         if (result.isValid()) {
-            Optional<GameCar> activeGameByCar = gameCarRepository.findGameCarByCarNameAndActiveGame(gameCarRequest.getCar());
+            Optional<GameCar> activeGameByCar = gameCarRepository.findGameCarByCarNameAndActiveGame(removeGameCarRequest.getCar());
             activeGameByCar.ifPresent(gameCarRepository::delete);
         }
 

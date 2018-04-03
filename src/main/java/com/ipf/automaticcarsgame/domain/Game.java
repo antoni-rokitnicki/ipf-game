@@ -22,6 +22,7 @@ public class Game extends AudityEntity {
     @OneToMany(mappedBy = "game")
     private List<GameCar> gameCars;
 
+    // TODO usunąć finishDate
     @Column(name = "FINISH_DATE")
     private Date finishDate;
 
