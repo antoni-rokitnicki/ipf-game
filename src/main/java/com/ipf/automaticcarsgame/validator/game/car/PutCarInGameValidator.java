@@ -1,13 +1,11 @@
 package com.ipf.automaticcarsgame.validator.game.car;
 
-import com.ipf.automaticcarsgame.domain.Car;
-import com.ipf.automaticcarsgame.domain.GameCar;
-import com.ipf.automaticcarsgame.domain.Position;
-import com.ipf.automaticcarsgame.domain.Roadmap;
+import com.ipf.automaticcarsgame.domain.*;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.game.GameCarRequest;
 import com.ipf.automaticcarsgame.repository.CarRepository;
 import com.ipf.automaticcarsgame.repository.GameCarRepository;
+import com.ipf.automaticcarsgame.repository.GameRepository;
 import com.ipf.automaticcarsgame.repository.RoadmapRepository;
 import com.ipf.automaticcarsgame.service.roadmap.RoadmapPositionService;
 import org.springframework.stereotype.Component;
@@ -24,13 +22,15 @@ public class PutCarInGameValidator implements GameCarValidator {
     private final RoadmapPositionService roadmapPositionService;
     private final GameCarRepository gameCarRepository;
     private final CarRepository carRepository;
+    private final GameRepository gameRepository;
 
-    public PutCarInGameValidator(RoadmapRepository roadmapRepository, GameCarBasicValidator gameCarBasicValidator, RoadmapPositionService roadmapPositionService, GameCarRepository gameCarRepository, CarRepository carRepository) {
+    public PutCarInGameValidator(RoadmapRepository roadmapRepository, GameCarBasicValidator gameCarBasicValidator, RoadmapPositionService roadmapPositionService, GameCarRepository gameCarRepository, CarRepository carRepository, GameRepository gameRepository) {
         this.roadmapRepository = roadmapRepository;
         this.gameCarBasicValidator = gameCarBasicValidator;
         this.roadmapPositionService = roadmapPositionService;
         this.gameCarRepository = gameCarRepository;
         this.carRepository = carRepository;
+        this.gameRepository = gameRepository;
     }
 
     @Override
@@ -42,7 +42,12 @@ public class PutCarInGameValidator implements GameCarValidator {
         if (activeGameByCar.isPresent()) {
             result.addError(new Error("Car already is in a game"));
         } else {
-            validatePosition(gameCarRequest, result);
+            Optional<Game> activeGameByRoadMapName = gameRepository.findActiveGameByRoadMapName(gameCarRequest.getRoadmap());
+            if(!activeGameByRoadMapName.isPresent()){
+                result.addError(new Error("Game is not active"));
+            }else{
+                validatePosition(gameCarRequest, result);
+            }
         }
 
         final Optional<Car> car = carRepository.findByName(gameCarRequest.getCar());
