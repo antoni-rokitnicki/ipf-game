@@ -88,7 +88,7 @@ class GameController {
 
     @ApiOperation(value = "Move car")
     @PutMapping("/{carName}/{direction}/{nrOfSteps}")
-    ResponseEntity<Response<Void>> moveCar(@PathVariable("carName") String carName, @PathVariable("direction") MovementType direction, @PathVariable(required = false, name = "nrOfSteps") Integer nrOfSteps) throws UnsupportedEncodingException {
+    ResponseEntity<Response<Void>> moveCar(@PathVariable("carName") String carName, @PathVariable("direction") MovementType direction, @PathVariable(name = "nrOfSteps") Integer nrOfSteps) throws UnsupportedEncodingException {
         final String decodeCarName = URLDecoder.decode(carName, "UTF-8");
         LOG.info("moveCar,  carName: {}", decodeCarName);
         final Result result = movementService.moveCar(decodeCarName, direction, nrOfSteps);

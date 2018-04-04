@@ -14,11 +14,12 @@ import java.util.stream.Stream;
 public class ContentValidator implements RoadmapValidator {
 
     private static final String INVALID_CONTENT = "INVALID_CONTENT";
+    public static final String INVALID_CONTENT_MESSAGE = "Invalid content. Supported only 0 or 1";
 
     public Result validate(RoadmapRequest gameMap) {
         final boolean incorrectContent = Stream.of(gameMap.getFields()).flatMapToInt(IntStream::of).filter(invalidContent()).findFirst().isPresent();
         if (incorrectContent) {
-            return createError(INVALID_CONTENT, "Invalid content. Supported only 0 or 1");
+            return createError(INVALID_CONTENT, INVALID_CONTENT_MESSAGE);
         }
         return createSuccessValidation();
     }

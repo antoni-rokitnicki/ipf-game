@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Component
 public class CarAlreadyExistsValidator implements CarValidator {
-
+    private static final String ALREADY_EXISTS = "ALREADY_EXISTS";
     private final CarRepository carRepository;
 
     public CarAlreadyExistsValidator(CarRepository carRepository) {
@@ -22,7 +22,7 @@ public class CarAlreadyExistsValidator implements CarValidator {
         Optional<Car> carOptional = carRepository.findByName(carRequest.getName());
 
         Result result = new Result();
-        carOptional.ifPresent(car -> result.addError(new Result.Error("Car '" + carRequest.getName() + "' already exists")));
+        carOptional.ifPresent(car -> result.addError(new Result.Error(ALREADY_EXISTS, "Car '" + carRequest.getName() + "' already exists")));
 
         return result;
     }

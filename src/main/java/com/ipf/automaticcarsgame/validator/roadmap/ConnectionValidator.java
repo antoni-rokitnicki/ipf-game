@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class ConnectionValidator implements RoadmapValidator {
 
     private static final String UNLINKED_ROADS = "UNLINKED_ROADS";
+    private static final String UNLINKED_ROADS_MESSAGE = "Unlinked roads";
 
     public Result validate(RoadmapRequest gameMap) {
         final int[][] fields = gameMap.getFields();
@@ -45,7 +46,7 @@ public class ConnectionValidator implements RoadmapValidator {
         if (checkIfExistOnlyOneRoad(roads)) {
             return createSuccessValidation();
         } else {
-            return createError(UNLINKED_ROADS, "Unlinked roads");
+            return createError(UNLINKED_ROADS, UNLINKED_ROADS_MESSAGE);
         }
 
     }

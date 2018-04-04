@@ -9,6 +9,14 @@ import java.util.Optional;
 
 @Component
 public class ReturnCarValidator {
+    private static final String CAR_NOT_IN_GAME = "CAR_NOT_IN_GAME";
+    private static final String NOT_ACTIVE_GAME = "NOT_ACTIVE_GAME";
+    private static final String CAR_IS_CRASHED = "CAR_IS_CRASHED";
+    private static final String INVALID_NO_OF_MOVEMENTS = "INVALID_NO_OF_MOVEMENTS";
+    private static final String CAR_NOT_IN_GAME_MESSAGE = "Car not in game";
+    private static final String NOT_ACTIVE_GAME_MESSAGE = "Not active game";
+    private static final String CAR_IS_CRASHED_MESSAGE = "Car is crashed";
+    private static final String INVALID_NO_OF_MOVEMENTS_MESSAGE = "invalid no of movements";
     private final GameCarRepository gameCarRepository;
 
     public ReturnCarValidator(GameCarRepository gameCarRepository) {
@@ -19,16 +27,16 @@ public class ReturnCarValidator {
         final Optional<GameCar> activeGameCar = this.gameCarRepository.findGameCarByCarNameAndActiveGame(carName);
         if (activeGameCar.isPresent()) {
             if (activeGameCar.get().isDeleted()) {
-                return Result.ResultBuilder.builder().addError(new Result.Error("CAR_NOT_IN_GAME", "Car not in game")).build();
+                return Result.ResultBuilder.builder().addError(new Result.Error(CAR_NOT_IN_GAME, CAR_NOT_IN_GAME_MESSAGE)).build();
             }
         } else {
-            return Result.ResultBuilder.builder().addError(new Result.Error("NOT_ACTIVE_GAME", "Not active game")).build();
+            return Result.ResultBuilder.builder().addError(new Result.Error(NOT_ACTIVE_GAME, NOT_ACTIVE_GAME_MESSAGE)).build();
         }
         if (activeGameCar.get().getCar().isCrashed()) {
-            return Result.ResultBuilder.builder().addError(new Result.Error("CAR_IS_CRASHED", "Car is crashed")).build();
+            return Result.ResultBuilder.builder().addError(new Result.Error(CAR_IS_CRASHED, CAR_IS_CRASHED_MESSAGE)).build();
         }
         if (noOfMovements < 1) {
-            return Result.ResultBuilder.builder().addError(new Result.Error("INVALID_NO_OF_MOVEMENTS", "invalid no of movements")).build();
+            return Result.ResultBuilder.builder().addError(new Result.Error(INVALID_NO_OF_MOVEMENTS, INVALID_NO_OF_MOVEMENTS_MESSAGE)).build();
         }
         return Result.ResultBuilder.builder().build();
     }
