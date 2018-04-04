@@ -11,7 +11,6 @@ import com.ipf.automaticcarsgame.service.roadmap.RoadmapService;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -74,12 +73,6 @@ class RoadmapController {
     public ResponseEntity<Response<Void>> handleCsvException(NumberFormatException ex) {
         LOG.warn("Invalid csv format", ex);
         return ResponseEntity.badRequest().body(new Response<>(Arrays.asList(ResponseErrorBuilder.builder().withCode("INVALID_FORMAT").withMessage("Invalid format").build())));
-    }
-
-    @ExceptionHandler({Exception.class})
-    public ResponseEntity<Response<Void>> handleException(Exception ex) {
-        LOG.error("Internal Server Error", ex);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<>(Arrays.asList(ResponseErrorBuilder.builder().withCode("INTERNAL_SERVER_ERROR").withMessage("Internal server error").build())));
     }
 
     private void logCreateRoadmapInit(String name, MultipartFile file) {

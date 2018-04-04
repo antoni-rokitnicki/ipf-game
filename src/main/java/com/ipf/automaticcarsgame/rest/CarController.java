@@ -25,7 +25,7 @@ import static com.ipf.automaticcarsgame.mapper.ResponseEntityMapper.mapToRespons
 @RestController
 @RequestMapping(value = "/api/cars")
 @Api(tags = {"Car Services"}, description = "Add, remove, find, repair car")
-public class CarController {
+class CarController {
 
     private static final Logger LOG = LoggerFactory.getLogger(CarController.class);
 

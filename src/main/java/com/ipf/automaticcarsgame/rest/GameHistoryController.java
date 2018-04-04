@@ -18,13 +18,13 @@ import static com.ipf.automaticcarsgame.mapper.ResponseEntityMapper.mapToRespons
 @RestController
 @RequestMapping(value = "/api/history")
 @Api(tags = {"Game History Services"}, description = "Search historic games")
-public class GameHistoryController {
+class GameHistoryController {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameHistoryController.class);
 
     private final GameHistoryService gameHistoryService;
 
-    public GameHistoryController(GameHistoryService gameHistoryService) {
+    GameHistoryController(GameHistoryService gameHistoryService) {
         this.gameHistoryService = gameHistoryService;
     }
 

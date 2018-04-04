@@ -28,7 +28,7 @@ import static com.ipf.automaticcarsgame.mapper.ResponseEntityMapper.mapToRespons
 @RestController
 @RequestMapping(value = "/api/games", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @Api(tags = {"Game Services"}, description = "Create game, add car to game, remove car from game, get active game, return car")
-public class GameController {
+class GameController {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameController.class);
 
@@ -36,7 +36,7 @@ public class GameController {
     private final GameCarService gameCarService;
     private final MovementService movementService;
 
-    public GameController(GameService gameService, GameCarService gameCarService, MovementService movementService) {
+    GameController(GameService gameService, GameCarService gameCarService, MovementService movementService) {
         this.gameService = gameService;
         this.gameCarService = gameCarService;
         this.movementService = movementService;
