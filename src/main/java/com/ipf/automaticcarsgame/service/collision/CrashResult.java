@@ -3,20 +3,20 @@ package com.ipf.automaticcarsgame.service.collision;
 import java.util.List;
 
 public class CrashResult {
-    private List<CrashedCarType> crashedCar;
+    private List<CrashedCarType> crashedCars;
 
     public CrashResult() {
     }
 
-    public CrashResult(List<CrashedCarType> crashedCar) {
-        this.crashedCar = crashedCar;
+    public CrashResult(List<CrashedCarType> crashedCars) {
+        this.crashedCars = crashedCars;
     }
 
-    public List<CrashedCarType> getCrashedCar() {
-        return crashedCar;
+    public List<CrashedCarType> getCrashedCars() {
+        return crashedCars;
     }
 
-    public void setCrashedCar(List<CrashedCarType> crashedCar) {
-        this.crashedCar = crashedCar;
+    public void setCrashedCars(List<CrashedCarType> crashedCars) {
+        this.crashedCars = crashedCars;
     }
 }

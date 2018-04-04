@@ -16,7 +16,7 @@ class MonsterTracCollision implements Collision {
     }
 
     @Override
-    public CrashResult crash(Car standingCar) {
+    public CrashResult crashWith(Car standingCar) {
         if (getCarType().equals(standingCar.getType())) {
             return new CrashResult(Arrays.asList(CrashedCarType.MOVING_CAR, CrashedCarType.STANDING_CAR));
         } else {

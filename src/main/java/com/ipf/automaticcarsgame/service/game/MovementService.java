@@ -106,11 +106,11 @@ public class MovementService {
                 final Car standingCar = standingGameCar.get().getCar();
                 final CrashResult crashResult = carCollisionService.crash(movingCar, standingCar);
                 movingGameCar.get().setPositionId(nextRoadmapPosition.get().getId());
-                if (crashResult.getCrashedCar().contains(CrashedCarType.MOVING_CAR)) {
+                if (crashResult.getCrashedCars().contains(CrashedCarType.MOVING_CAR)) {
                     movingGameCar.get().setDeleted(true);
                     result = createCrashedResult();
                 }
-                if (crashResult.getCrashedCar().contains(CrashedCarType.STANDING_CAR)) {
+                if (crashResult.getCrashedCars().contains(CrashedCarType.STANDING_CAR)) {
                     standingGameCar.get().setDeleted(true);
                 }
             } else {

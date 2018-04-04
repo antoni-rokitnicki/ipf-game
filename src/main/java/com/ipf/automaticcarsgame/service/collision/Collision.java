@@ -7,6 +7,6 @@ interface Collision {
 
     CarType getCarType();
 
-    CrashResult crash(Car standingCar);
+    CrashResult crashWith(Car standingCar);
 
 }

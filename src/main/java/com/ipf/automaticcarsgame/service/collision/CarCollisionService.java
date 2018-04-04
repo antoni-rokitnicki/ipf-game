@@ -19,11 +19,11 @@ public class CarCollisionService {
     }
 
     public CrashResult crash(Car movingCar, Car standingCar) {
-        final CrashResult crashResult = this.collisionMap.get(movingCar.getType()).crash(standingCar);
-        if (crashResult.getCrashedCar().contains(CrashedCarType.MOVING_CAR)) {
+        final CrashResult crashResult = this.collisionMap.get(movingCar.getType()).crashWith(standingCar);
+        if (crashResult.getCrashedCars().contains(CrashedCarType.MOVING_CAR)) {
             movingCar.setCrashed(true);
         }
-        if (crashResult.getCrashedCar().contains(CrashedCarType.STANDING_CAR)) {
+        if (crashResult.getCrashedCars().contains(CrashedCarType.STANDING_CAR)) {
             standingCar.setCrashed(true);
         }
         return crashResult;

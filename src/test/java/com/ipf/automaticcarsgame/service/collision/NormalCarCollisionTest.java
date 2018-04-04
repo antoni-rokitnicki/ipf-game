@@ -18,11 +18,11 @@ public class NormalCarCollisionTest {
         standingCar.setType(CarType.NORMAL_CAR);
 
         // when
-        final CrashResult crash = normalCarCollision.crash(standingCar);
+        final CrashResult crash = normalCarCollision.crashWith(standingCar);
 
         // then
-        assertThat(crash.getCrashedCar().contains(CrashedCarType.MOVING_CAR)).isTrue();
-        assertThat(crash.getCrashedCar().contains(CrashedCarType.STANDING_CAR)).isTrue();
+        assertThat(crash.getCrashedCars().contains(CrashedCarType.MOVING_CAR)).isTrue();
+        assertThat(crash.getCrashedCars().contains(CrashedCarType.STANDING_CAR)).isTrue();
     }
 
     @Test
@@ -32,11 +32,11 @@ public class NormalCarCollisionTest {
         standingCar.setType(CarType.MONSTER_TRAC);
 
         // when
-        final CrashResult crash = normalCarCollision.crash(standingCar);
+        final CrashResult crash = normalCarCollision.crashWith(standingCar);
 
         // then
-        assertThat(crash.getCrashedCar().contains(CrashedCarType.MOVING_CAR)).isTrue();
-        assertThat(crash.getCrashedCar().contains(CrashedCarType.STANDING_CAR)).isFalse();
+        assertThat(crash.getCrashedCars().contains(CrashedCarType.MOVING_CAR)).isTrue();
+        assertThat(crash.getCrashedCars().contains(CrashedCarType.STANDING_CAR)).isFalse();
 
     }
 }
