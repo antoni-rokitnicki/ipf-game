@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class RoadmapRequest {
     private String name;
-    private int[][] fields;
+    private int[][] fields; //todo change to byte[]
 
     public String getName() {
         return name;

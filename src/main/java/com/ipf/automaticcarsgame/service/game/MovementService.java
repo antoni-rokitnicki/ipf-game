@@ -80,7 +80,7 @@ public class MovementService {
         }
         final Optional<GameCar> gameCar = this.gameCarRepository.findGameCarByCarNameAndActiveGame(carName);
         final Integer gameId = gameCar.get().getGameId();
-        final List<Movement> movements = this.movementRepository.findMovementsInActiveGame(gameId, carName, new Date());
+        final List<Movement> movements = this.movementRepository.findMovementsInActiveGame(gameId, carName);
         final List<Movement> movments = movements.subList(0, Math.min(noOfMovements, movements.size()));
         final List<Movement> returnMovements = returnRouteFinder.findReturnMovements(movments);
         returnMovements.stream().forEach(mov -> {

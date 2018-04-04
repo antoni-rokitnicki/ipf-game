@@ -18,7 +18,7 @@ public interface GameCarRepository extends CrudRepository<GameCar, Integer> {
     @Query("select gc from GameCar gc join gc.game g where gc.car.name = :carName and g.finishDate > CURRENT_TIMESTAMP")
     Optional<GameCar> findGameCarByCarNameAndActiveGame(@Param("carName") String carName);
 
-    @Query("select gc from GameCar gc where gc.positionId = :positionId and gc.game.finishDate > CURRENT_TIMESTAMP")
+    @Query("select gc from GameCar gc where gc.deleted=false and gc.positionId = :positionId and gc.game.finishDate > CURRENT_TIMESTAMP")
     Optional<GameCar> findCarPositionIdInActiveGame(@Param("positionId") Integer positionId);
 
     @Query("select gc from GameCar gc where gc.car.name = :carName")
