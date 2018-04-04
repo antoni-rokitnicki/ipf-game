@@ -1,6 +1,5 @@
 package com.ipf.automaticcarsgame.validator.game.car;
 
-import com.ipf.automaticcarsgame.domain.Game;
 import com.ipf.automaticcarsgame.domain.GameCar;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.game.GameCarRequest;

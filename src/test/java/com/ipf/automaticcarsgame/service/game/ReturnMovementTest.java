@@ -17,7 +17,7 @@ import static org.junit.runners.Parameterized.Parameters;
 @RunWith(value = Parameterized.class)
 public class ReturnMovementTest {
 
-    private ReturnMovement returnMovement = new ReturnMovement();
+    private ReturnRouteFinder returnMovement = new ReturnRouteFinder();
 
     final List<MovementType> historyMovements;
     final List<MovementType> expectedReturnMovements;

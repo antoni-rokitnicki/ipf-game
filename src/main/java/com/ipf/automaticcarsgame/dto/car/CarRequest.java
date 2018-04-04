@@ -8,7 +8,7 @@ public class CarRequest {
     @ApiModelProperty(value = "Car's name")
     private String name;
 
-    @ApiModelProperty(value = "Car types", allowableValues="NORMAL_CAR, MONSTER_TRAC, RACER")
+    @ApiModelProperty(value = "Car types", allowableValues = "NORMAL_CAR, MONSTER_TRAC, RACER")
     private String type;
 
     public CarRequest() {

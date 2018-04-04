@@ -23,7 +23,7 @@ public class RemoveGameCarRequest {
     }
 
     @JsonIgnore
-    public GameCarRequest getGameCarRequest(){
+    public GameCarRequest getGameCarRequest() {
         return new GameCarRequest(this.roadmap, this.car);
     }
 

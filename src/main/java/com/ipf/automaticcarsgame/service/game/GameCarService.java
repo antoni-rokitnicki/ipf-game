@@ -1,6 +1,5 @@
 package com.ipf.automaticcarsgame.service.game;
 
-import com.ipf.automaticcarsgame.domain.Game;
 import com.ipf.automaticcarsgame.domain.GameCar;
 import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.game.GameCarRequest;
@@ -31,21 +30,18 @@ public class GameCarService {
     }
 
     @Transactional
-    public Result addCarToGame(GameCarRequest gameCarRequest){
+    public Result addCarToGame(GameCarRequest gameCarRequest) {
         Result result = putCarInGameValidator.validate(gameCarRequest);
 
         if (result.isValid()) {
             GameCar gameCar = gameCarMapper.map(gameCarRequest);
             gameCarRepository.save(gameCar);
         }
-
-        // TODO save last move
-
         return result;
     }
 
     @Transactional
-    public Result removeCarFromGame(RemoveGameCarRequest removeGameCarRequest){
+    public Result removeCarFromGame(RemoveGameCarRequest removeGameCarRequest) {
         Result result = removeCarFromGameValidator.validate(removeGameCarRequest.getGameCarRequest());
 
         if (result.isValid()) {

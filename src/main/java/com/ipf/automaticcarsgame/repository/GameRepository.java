@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface GameRepository extends CrudRepository<Game, Integer> {
     Optional<Game> findByRoadmap(Roadmap roadmap);
 
-    @Query("select g from Game g where g.roadmap.name = :mapName and g.finishDate is null")
+    @Query("select g from Game g where g.roadmap.name = :mapName and g.finishDate > CURRENT_TIMESTAMP ")
     Optional<Game> findActiveGameByRoadMapName(@Param("mapName") String roadMapName);
 
 }

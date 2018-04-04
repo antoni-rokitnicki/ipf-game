@@ -79,11 +79,11 @@ public class GameController {
 
     @ApiOperation(value = "Return car")
     @PutMapping("/{carName}/return")
-    ResponseEntity<Response<Optional<Game>>> returnCar(@PathVariable("carName") String carName, @RequestBody ReturnCar returnCar) throws UnsupportedEncodingException {
+    ResponseEntity<Response<Void>> returnCar(@PathVariable("carName") String carName, @RequestBody ReturnCar returnCar) throws UnsupportedEncodingException {
         final String decodeCarName = URLDecoder.decode(carName, "UTF-8");
         LOG.info("returnCar, carName: {}, returnCar: {}", decodeCarName, returnCar);
-        final Optional<Game> game = movementService.returnCar(decodeCarName, returnCar.getNoOfMovements());
-        return mapToResponseEntity(game);
+        final Result result = movementService.returnCar(decodeCarName, returnCar.getNoOfMovements());
+        return mapToResponseEntity(result);
     }
 
     @ApiOperation(value = "Move car")

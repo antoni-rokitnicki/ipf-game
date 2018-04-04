@@ -1,5 +1,7 @@
 package com.ipf.automaticcarsgame.domain;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity
@@ -30,6 +32,9 @@ public class GameCar extends AudityEntity {
     @Column(name = "CURRNET_DIRECTION")
     @Enumerated(EnumType.STRING)
     private DirectionType currnetDirection = DirectionType.NORTH;
+
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean deleted;
 
     public Integer getId() {
         return id;
@@ -87,6 +92,14 @@ public class GameCar extends AudityEntity {
         this.currnetDirection = currnetDirection;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -112,7 +125,8 @@ public class GameCar extends AudityEntity {
                 ", car=" + car +
                 ", positionId=" + positionId +
                 ", currnetDirection=" + currnetDirection +
-                "} " + super.toString();
+                ", deleted=" + deleted +
+                '}';
     }
 
 }

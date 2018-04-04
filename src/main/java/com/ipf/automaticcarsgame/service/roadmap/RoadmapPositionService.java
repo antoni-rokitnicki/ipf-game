@@ -79,5 +79,12 @@ public class RoadmapPositionService {
         }
     }
 
+    public Position findCurrentPosition(Optional<GameCar> movingGameCar) {
+        return roadmapPositionRepository.findById(movingGameCar.get().getPositionId()).get().getPosition();
+    }
+
+    public Optional<RoadmapPosition> findByRoadmapAndPosition(Optional<GameCar> movingGameCar, Position nextPosition) {
+        return this.roadmapPositionRepository.findByRoadmapAndPosition(movingGameCar.get().getGame().getRoadmap(), nextPosition);
+    }
 
 }

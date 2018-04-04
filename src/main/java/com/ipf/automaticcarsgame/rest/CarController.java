@@ -70,7 +70,7 @@ public class CarController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "carName", required = true, dataType = "String", paramType = "path")
     })
-    @PutMapping(value = "/{name}/repair", consumes = MediaType.ALL_VALUE)
+    @PutMapping(value = "/{name}/repair", consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Response<Void>> repairCar(@PathVariable("name") String carName) throws UnsupportedEncodingException {
         final String decodeCarName = urlDecode(carName);
         LOG.info("repair car car, carName: {}", decodeCarName);

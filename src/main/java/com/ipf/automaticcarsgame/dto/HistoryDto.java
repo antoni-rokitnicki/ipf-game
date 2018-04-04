@@ -1,6 +1,5 @@
 package com.ipf.automaticcarsgame.dto;
 
-import com.ipf.automaticcarsgame.domain.Movement;
 import com.ipf.automaticcarsgame.domain.Roadmap;
 import com.ipf.automaticcarsgame.dto.car.CarDto;
 

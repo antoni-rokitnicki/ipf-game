@@ -2,7 +2,7 @@ package com.ipf.automaticcarsgame.service.collision;
 
 import java.util.List;
 
-class CrashResult {
+public class CrashResult {
     private List<CrashedCarType> crashedCar;
 
     public CrashResult() {

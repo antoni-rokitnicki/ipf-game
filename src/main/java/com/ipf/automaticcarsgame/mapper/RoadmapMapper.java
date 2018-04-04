@@ -21,7 +21,7 @@ public class RoadmapMapper {
         final List<RoadmapPosition> roadmapPositions = new ArrayList<>();
         for (int i = 0; i < roadmapRequest.getFields().length; i++) {
             for (int k = 0; k < roadmapRequest.getFields()[i].length; k++) {
-                RoadmapPosition roadmapPosition= new RoadmapPosition(new Position(i, k), (byte) roadmapRequest.getFields()[i][k]);
+                RoadmapPosition roadmapPosition = new RoadmapPosition(new Position(i, k), (byte) roadmapRequest.getFields()[i][k]);
                 roadmapPosition.setRoadmap(roadmap);
                 roadmapPositions.add(roadmapPosition);
             }
@@ -55,7 +55,7 @@ public class RoadmapMapper {
         List<RoadmapPositionDto> positions = new ArrayList<>();
 
         for (RoadmapPosition roadmapPosition : roadmap.getPositions()) {
-            RoadmapPositionDto dto= new RoadmapPositionDto();
+            RoadmapPositionDto dto = new RoadmapPositionDto();
             dto.setPosition(roadmapPosition.getPosition());
             dto.setValue(roadmapPosition.getValue());
 

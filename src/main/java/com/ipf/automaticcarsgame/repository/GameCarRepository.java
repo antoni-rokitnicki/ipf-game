@@ -2,7 +2,6 @@ package com.ipf.automaticcarsgame.repository;
 
 import com.ipf.automaticcarsgame.domain.Game;
 import com.ipf.automaticcarsgame.domain.GameCar;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

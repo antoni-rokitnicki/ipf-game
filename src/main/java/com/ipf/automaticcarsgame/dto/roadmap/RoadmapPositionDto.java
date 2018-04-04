@@ -26,7 +26,6 @@ public class RoadmapPositionDto {
     }
 
 
-
     @Override
     public String toString() {
         return "RoadmapPositionDto{" +

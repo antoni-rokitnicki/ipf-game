@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ReturnMovement {
+public class ReturnRouteFinder {
 
     public List<Movement> findReturnMovements(List<Movement> lastMovementsList) {
         final List<Movement> returnMovements = new ArrayList<>();

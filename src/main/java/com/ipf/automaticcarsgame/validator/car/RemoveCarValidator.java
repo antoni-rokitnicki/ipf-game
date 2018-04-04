@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
 import java.util.Optional;
 
 @Component
-public class RemoveCarValidator implements CarValidator{
+public class RemoveCarValidator implements CarValidator {
 
     private final CarRepository carRepository;
     private final GameCarRepository gameCarRepository;
@@ -28,14 +28,14 @@ public class RemoveCarValidator implements CarValidator{
 
         if (StringUtils.isEmpty(carRequest.getName())) {
             result.addError(new Result.Error("Car's name cannot be null or empty"));
-        }else{
+        } else {
             Optional<Car> carOpt = carRepository.findByName(carRequest.getName());
             if (!carOpt.isPresent()) {
                 result.addError(new Result.Error("This car doesn't exist"));
             }
         }
 
-        if(result.isValid()){
+        if (result.isValid()) {
             Optional<GameCar> gameCarOpt = gameCarRepository.checkIfCarWasUsed(carRequest.getName());
             if (gameCarOpt.isPresent()) {
                 result.addError(new Result.Error("Cannot remove car because this car already has used"));
