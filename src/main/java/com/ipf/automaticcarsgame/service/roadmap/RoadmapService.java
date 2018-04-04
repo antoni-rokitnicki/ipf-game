@@ -6,9 +6,7 @@ import com.ipf.automaticcarsgame.dto.Result;
 import com.ipf.automaticcarsgame.dto.roadmap.RoadmapRequest;
 import com.ipf.automaticcarsgame.dto.roadmap.RoadmapResponse;
 import com.ipf.automaticcarsgame.mapper.RoadmapMapper;
-import com.ipf.automaticcarsgame.repository.GameCarRepository;
 import com.ipf.automaticcarsgame.repository.GameRepository;
-import com.ipf.automaticcarsgame.repository.RoadmapPositionRepository;
 import com.ipf.automaticcarsgame.repository.RoadmapRepository;
 import com.ipf.automaticcarsgame.validator.roadmap.RoadmapValidatorProcessor;
 import org.springframework.stereotype.Service;
@@ -26,9 +24,7 @@ public class RoadmapService {
 
     public RoadmapService(RoadmapValidatorProcessor roadmapValidatorProcessor,
                           RoadmapRepository roadmapRepository,
-                          RoadmapPositionRepository roadmapPositionRepository,
-                          GameRepository gameRepository,
-                          GameCarRepository gameCarRepository) {
+                          GameRepository gameRepository) {
         this.roadmapValidatorProcessor = roadmapValidatorProcessor;
         this.roadmapRepository = roadmapRepository;
         this.gameRepository = gameRepository;

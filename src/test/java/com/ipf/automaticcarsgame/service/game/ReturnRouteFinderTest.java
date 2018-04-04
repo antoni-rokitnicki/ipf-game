@@ -15,15 +15,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.runners.Parameterized.Parameters;
 
 @RunWith(value = Parameterized.class)
-public class ReturnMovementTest {
+public class ReturnRouteFinderTest {
 
-    private ReturnRouteFinder returnMovement = new ReturnRouteFinder();
+    private ReturnRouteFinder returnRouteFinder = new ReturnRouteFinder();
 
     final List<MovementType> historyMovements;
     final List<MovementType> expectedReturnMovements;
 
 
-    public ReturnMovementTest(List<MovementType> historyMovements, List<MovementType> expectedReturnMovements) {
+    public ReturnRouteFinderTest(List<MovementType> historyMovements, List<MovementType> expectedReturnMovements) {
         this.historyMovements = historyMovements;
         this.expectedReturnMovements = expectedReturnMovements;
     }
@@ -34,7 +34,7 @@ public class ReturnMovementTest {
         final List<Movement> lastMovements = createLastMovementList(this.historyMovements);
 
         // when
-        final List<Movement> returnMovements = returnMovement.findReturnMovements(lastMovements);
+        final List<Movement> returnMovements = returnRouteFinder.findReturnMovements(lastMovements);
 
         // then
         assertIsEquals(returnMovements, expectedReturnMovements);
